@@ -1,6 +1,5 @@
 name: '💬 Default'
 description: '기본 이슈 템플릿'
-projects: ['repo/1']
 body:
   - type: textarea
     attributes:
