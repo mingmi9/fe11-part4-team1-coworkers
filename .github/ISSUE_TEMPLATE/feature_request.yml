@@ -1,6 +1,7 @@
 name: '✨ Feature'
 description: '새로운 기능 추가'
 labels: ['feature']
+projects: ['repo/1']
 body:
   - type: textarea
     attributes:
