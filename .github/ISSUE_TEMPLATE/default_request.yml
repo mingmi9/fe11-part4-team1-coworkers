@@ -1,11 +1,10 @@
-name: '❌ Bug'
-description: '버그 수정'
-labels: ['bug']
+name: '💬 Default'
+description: '기본 이슈 템플릿'
 body:
   - type: textarea
     attributes:
-      label: 📄 버그 설명
-      description: 언제, 어디서, 어떻게 버그가 발생했는지 작성해 주세요.
+      label: 📄 이슈 설명
+      description: 이슈에 대한 설명을 작성해 주세요.
       placeholder: 자세히 적을수록 좋습니다!
     validations:
       required: true
@@ -18,5 +17,5 @@ body:
       required: true
   - type: textarea
     attributes:
-      label: 🙋🏻 주의 사항
-      description: 참의 사항이 있다면 작성해 주세요.
+      label: 🙋🏻 참고 자료
+      description: 참고 자료가 있다면 작성해 주세요.
