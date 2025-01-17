@@ -1,12 +1,14 @@
 import type { Config } from 'tailwindcss';
 
 export default {
-  content: [
-    './pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './components/**/*.{js,ts,jsx,tsx,mdx}',
-    './app/**/*.{js,ts,jsx,tsx,mdx}',
-  ],
+  content: ['./app/**/*.{js,ts,jsx,tsx,mdx}'],
   theme: {
+    screens: {
+      mobile: '375px',
+      tablet: '744px',
+      pc: '1280px',
+    },
+
     extend: {
       colors: {
         /* 사용 예시
