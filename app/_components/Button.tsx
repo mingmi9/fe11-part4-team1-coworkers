@@ -6,8 +6,9 @@ import Image from 'next/image';
 interface ButtonProps {
   className?: string;
   size?: 'small' | 'medium' | 'large';
-  style?: 'solid' | 'outlined' | 'secondary' | 'danger';
+  style?: 'solid' | 'outlined' | 'outlined_secondary' | 'secondary' | 'danger';
   icon?: 'plus' | 'check' | 'none';
+  round?: 'full' | 'xl';
   disabled?: boolean;
   onClick?: () => void;
   children: ReactNode;
@@ -15,9 +16,10 @@ interface ButtonProps {
 
 export default function Button({
   className = '',
-  size = 'large',
+  size = 'medium',
   style = 'solid',
   icon = 'none',
+  round = 'xl',
   disabled = false,
   onClick,
   children,
@@ -34,11 +36,20 @@ export default function Button({
       ? 'bg-interaction-inactive cursor-default pointer-events-none text-text-inverse'
       : 'bg-brand-primary text-text-inverse hover:bg-interaction-hover active:bg-interaction-pressed',
     outlined: disabled
+      ? 'bg-background-inverse border border-interaction-inactive text-interaction-inactive cursor-default pointer-events-none'
+      : 'bg-background-inverse border border-brand-primary text-brand-primary hover:border-interaction-hover hover:text-interaction-hover active:border-interaction-pressed active:border-interaction-pressed',
+    outlined_secondary:
+      'bg-background-inverse border border-text-secondary text-text-default hover:brightness-95 active:brightness-90',
+    secondary: disabled
       ? 'border border-interaction-inactive text-interaction-inactive cursor-default pointer-events-none'
       : 'border border-brand-primary text-brand-primary hover:border-interaction-hover hover:text-interaction-hover active:border-interaction-pressed active:border-interaction-pressed',
-    secondary: 'border border-text-secondary text-text-secondary',
     danger:
       'bg-status-danger text-text-inverse hover:brightness-90 active:brightness-75',
+  };
+
+  const roundStyle = {
+    full: 'rounded-full',
+    xl: 'rounded-xl',
   };
 
   const renderIcon = () => {
@@ -49,7 +60,7 @@ export default function Button({
     return null;
   };
 
-  const classNames = `flex justify-center items-center rounded-xl gap-[4px] ${sizeClass[size]} ${styleClass[style]} ${className}`;
+  const classNames = `flex justify-center items-center gap-[4px] ${sizeClass[size]} ${styleClass[style]} ${roundStyle[round]} ${className}`;
 
   return (
     <button className={`${classNames}`} onClick={onClick} {...props}>
