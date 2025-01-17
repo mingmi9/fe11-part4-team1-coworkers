@@ -49,7 +49,7 @@ export default function Button({
     return null;
   };
 
-  const classNames = `flex justify-center items-center rounded-xl gap-[4px]${sizeClass[size]} ${styleClass[style]} ${className}`;
+  const classNames = `flex justify-center items-center rounded-xl gap-[4px] ${sizeClass[size]} ${styleClass[style]} ${className}`;
 
   return (
     <button className={`${classNames}`} onClick={onClick} {...props}>
