@@ -1,9 +1,13 @@
+import plus from '../../public/icons/plus.svg';
+import check from '../../public/icons/check-white.svg';
 import { ReactNode } from 'react';
+import Image from 'next/image';
 
 interface ButtonProps {
   className?: string;
   size?: 'small' | 'medium' | 'large';
   style?: 'solid' | 'outlined' | 'secondary' | 'danger';
+  icon?: 'plus' | 'check' | 'none';
   disabled?: boolean;
   onClick?: () => void;
   children: ReactNode;
@@ -13,18 +17,16 @@ export default function Button({
   className = '',
   size = 'large',
   style = 'solid',
+  icon = 'none',
   disabled = false,
   onClick,
   children,
   ...props
 }: ButtonProps) {
   const sizeClass = {
-    small:
-      'w-[74px] h-[32px] py-[6px] flex justify-center items-center rounded-xl text-[14px]',
-    medium:
-      'h-[40px] px-[21px] py-[14px] flex justify-center items-center rounded-xl text-[14px]',
-    large:
-      'w-[332px] h-[48px] py-[14px] flex justify-center items-center rounded-xl',
+    small: 'w-[74px] h-[32px] py-[6px] text-[14px]',
+    medium: 'h-[40px] px-[21px] py-[14px] text-[14px]',
+    large: 'w-[332px] h-[48px] py-[14px]',
   };
 
   const styleClass = {
@@ -39,10 +41,19 @@ export default function Button({
       'bg-status-danger text-text-inverse hover:brightness-90 active:brightness-75',
   };
 
-  const classNames = `${sizeClass[size]} ${styleClass[style]} ${className}`;
+  const renderIcon = () => {
+    if (icon === 'plus')
+      return <Image src={plus} width={16} height={16} alt="플러스 아이콘" />;
+    if (icon === 'check')
+      return <Image src={check} width={16} height={16} alt="체크 아이콘" />;
+    return null;
+  };
+
+  const classNames = `flex justify-center items-center rounded-xl gap-[4px]${sizeClass[size]} ${styleClass[style]} ${className}`;
 
   return (
     <button className={`${classNames}`} onClick={onClick} {...props}>
+      {renderIcon()}
       {children}
     </button>
   );

@@ -5,7 +5,7 @@ export default function Home() {
     <div>
       Hello World
       <div>
-        <Button size="large" style="solid">
+        <Button size="large" style="solid" icon="check">
           생성하기
         </Button>
         <Button size="medium" style="outlined">
