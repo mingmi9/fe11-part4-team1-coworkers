@@ -1,9 +1,9 @@
 import debounce from 'lodash.debounce';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 
 export type ScreenType = 'mobile' | 'tablet' | 'pc' | null;
 
-const BREAK_POINTS = {
+const BREAKPOINTS = {
   mobile: 0,
   tablet: 744,
   pc: 1280,
@@ -12,44 +12,34 @@ const BREAK_POINTS = {
 const useResize = () => {
   const [screenType, setScreenType] = useState<ScreenType>(null);
 
-  // 클라이언트에서만 초기값 설정
   useEffect(() => {
-    const width = window.innerWidth;
-    if (width >= BREAK_POINTS.pc) {
-      setScreenType('pc');
-    } else if (width >= BREAK_POINTS.tablet) {
-      setScreenType('tablet');
-    } else {
-      setScreenType('mobile');
-    }
-  }, []);
+    if (typeof window === 'undefined') return;
 
-  const handleResize = useCallback(() => {
-    const debouncedResize = debounce(() => {
-      const currentWidth = window.innerWidth;
-
-      if (currentWidth >= BREAK_POINTS.pc) {
-        setScreenType('pc');
-      } else if (currentWidth >= BREAK_POINTS.tablet) {
-        setScreenType('tablet');
+    const getScreenType = (width: number): ScreenType => {
+      if (width >= BREAKPOINTS.pc) {
+        return 'pc';
+      } else if (width >= BREAKPOINTS.tablet) {
+        return 'tablet';
       } else {
-        setScreenType('mobile');
+        return 'mobile';
       }
+    };
+
+    // resize 이벤트용 debounced 함수
+    const handleResize = debounce(() => {
+      const currentWidth = window.innerWidth;
+      setScreenType(getScreenType(currentWidth));
     }, 250);
 
-    debouncedResize();
-    return debouncedResize;
-  }, []);
+    // 초기 화면 크기 250ms 지연 없이 즉시 설정
+    setScreenType(getScreenType(window.innerWidth));
 
-  useEffect(() => {
-    const debouncedHandler = handleResize();
-    window.addEventListener('resize', debouncedHandler);
+    window.addEventListener('resize', handleResize);
 
     return () => {
-      debouncedHandler.cancel();
-      window.removeEventListener('resize', debouncedHandler);
+      window.removeEventListener('resize', handleResize);
     };
-  }, [handleResize]);
+  }, []);
 
   return screenType;
 };
