@@ -16,7 +16,13 @@ body:
       placeholder: 세분화 해서 적어주세요!
     validations:
       required: true
+  - type: input
+    attributes:
+      label: ⏰마감일
+      description: 마감일을 MM-DD 형식으로 입력해 주세요.
+    validations:
+      required: true
   - type: textarea
     attributes:
       label: 🙋🏻 주의 사항
-      description: 참의 사항이 있다면 작성해 주세요.
+      description: 주의 사항이 있다면 작성해 주세요.
