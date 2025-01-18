@@ -3,6 +3,9 @@
 @tailwind utilities;
 
 :root {
+  /* 1rem = 10px */
+  font-size: 62.5%;
+
   /* Device Breakpoints */
   --mobile-min: 360px;
   --tablet-min: 744px;
