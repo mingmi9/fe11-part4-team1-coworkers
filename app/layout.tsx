@@ -1,5 +1,6 @@
 import './globals.css';
 import { Metadata } from 'next';
+import QueryProvider from './_lib/QueryProvider';
 
 export const metadata: Metadata = {
   title: 'Coworkers',
@@ -32,7 +33,9 @@ export default function RootLayout({
           href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable-dynamic-subset.css"
         />
       </head>
-      <body>{children}</body>
+      <QueryProvider>
+        <body>{children}</body>
+      </QueryProvider>
     </html>
   );
 }
