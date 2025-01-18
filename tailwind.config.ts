@@ -51,7 +51,7 @@ export default {
         },
         // Text Colors
         text: {
-          primary: '#8FAFC',
+          primary: '#F8FAFC',
           secondary: '#CBD5E1',
           tertiary: '#E2E8F0',
           default: '#64748B',
