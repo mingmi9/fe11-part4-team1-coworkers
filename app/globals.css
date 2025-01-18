@@ -3,8 +3,10 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Device Breakpoints */
+  --mobile-min: 360px;
+  --tablet-min: 744px;
+  --pc-min: 1280px;
 }
 
 @media (prefers-color-scheme: dark) {
