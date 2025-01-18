@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  /* 1rem = 10px */
+  /* 개발 환경에서 1rem = 10px */
   font-size: 62.5%;
 
   /* Device Breakpoints */
@@ -12,15 +12,20 @@
   --pc-min: 1280px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* 상위 레이어 기본 스타일 정의 */
+@layer base {
+  /* 기본 스타일 초기화 */
+  * {
+    margin: 0;
+    box-sizing: border-box;
+    padding: 0;
   }
-}
-
-body {
-  font-family: 'Pretendard Variable', sans-serif;
-  color: var(--foreground);
-  background: var(--background);
+  /* 부드러운 스크롤을 위한 속성 */
+  html {
+    scroll-behavior: smooth;
+  }
+  /* 부드러운 렌더링을 위한 속성 */
+  body {
+    font-family: 'Pretendard Variable', sans-serif;
+  }
 }
