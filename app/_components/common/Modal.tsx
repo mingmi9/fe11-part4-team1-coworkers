@@ -22,7 +22,6 @@ export default function Modal({ children }: ModalProps) {
     >
       <div
         className={`bg-background-secondary rounded-[12px] w-[384px] h-auto flex items-center justify-center flex-col mx-auto text-center`}
-        onClick={(e) => e.stopPropagation()}
       >
         {children}
       </div>

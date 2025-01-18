@@ -3,7 +3,7 @@
 import Modal from '@/_components/common/Modal';
 import { useModalStore } from '@/_store/modal-store';
 import Image from 'next/image';
-import XButton from '@/../public/icons/x.svg';
+import XButton from '@icons/x.svg';
 
 export default function ModalTestPage() {
   const { openModal, closeModal } = useModalStore();
