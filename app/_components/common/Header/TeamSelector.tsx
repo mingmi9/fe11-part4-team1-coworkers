@@ -35,7 +35,7 @@ const mockUser = {
       group: {
         teamId: "team-2",
         image: "https://picsum.photos/200/300",
-        name: "재무팀",
+        name: "재무팀일까말까용용용",
         id: 2,
         createdAt: "2024-01-01",
         updatedAt: "2024-01-01"
@@ -106,7 +106,12 @@ const TeamSelector: React.FC = () => {
                         sizes="3.2rem"
                         className="rounded-md size-[3.2rem] object-cover"
                       />
-                      <span className="font-medium">{membership.group.name}</span>
+                      <span 
+                        className="font-medium overflow-hidden text-ellipsis whitespace-nowrap"
+                        title={membership.group.name}
+                      >
+                        {membership.group.name}
+                      </span>
                     </div>
                     <span className="text-icon-primary">⁝</span>
                   </Dropdown.Item>
