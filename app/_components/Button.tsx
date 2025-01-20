@@ -31,9 +31,9 @@ export default function Button({
   ...props
 }: ButtonProps) {
   const sizeClass = {
-    small: 'w-[74px] h-[32px] py-[6px] text-[1.4rem]',
-    medium: 'h-[40px] px-[21px] py-[14px] text-[1.4rem]',
-    large: 'w-[332px] h-[48px] py-[14px] text-[1.6rem]',
+    small: 'w-[7.4rem] h-[3.2rem] py-[0.6rem] text-[1.4rem]',
+    medium: 'h-[4rem] px-[2.1rem] py-[1.4rem] text-[1.4rem]',
+    large: 'w-[33.2rem] h-[4.8rem] py-[1.4rem] text-[1.6rem]',
   };
 
   const styleClass = {
@@ -65,7 +65,7 @@ export default function Button({
     return null;
   };
 
-  const classNames = `flex justify-center items-center gap-[4px] ${sizeClass[size]} ${styleClass[style]} ${roundStyle[round]} ${className}`;
+  const classNames = `flex justify-center items-center gap-[0.4rem] ${sizeClass[size]} ${styleClass[style]} ${roundStyle[round]} ${className}`;
 
   return (
     <button className={`${classNames}`} onClick={onClick} {...props}>
