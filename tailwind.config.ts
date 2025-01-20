@@ -1,12 +1,19 @@
 import type { Config } from 'tailwindcss';
 
 export default {
-  content: [
-    './pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './components/**/*.{js,ts,jsx,tsx,mdx}',
-    './app/**/*.{js,ts,jsx,tsx,mdx}',
-  ],
+  content: ['./app/**/*.{js,ts,jsx,tsx,mdx}'],
   theme: {
+    /* 사용 예시
+      <div className="mobile:bg-red-500 tablet:bg-blue-500 pc:bg-green-500">
+        디바이스 배경색
+      </div>
+    */
+    screens: {
+      mobile: '375px',
+      tablet: '744px',
+      pc: '1280px',
+    },
+
     extend: {
       colors: {
         /* 사용 예시
@@ -51,7 +58,7 @@ export default {
         },
         // Text Colors
         text: {
-          primary: '#8FAFC',
+          primary: '#F8FAFC',
           secondary: '#CBD5E1',
           tertiary: '#E2E8F0',
           default: '#64748B',
