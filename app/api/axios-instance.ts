@@ -1,3 +1,4 @@
+import { useAuthStore } from '@/_store/auth-store';
 import axios from 'axios';
 
 export const instance = axios.create({
@@ -9,23 +10,35 @@ export const instance = axios.create({
 
 const refreshToken = async () => {
   try {
-    const response = await axios.post('/auth/refresh-token', {
-      refreshToken: localStorage.getItem('refreshToken'),
+    const { refreshToken, user } = useAuthStore.getState();
+    if (!refreshToken || !user) {
+      throw new Error('토큰 또는 사용자 정보가 없습니다.');
+    }
+
+    const response = await instance.post('/auth/refresh-token', {
+      refreshToken,
     });
+
     const { accessToken } = response.data;
-    localStorage.setItem('accessToken', accessToken);
+    useAuthStore.getState().setAuthData({
+      accessToken,
+      refreshToken,
+      user,
+    });
+
     return accessToken;
   } catch (error) {
     console.error('토큰 갱신 실패', error);
+    useAuthStore.getState().clearAuthData();
     throw error;
   }
 };
 
 instance.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('accessToken');
-    if (token) {
-      config.headers['Authorization'] = `Bearer ${token}`;
+    const { accessToken } = useAuthStore.getState();
+    if (accessToken) {
+      config.headers['Authorization'] = `Bearer ${accessToken}`;
     }
     return config;
   },
@@ -35,12 +48,13 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   (response) => response,
   async (error) => {
-    if (error.response.status === 401) {
+    if (error.response?.status === 401) {
       try {
         const newAccessToken = await refreshToken();
         error.config.headers['Authorization'] = `Bearer ${newAccessToken}`;
         return axios(error.config);
       } catch (refreshError) {
+        useAuthStore.getState().clearAuthData();
         return Promise.reject(refreshError);
       }
     }
