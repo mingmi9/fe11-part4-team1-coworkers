@@ -1,12 +1,12 @@
-import plus from '../../public/icons/plus.svg';
-import check from '../../public/icons/check-white.svg';
+import plus from '@icons/plus.svg';
+import check from '@icons/check-white.svg';
 import { ReactNode } from 'react';
 import Image from 'next/image';
 
 interface ButtonProps {
   className?: string;
   size?: 'small' | 'medium' | 'large';
-  style?:
+  variant?:
     | 'default'
     | 'outlined'
     | 'outlined_secondary'
@@ -22,7 +22,7 @@ interface ButtonProps {
 export default function Button({
   className = '',
   size = 'medium',
-  style = 'default',
+  variant = 'default',
   icon = 'none',
   round = 'xl',
   disabled = false,
@@ -36,7 +36,7 @@ export default function Button({
     large: 'w-[33.2rem] h-[4.8rem] py-[1.4rem] text-[1.6rem]',
   };
 
-  const styleClass = {
+  const variantClass = {
     default: disabled
       ? 'bg-interaction-inactive cursor-default pointer-events-none text-text-inverse'
       : 'bg-brand-primary text-text-inverse hover:bg-interaction-hover active:bg-interaction-pressed',
@@ -65,7 +65,7 @@ export default function Button({
     return null;
   };
 
-  const classNames = `flex justify-center items-center gap-[0.4rem] ${sizeClass[size]} ${styleClass[style]} ${roundStyle[round]} ${className}`;
+  const classNames = `flex justify-center items-center gap-[0.4rem] ${sizeClass[size]} ${variantClass[variant]} ${roundStyle[round]} ${className}`;
 
   return (
     <button className={`${classNames}`} onClick={onClick} {...props}>

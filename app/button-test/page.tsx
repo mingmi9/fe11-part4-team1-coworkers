@@ -9,16 +9,16 @@ export default function ButtonTest() {
       <Button size="large" icon="check" round="full" onClick={handleButton}>
         생성하기
       </Button>
-      <Button size="medium" style="outlined">
+      <Button size="medium" variant="outlined">
         생성하기
       </Button>
-      <Button size="small" style="outlined_secondary">
+      <Button size="small" variant="outlined_secondary">
         생성하기
       </Button>
-      <Button size="large" style="secondary">
+      <Button size="large" variant="secondary">
         생성하기
       </Button>
-      <Button size="large" style="danger">
+      <Button size="large" variant="danger">
         생성하기
       </Button>
       <Button
