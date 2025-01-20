@@ -6,7 +6,12 @@ import Image from 'next/image';
 interface ButtonProps {
   className?: string;
   size?: 'small' | 'medium' | 'large';
-  style?: 'solid' | 'outlined' | 'outlined_secondary' | 'secondary' | 'danger';
+  style?:
+    | 'default'
+    | 'outlined'
+    | 'outlined_secondary'
+    | 'secondary'
+    | 'danger';
   icon?: 'plus' | 'check' | 'none';
   round?: 'full' | 'xl';
   disabled?: boolean;
@@ -17,7 +22,7 @@ interface ButtonProps {
 export default function Button({
   className = '',
   size = 'medium',
-  style = 'solid',
+  style = 'default',
   icon = 'none',
   round = 'xl',
   disabled = false,
@@ -26,13 +31,13 @@ export default function Button({
   ...props
 }: ButtonProps) {
   const sizeClass = {
-    small: 'w-[74px] h-[32px] py-[6px] text-[14px]',
-    medium: 'h-[40px] px-[21px] py-[14px] text-[14px]',
-    large: 'w-[332px] h-[48px] py-[14px]',
+    small: 'w-[74px] h-[32px] py-[6px] text-[1.4rem]',
+    medium: 'h-[40px] px-[21px] py-[14px] text-[1.4rem]',
+    large: 'w-[332px] h-[48px] py-[14px] text-[1.6rem]',
   };
 
   const styleClass = {
-    solid: disabled
+    default: disabled
       ? 'bg-interaction-inactive cursor-default pointer-events-none text-text-inverse'
       : 'bg-brand-primary text-text-inverse hover:bg-interaction-hover active:bg-interaction-pressed',
     outlined: disabled
