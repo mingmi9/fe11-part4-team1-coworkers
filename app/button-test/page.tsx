@@ -1,6 +1,6 @@
 'use client';
 
-import Button from '@/_components/Button';
+import Button from '@/_components/common/Button';
 
 export default function ButtonTest() {
   const handleButton = () => alert('test입니다');
