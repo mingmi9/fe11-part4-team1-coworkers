@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import TeamSelector from '@/_components/common/Header/TeamSelector';
-import UserAccount from '@/_components/common/Header/UserAccount';
-import GnbButton from '@/_components/common/Header/GnbButton';
+import TeamSelector from '@/_components/layout/Header/TeamSelector';
+import UserAccount from '@/_components/layout/Header/UserAccount';
+import GnbButton from '@/_components/layout/Header/GnbButton';
 
 const Header: React.FC = () => {
   return (
