@@ -4,7 +4,7 @@ import Modal from '@/_components/common/Modal';
 import { useModalStore } from '@/_store/modal-store';
 import Image from 'next/image';
 import XButton from '@icons/x.svg';
-import Button from '@/_components/Button';
+import Button from '@/_components/common/Button';
 
 export default function ModalTestPage() {
   const { openModal, closeModal } = useModalStore();
