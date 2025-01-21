@@ -26,7 +26,7 @@ export default function MemberCard({profileImg, name,email}:MemberCardProps) {
             </div>
             <button className="w-[1.6rem] h-[1.6rem] flex-shrink-0">
                 <Image src={kebab} width={16} height={16} alt="케밥" className="hover:brightness-150"/>
-            </button>
+            </button> {/*모달 추후 작업*/}
         </div>
     )
 };
