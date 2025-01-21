@@ -1,3 +1,4 @@
+import Header from '@/_components/common/Header';
 import './globals.css';
 import { Metadata } from 'next';
 import QueryProvider from './_lib/QueryProvider';
@@ -33,9 +34,12 @@ export default function RootLayout({
           href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable-dynamic-subset.css"
         />
       </head>
-      <QueryProvider>
-        <body>{children}</body>
-      </QueryProvider>
+      <body>
+        <QueryProvider>
+          <Header />
+          {children}
+        </QueryProvider>
+      </body>
     </html>
   );
 }
