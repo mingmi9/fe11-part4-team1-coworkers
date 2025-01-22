@@ -65,6 +65,11 @@ const taskMockData = [
         taskTodo: 5,
         taskCompleted: 5,
     },
+    {
+        taskList: "프로젝트 유지보수",
+        taskTodo: 5,
+        taskCompleted: 5,
+    },
 ]
 
 export default function TeamPage () {

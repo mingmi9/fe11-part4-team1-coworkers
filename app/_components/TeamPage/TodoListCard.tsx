@@ -8,26 +8,18 @@ interface TodoListCardProps {
     taskTodo: number;
     taskCompleted: number;
     teamId: string;
+    color: string;
 }
 
-export default function TodoListCard({taskList, taskTodo, taskCompleted,  teamId}: TodoListCardProps) {
+export default function TodoListCard({taskList, taskTodo, taskCompleted,  teamId, color}: TodoListCardProps) {
     const router = useRouter();
     const handleTaskList= () => {
         router.push(`/team/${teamId}/taskList`);
     }
-
-    const color = ["bg-point-purple", "bg-point-blue", "bg-point-cyan", "bg-point-pink", "bg-point-rose", "bg-point-orange", "bg-point-yellow"];
-
-    const getColor = (key: string) => {
-        const hash = Array.from(key).reduce((acc, char) => acc + char.charCodeAt(0), 0);
-        return color[hash % color.length];
-      };
     
-      const assignedColor = getColor(taskList);
-
     return(
         <div className="w-full h-[4rem] bg-background-secondary rounded-[1.2rem] pr-[0.8rem] relative flex justify-between items-center text-[1.4rem]">
-            <div className={`w-[2.4rem] h-[4rem] rounded-[1.2rem] ${assignedColor}`}/>
+            <div className={`w-[2.4rem] h-[4rem] rounded-[1.2rem] ${color}`}/>
             <div className="h-[4rem] bg-background-secondary left-[1.2rem] text-text-primary absolute flex items-center p-[1.2rem]">
                 {taskList}
             </div>

@@ -1,6 +1,5 @@
 import TodoListCard from "./TodoListCard";
 
-
 interface TodoListSectionProps {
     tasks: {
         taskList: string;
@@ -11,6 +10,13 @@ interface TodoListSectionProps {
     }
 
 export default function TodoListSection({tasks, teamId} : TodoListSectionProps) {
+
+    const color = ["bg-point-purple", "bg-point-blue", "bg-point-cyan", "bg-point-pink", "bg-point-rose", "bg-point-orange", "bg-point-yellow"];
+
+    const getColor = (index: number) => {
+        return color[index % color.length];
+    };
+
   return (
     <div>
         <div className="flex justify-between mb-[1.6rem] w-[120rem]">
@@ -19,7 +25,7 @@ export default function TodoListSection({tasks, teamId} : TodoListSectionProps) 
             </div>
             <button className="text-brand-primary hover:brightness-150">
                 + 새로운 목록 추가하기
-            </button>
+            </button> {/*추후 모달 연결*/}
         </div>
         <div className="flex flex-col gap-[1.6rem]">
         {tasks.map(( tasks, index ) => (
@@ -29,6 +35,7 @@ export default function TodoListSection({tasks, teamId} : TodoListSectionProps) 
             taskTodo={tasks.taskTodo}
             taskCompleted={tasks.taskCompleted}
             teamId={teamId}
+            color={getColor(index)}
             />
         ))}
         </div>
