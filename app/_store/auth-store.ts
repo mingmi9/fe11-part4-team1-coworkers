@@ -1,11 +1,5 @@
 import { create } from 'zustand';
-
-interface User {
-  id: number;
-  email: string;
-  nickname: string;
-  image: string | null;
-}
+import { User } from '@store/user-store';
 
 interface AuthState {
   accessToken: string | null;
