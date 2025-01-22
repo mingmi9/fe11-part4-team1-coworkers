@@ -12,7 +12,7 @@ import {
 import { useUserStore } from '@/_store/user-store';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-export const useUser = () => {
+export const useUser = (options = {}) => {
   const { setUser, clearUser } = useUserStore();
   const queryClient = useQueryClient();
 
@@ -24,6 +24,7 @@ export const useUser = () => {
       setUser(userInfo);
       return userInfo;
     },
+    ...options,
   });
 
   //유저 정보 수정
@@ -36,7 +37,7 @@ export const useUser = () => {
   });
 
   // 회원 탈퇴
-  const deleteUserMutatioin = useMutation({
+  const deleteUserMutation = useMutation({
     mutationFn: deleteUser,
     onSuccess: () => {
       clearUser();
@@ -48,18 +49,21 @@ export const useUser = () => {
   const getUserGroupsQuery = useQuery({
     queryKey: ['userGroups'],
     queryFn: getUserGroups,
+    ...options,
   });
 
   // 유저의 멤버십 정보 조회
   const getUserMembershipsQuery = useQuery({
     queryKey: ['userMemberships'],
     queryFn: getUserMemberships,
+    ...options,
   });
 
   // 유저가 완료한 작업 조회
   const getUserHistoryQuery = useQuery({
     queryKey: ['userHistory'],
     queryFn: getUserHistory,
+    ...options,
   });
 
   // 비밀번호 재설정 이메일 전송
@@ -109,7 +113,7 @@ export const useUser = () => {
   return {
     getUserInfoQuery,
     updateUserInfoMutation,
-    deleteUserMutatioin,
+    deleteUserMutation,
     getUserGroupsQuery,
     getUserMembershipsQuery,
     getUserHistoryQuery,
