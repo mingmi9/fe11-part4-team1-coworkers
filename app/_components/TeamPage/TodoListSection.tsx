@@ -6,10 +6,11 @@ interface TodoListSectionProps {
         taskList: string;
         taskTodo: number;
         taskCompleted: number;
-    }[];
+    }[],
+    teamId: string;
     }
 
-export default function TodoListSection({tasks} : TodoListSectionProps) {
+export default function TodoListSection({tasks, teamId} : TodoListSectionProps) {
   return (
     <div>
         <div className="flex justify-between mb-[1.6rem] w-[120rem]">
@@ -23,10 +24,11 @@ export default function TodoListSection({tasks} : TodoListSectionProps) {
         <div className="flex flex-col gap-[1.6rem]">
         {tasks.map(( tasks, index ) => (
             <TodoListCard
-            key={index} // 고유 ID로 key 지정
+            key={index}
             taskList={tasks.taskList}
             taskTodo={tasks.taskTodo}
             taskCompleted={tasks.taskCompleted}
+            teamId={teamId}
             />
         ))}
         </div>

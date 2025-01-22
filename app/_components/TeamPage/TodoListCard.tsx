@@ -1,14 +1,20 @@
 import Image from 'next/image';
 import kebab from "@icons/kebab-small-button.svg"
 import TodoListCheckBox from "./TodoListCheckBox";
+import { useRouter } from 'next/navigation';
 
 interface TodoListCardProps {
     taskList: string;
     taskTodo: number;
     taskCompleted: number;
+    teamId: string;
 }
 
-export default function TodoListCard({taskList, taskTodo, taskCompleted}: TodoListCardProps) {
+export default function TodoListCard({taskList, taskTodo, taskCompleted,  teamId}: TodoListCardProps) {
+    const router = useRouter();
+    const handleTaskList= () => {
+        router.push(`/team/${teamId}/taskList`);
+    }
 
     const color = ["bg-point-purple", "bg-point-blue", "bg-point-cyan", "bg-point-pink", "bg-point-rose", "bg-point-orange", "bg-point-yellow"];
 
@@ -27,7 +33,7 @@ export default function TodoListCard({taskList, taskTodo, taskCompleted}: TodoLi
             </div>
             <div className="flex gap-[0.4rem] items-center">
             <TodoListCheckBox taskTodo={taskTodo} taskCompleted={taskCompleted}/>
-            <button className="w-[1.6rem] h-[1.6rem] flex-shrink-0">
+            <button className="w-[1.6rem] h-[1.6rem] flex-shrink-0" onClick={handleTaskList}>
                 <Image src={kebab} width={16} height={16} alt="케밥" className="hover:brightness-150"/>
             </button>
             </div>
