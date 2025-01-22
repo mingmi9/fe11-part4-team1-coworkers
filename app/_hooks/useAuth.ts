@@ -1,5 +1,5 @@
-import { useAuthStore } from '@/_store/auth-store';
-import { signUp, signIn } from '@/api/auth';
+import { useAuthStore } from '@store/auth-store';
+import { signUp, signIn } from '@lib/api/auth-api';
 
 import { useMutation } from '@tanstack/react-query';
 
