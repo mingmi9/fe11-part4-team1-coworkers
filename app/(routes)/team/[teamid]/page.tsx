@@ -75,7 +75,7 @@ const taskMockData = [
 export default function TeamPage () {
     const {teamid} = useParams();
     return(
-        <div className="h-full bg-background-primary flex flex-col gap-[2rem] items-center">
+        <div className="h-full flex flex-col gap-[2rem] items-center">
             <TodoListSection tasks={taskMockData} teamId={teamid as string}/>
             <MemberSection member={mockData}/>
         </div>
