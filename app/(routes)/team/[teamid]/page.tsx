@@ -1,6 +1,7 @@
 'use client';
 
 import MemberSection from "@/_components/TeamPage/MemberSection";
+import ReportSection from "@/_components/TeamPage/ReportSection";
 import TodoListSection from "@/_components/TeamPage/TodoListSection";
 import { useParams } from "next/navigation";
 
@@ -74,9 +75,14 @@ const taskMockData = [
 
 export default function TeamPage () {
     const {teamid} = useParams();
+
+    const alltasksTodo = taskMockData.reduce((acc, cur) => acc + cur.taskTodo, 0);
+    const alltasksCompleted = taskMockData.reduce((acc, cur) => acc + cur.taskCompleted, 0);
+
     return(
-        <div className="h-full flex flex-col gap-[2rem] items-center">
+        <div className="h-full flex flex-col gap-[3rem] items-center">
             <TodoListSection tasks={taskMockData} teamId={teamid as string}/>
+            <ReportSection alltasks={alltasksTodo} completedtasks={alltasksCompleted}/>
             <MemberSection member={mockData}/>
         </div>
     )
