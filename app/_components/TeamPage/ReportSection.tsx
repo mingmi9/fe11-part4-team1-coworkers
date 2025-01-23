@@ -1,6 +1,6 @@
-import Image from 'next/image';
 import todo from '@images/img_todo.png';
 import done from '@images/img_done.png';
+import ReportCard from './ReportCard';
 
 interface ReportSectionProps {
     alltasks: number;
@@ -30,28 +30,8 @@ export default function ReportSection ({alltasks, completedtasks}: ReportSection
                     </div>
                 </div>
                 <div className="flex flex-col gap-[1rem]">
-                    <div className="flex justify-between items-center rounded-[1.2rem] bg-background-tertiary w-[40rem] h-[7.65rem] p-[1.6rem]">
-                        <div>
-                            <div className="text-text-primary text-[1.2rem]">
-                                오늘의 할 일
-                            </div>
-                            <div className="text-brand-tertiary text-[2.4rem] font-bold">
-                                {alltasks}개
-                            </div>
-                        </div>
-                        <Image src={todo} alt="오늘의 할일" width={40} height={40}/>
-                    </div>
-                    <div className="flex justify-between items-center rounded-[1.2rem] bg-background-tertiary w-[40rem] h-[7.65rem] p-[1.6rem]">
-                        <div>
-                            <div className="text-text-primary text-[1.2rem]">
-                                한 일
-                            </div>
-                            <div className="text-brand-tertiary text-[2.4rem] font-bold">
-                                {completedtasks}개
-                            </div>
-                        </div>
-                        <Image src={done} alt="한 일" width={40} height={40}/>
-                    </div>
+                    <ReportCard title="오늘의 할 일" value={alltasks} imgSrc={todo}/>
+                    <ReportCard title="한 일" value={completedtasks} imgSrc={done}/>
                 </div>
             </div>
         </div>
