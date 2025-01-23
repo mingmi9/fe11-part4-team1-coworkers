@@ -1,9 +1,11 @@
 'use client';
 
+import Button from "@/_components/common/Button";
 import MemberSection from "@/_components/TeamPage/MemberSection";
 import ReportSection from "@/_components/TeamPage/ReportSection";
 import TodoListSection from "@/_components/TeamPage/TodoListSection";
 import { useParams } from "next/navigation";
+import { useState } from "react";
 
 const mockData = [
     {
@@ -75,6 +77,11 @@ const taskMockData = [
 
 export default function TeamPage () {
     const {teamid} = useParams();
+    const [isAdmin, setIsAdmin] = useState(false);
+
+    const handleAdmin = () => {
+        setIsAdmin(!isAdmin);
+    }
 
     const alltasksTodo = taskMockData.reduce((acc, cur) => acc + cur.taskTodo, 0);
     const alltasksCompleted = taskMockData.reduce((acc, cur) => acc + cur.taskCompleted, 0);
@@ -82,8 +89,11 @@ export default function TeamPage () {
     return(
         <div className="h-full flex flex-col gap-[3rem] items-center">
             <TodoListSection tasks={taskMockData} teamId={teamid as string}/>
-            <ReportSection alltasks={alltasksTodo} completedtasks={alltasksCompleted}/>
-            <MemberSection member={mockData}/>
+            {isAdmin && <ReportSection alltasks={alltasksTodo} completedtasks={alltasksCompleted}/>}
+            <MemberSection member={mockData} isAdmin={isAdmin}/>
+            <Button onClick={handleAdmin}>
+                관리자 모드
+            </Button>
         </div>
     )
 }

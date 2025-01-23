@@ -1,21 +1,16 @@
-import { useState } from "react";
 import MemberCard from "./MemberCard";
-import Button from "../common/Button";
 
 interface MemberSectionProps {
     member: {
         profileImg: string;
         name: string;
         email: string;
-    }[]
+    }[],
+    isAdmin: boolean;
+
 }
 
-export default function MemberSection({member}:MemberSectionProps) {
-    const [isAdmin, setIsAdmin] = useState(false);
-
-    const handleAdmin = () => {
-        setIsAdmin(!isAdmin);
-    }
+export default function MemberSection({member, isAdmin}:MemberSectionProps) {
     return (
         <div className="text-text-primary text-[1.6rem] pc:w-[120rem] tablet:[69.6rem] mobile:[34.3rem]">
             <div className="flex justify-between mb-[2.4rem]">
@@ -36,7 +31,6 @@ export default function MemberSection({member}:MemberSectionProps) {
                     />
                 ))}
             </div>
-            <Button onClick={handleAdmin}>관리자</Button>
         </div>
     )
 }
