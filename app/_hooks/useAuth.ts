@@ -6,7 +6,7 @@ import { useMutation } from '@tanstack/react-query';
 export const useAuthMutation = () => {
   const setAuthData = useAuthStore((state) => state.setAuthData);
 
-  const signUpMutation = useMutation({
+  const useSignUp = useMutation({
     mutationFn: signUp,
     onSuccess: (response) => {
       setAuthData({
@@ -20,7 +20,7 @@ export const useAuthMutation = () => {
     },
   });
 
-  const signInMutation = useMutation({
+  const useSignIn = useMutation({
     mutationFn: signIn,
     onSuccess: (response) => {
       setAuthData({
@@ -34,5 +34,5 @@ export const useAuthMutation = () => {
     },
   });
 
-  return { signUpMutation, signInMutation };
+  return { useSignUp, useSignIn };
 };

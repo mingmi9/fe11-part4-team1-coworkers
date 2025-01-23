@@ -11,33 +11,32 @@ import {
 } from '@/_lib/api/user-api';
 import { useUserStore } from '@/_store/user-store';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useOptimisticUpdate } from './useOptimisticUpdate';
 
 export const useUser = (options = {}) => {
-  const { setUser, clearUser } = useUserStore();
+  const { clearUser } = useUserStore();
   const queryClient = useQueryClient();
 
   // 유저 정보 조회
-  const getUserInfoQuery = useQuery({
+  const useGetUserInfo = useQuery({
     queryKey: ['user'],
-    queryFn: async () => {
-      const userInfo = await getUserInfo();
-      setUser(userInfo);
-      return userInfo;
-    },
+    queryFn: getUserInfo,
     ...options,
   });
 
   //유저 정보 수정
-  const updateUserInfoMutation = useMutation({
-    mutationFn: updateUserInfo,
-    onSuccess: (updateUser) => {
-      setUser(updateUser);
-      queryClient.invalidateQueries({ queryKey: ['user'] });
-    },
+  const useUpdateUserInfo = useOptimisticUpdate({
+    mutationFn: (data: { nickname: string; image: string }) =>
+      updateUserInfo(data),
+    queryKey: ['user'],
+    updater: (oldData, newData) => ({
+      ...oldData,
+      ...newData,
+    }),
   });
 
   // 회원 탈퇴
-  const deleteUserMutation = useMutation({
+  const useDeleteUser = useMutation({
     mutationFn: deleteUser,
     onSuccess: () => {
       clearUser();
@@ -46,28 +45,28 @@ export const useUser = (options = {}) => {
   });
 
   // 유저가 속한 그룹 목록 조회
-  const getUserGroupsQuery = useQuery({
+  const useGetUserGroups = useQuery({
     queryKey: ['userGroups'],
     queryFn: getUserGroups,
     ...options,
   });
 
   // 유저의 멤버십 정보 조회
-  const getUserMembershipsQuery = useQuery({
+  const useGetUserMemberships = useQuery({
     queryKey: ['userMemberships'],
     queryFn: getUserMemberships,
     ...options,
   });
 
   // 유저가 완료한 작업 조회
-  const getUserHistoryQuery = useQuery({
+  const useGetUserHistory = useQuery({
     queryKey: ['userHistory'],
     queryFn: getUserHistory,
     ...options,
   });
 
   // 비밀번호 재설정 이메일 전송
-  const sendResetPasswordEmailMutation = useMutation({
+  const useSendResetPasswordEmail = useMutation({
     mutationFn: ({
       email,
       redirectUrl,
@@ -81,7 +80,7 @@ export const useUser = (options = {}) => {
   });
 
   // 비밀번호 재설정
-  const resetPasswordMutation = useMutation({
+  const useResetPassword = useMutation({
     mutationFn: ({
       token,
       password,
@@ -97,7 +96,7 @@ export const useUser = (options = {}) => {
   });
 
   // 비밀번호 변경
-  const passwordMutation = useMutation({
+  const usePassword = useMutation({
     mutationFn: ({
       password,
       passwordConfirmation,
@@ -111,14 +110,14 @@ export const useUser = (options = {}) => {
   });
 
   return {
-    getUserInfoQuery,
-    updateUserInfoMutation,
-    deleteUserMutation,
-    getUserGroupsQuery,
-    getUserMembershipsQuery,
-    getUserHistoryQuery,
-    sendResetPasswordEmailMutation,
-    resetPasswordMutation,
-    passwordMutation,
+    useGetUserInfo,
+    useUpdateUserInfo,
+    useDeleteUser,
+    useGetUserGroups,
+    useGetUserMemberships,
+    useGetUserHistory,
+    useSendResetPasswordEmail,
+    useResetPassword,
+    usePassword,
   };
 };
