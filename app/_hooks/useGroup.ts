@@ -10,12 +10,10 @@ import {
   getGroupTasks,
   updateGroupInfo,
 } from '@/_lib/api/group-api';
-import { useGroupStore } from '@/_store/group-store';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useOptimisticUpdate } from './useOptimisticUpdate';
 
 export const useGroup = (options = {}, id: number) => {
-  const { setGroup, clearGroup } = useGroupStore();
   const queryClient = useQueryClient();
 
   // 그룹 정보 조회
@@ -40,8 +38,8 @@ export const useGroup = (options = {}, id: number) => {
   const useDeleteGroupInfo = useMutation({
     mutationFn: (id: number) => deleteGroupInfo(id),
     onSuccess: () => {
-      clearGroup();
       queryClient.invalidateQueries({ queryKey: ['group'] });
+      queryClient.removeQueries({ queryKey: ['group', id] });
     },
   });
 
@@ -49,7 +47,7 @@ export const useGroup = (options = {}, id: number) => {
   const useCreateGroup = useMutation({
     mutationFn: createGroup,
     onSuccess: (data) => {
-      setGroup(data);
+      queryClient.setQueryData(['group', data.id], data);
       queryClient.invalidateQueries({ queryKey: ['group'] });
     },
   });
@@ -82,7 +80,7 @@ export const useGroup = (options = {}, id: number) => {
     mutationFn: (data: { userEmail: string; token: string }) =>
       acceptGroupInvitation(data.userEmail, data.token),
     onSuccess: (data) => {
-      setGroup(data);
+      queryClient.setQueryData(['group', data.id], data);
       queryClient.invalidateQueries({ queryKey: ['group', id] });
     },
   });
