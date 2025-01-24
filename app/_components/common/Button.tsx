@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 interface ButtonProps {
   className?: string;
-  size?: 'small' | 'medium' | 'large';
+  size?: 'small' | 'medium' | 'large' | 'modal';
   variant?:
     | 'default'
     | 'outlined'
@@ -34,6 +34,7 @@ export default function Button({
     small: 'w-[7.4rem] h-[3.2rem] py-[0.6rem] text-[1.4rem]',
     medium: 'h-[4rem] px-[2.1rem] py-[1.4rem] text-[1.4rem]',
     large: 'w-[33.2rem] h-[4.8rem] py-[1.4rem] text-[1.6rem]',
+    modal: 'w-[28rem] h-[4.8rem] py-[1.4rem] text-[1.6rem]',
   };
 
   const variantClass = {
