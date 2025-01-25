@@ -10,6 +10,10 @@ interface MemberSectionProps {
 }
 
 export default function MemberSection({ member, isAdmin }: MemberSectionProps) {
+  const handleInviteMember = () => {
+    console.log('새로운 멤버 초대하는 함수');
+  };
+
   return (
     <div className="tablet:[69.6rem] mobile:[34.3rem] text-[1.6rem] text-text-primary pc:w-[120rem]">
       <div className="mb-[2.4rem] flex justify-between">
@@ -17,7 +21,10 @@ export default function MemberSection({ member, isAdmin }: MemberSectionProps) {
           멤버 <span className="text-text-default">({member.length}명)</span>
         </div>
         {isAdmin && (
-          <button className="text-brand-primary hover:brightness-150">
+          <button
+            className="text-brand-primary hover:brightness-150"
+            onClick={handleInviteMember}
+          >
             + 새로운 멤버 초대하기
           </button>
         )}
@@ -29,6 +36,7 @@ export default function MemberSection({ member, isAdmin }: MemberSectionProps) {
             profileImg={member.profileImg}
             name={member.name}
             email={member.email}
+            isAdmin={isAdmin}
           />
         ))}
       </div>
