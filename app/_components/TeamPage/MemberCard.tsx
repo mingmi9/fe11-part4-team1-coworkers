@@ -56,7 +56,7 @@ export default function MemberCard({
             </Dropdown.Button>
             <Dropdown.Menu
               isOpen={isOpen}
-              boxClass="w-[10rem] top-[2rem] right-0 shadow-2xl"
+              boxClass="w-[10rem] top-[2rem] right-0 shadow-2xl border-[0.1rem] border-border-primary/10"
             >
               <Dropdown.Item
                 toggleDropdown={toggleDropdown}
