@@ -1,5 +1,6 @@
-import DateSelector from './_components/DateSelector';
-import TaskCard from './_components/TaskCard';
+import DateSelector from '@/(routes)/task-list/_components/DateSelector';
+import TaskCard from '@/(routes)/task-list/_components/TaskCard';
+import TaskListNav from '@/(routes)/task-list/_components/TaskListNav';
 
 const TaskListPage = () => {
   return (
@@ -7,8 +8,9 @@ const TaskListPage = () => {
       <div className="mb-[1.6rem]">
         <DateSelector />
       </div>
-      <TaskCard />
-      <TaskCard />
+      <div className="mb-[1.6rem]">
+        <TaskListNav />
+      </div>
       <TaskCard />
       <TaskCard />
       <TaskCard />
