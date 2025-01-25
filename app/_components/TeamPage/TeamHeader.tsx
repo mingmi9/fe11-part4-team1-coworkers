@@ -38,12 +38,14 @@ export default function TeamHeader({ teamName, isAdmin }: TeamHeaderProps) {
                   <Dropdown.Item
                     toggleDropdown={toggleDropdown}
                     onClick={handleEdit}
+                    className="justify-center"
                   >
                     수정하기
                   </Dropdown.Item>
                   <Dropdown.Item
                     toggleDropdown={toggleDropdown}
                     onClick={handleDelete}
+                    className="justify-center"
                   >
                     삭제하기
                   </Dropdown.Item>

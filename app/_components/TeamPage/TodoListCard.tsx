@@ -60,18 +60,21 @@ export default function TodoListCard({
                 <Dropdown.Item
                   toggleDropdown={toggleDropdown}
                   onClick={handleTaskList}
+                  className="justify-center"
                 >
                   이동하기
                 </Dropdown.Item>
                 <Dropdown.Item
                   toggleDropdown={toggleDropdown}
                   onClick={handleEdit}
+                  className="justify-center"
                 >
                   수정하기
                 </Dropdown.Item>
                 <Dropdown.Item
                   toggleDropdown={toggleDropdown}
                   onClick={handleDelete}
+                  className="justify-center"
                 >
                   삭제하기
                 </Dropdown.Item>

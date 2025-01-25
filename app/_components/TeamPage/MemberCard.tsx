@@ -61,6 +61,7 @@ export default function MemberCard({
               <Dropdown.Item
                 toggleDropdown={toggleDropdown}
                 onClick={handleCopyModal}
+                className="justify-center"
               >
                 복사하기
               </Dropdown.Item>
@@ -68,6 +69,7 @@ export default function MemberCard({
                 <Dropdown.Item
                   toggleDropdown={toggleDropdown}
                   onClick={handleKickMember}
+                  className="justify-center"
                 >
                   추방하기
                 </Dropdown.Item>
