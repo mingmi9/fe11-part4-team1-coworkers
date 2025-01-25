@@ -3,6 +3,7 @@
 import Button from '@/_components/common/Button';
 import MemberSection from '@/_components/TeamPage/MemberSection';
 import ReportSection from '@/_components/TeamPage/ReportSection';
+import TeamHeader from '@/_components/TeamPage/TeamHeader';
 import TodoListSection from '@/_components/TeamPage/TodoListSection';
 import { useParams } from 'next/navigation';
 import { useState } from 'react';
@@ -88,7 +89,8 @@ export default function TeamPage() {
   );
 
   return (
-    <div className="mx-auto flex h-full flex-col items-center gap-[3rem] mobile:w-[34.3rem] tablet:w-[69.6rem] pc:w-[120rem]">
+    <div className="mx-auto mt-[3rem] flex h-full flex-col items-center gap-[3rem] mobile:w-[34.3rem] tablet:w-[69.6rem] pc:w-[120rem]">
+      <TeamHeader teamName="경영관리팀" isAdmin={isAdmin} />
       <TodoListSection tasks={taskMockData} teamId={teamid as string} />
       {isAdmin && (
         <ReportSection
