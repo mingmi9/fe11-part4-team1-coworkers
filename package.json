@@ -9,14 +9,23 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@radix-ui/react-popover": "^1.1.5",
+    "@radix-ui/react-slot": "^1.1.1",
     "@tanstack/react-query": "^5.64.1",
     "axios": "^1.7.9",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "date-fns": "^3.6.0",
     "dayjs": "^1.11.13",
     "lodash": "^4.17.21",
     "lodash.debounce": "^4.0.8",
+    "lucide-react": "^0.473.0",
     "next": "15.1.4",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "react": "^18.2.0",
+    "react-day-picker": "^8.10.1",
+    "react-dom": "^18.2.0",
+    "tailwind-merge": "^2.6.0",
+    "tailwindcss-animate": "^1.0.7",
     "zustand": "^5.0.3"
   },
   "devDependencies": {
