@@ -5,7 +5,13 @@ import Image from 'next/image';
 
 interface ButtonProps {
   className?: string;
-  size?: 'small' | 'medium' | 'large' | 'modal';
+  size?:
+    | 'small'
+    | 'medium'
+    | 'large'
+    | 'modal-small'
+    | 'modal-medium'
+    | 'modal-large';
   variant?:
     | 'default'
     | 'outlined'
@@ -34,7 +40,9 @@ export default function Button({
     small: 'w-[7.4rem] h-[3.2rem] py-[0.6rem] text-[1.4rem]',
     medium: 'h-[4rem] px-[2.1rem] py-[1.4rem] text-[1.4rem]',
     large: 'w-[33.2rem] h-[4.8rem] py-[1.4rem] text-[1.6rem]',
-    modal: 'w-[28rem] h-[4.8rem] py-[1.4rem] text-[1.6rem]',
+    'modal-small': 'w-[13.6rem] h-[4.8rem] py-[1.4rem] text-[1.6rem]',
+    'modal-medium': 'w-[28rem] h-[4.8rem] py-[1.4rem] text-[1.6rem]',
+    'modal-large': 'w-[33.6rem] h-[4.8rem] py-[1.4rem] text-[1.6rem]',
   };
 
   const variantClass = {
@@ -55,7 +63,7 @@ export default function Button({
 
   const roundStyle = {
     full: 'rounded-full',
-    xl: 'rounded-xl',
+    xl: 'rounded-[1.2rem]',
   };
 
   const renderIcon = () => {
