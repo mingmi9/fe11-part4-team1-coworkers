@@ -27,6 +27,10 @@ export default function TodoListSection({
     return color[index % color.length];
   };
 
+  const handleAddTodoList = () => {
+    console.log('새로운 목록 추가하기');
+  }
+
   return (
     <div className="w-full">
       <div className="mb-[1.6rem] flex justify-between">
@@ -34,7 +38,7 @@ export default function TodoListSection({
           할 일 목록{' '}
           <span className="text-text-default">({tasks.length}개)</span>
         </div>
-        <button className="text-brand-primary hover:brightness-150">
+        <button className="text-brand-primary hover:brightness-150" onClick={handleAddTodoList}>
           + 새로운 목록 추가하기
         </button>{' '}
         {/*추후 모달 연결*/}
