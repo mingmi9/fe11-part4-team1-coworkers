@@ -39,7 +39,7 @@ export default function DeleteUserModal() {
             닫기
           </Button>
           <Button size="modal-small" variant="danger">
-            링크 복사하기
+            회원 탈퇴
           </Button>
         </div>
       </Modal>
