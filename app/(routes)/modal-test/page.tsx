@@ -1,38 +1,23 @@
-'use client';
-
-import { Modal } from '@/_components/common/Modal';
-import { useState } from 'react';
-import Button from '@/_components/common/Button';
+import AddTaskListModal from '@/_components/modal/AddTaskListModal';
+import AddTaskModal from '@/_components/modal/AddTaskModal';
+import ChangePasswordModal from '@/_components/modal/ChangePasswordModal';
+import DeleteTaskModal from '@/_components/modal/DeleteTaskModal';
+import DeleteUserModal from '@/_components/modal/DeleteUserModal';
+import MemberInviteModal from '@/_components/modal/MemberInviteModal';
+import ProfileModal from '@/_components/modal/ProfileModal';
+import ResetPasswordModal from '@/_components/modal/ResetPasswordModal';
 
 export default function ModalTestPage() {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const handleOpen = () => setIsOpen(true);
-  const handleClose = () => setIsOpen(false);
-
   return (
     <div>
-      <h1>모달 테스트 페이지</h1>
-      <div>
-        <button onClick={handleOpen}>멤버 초대</button>
-        <Modal isOpen={isOpen} onClose={handleClose} className="px-[4.8rem]">
-          <Modal.CloseButton onClose={handleClose} />
-
-          <Modal.Title
-            title="멤버 초대"
-            subTitle="그룹에 참여할 수 있는 링크를 복사합니다."
-            className="mb-[4rem] mt-[4.8rem] flex flex-col"
-          />
-
-          <Button
-            size="modal"
-            round="xl"
-            className="mb-[3.2rem] mobile:w-full tablet:w-[28rem] pc:w-[28rem]"
-          >
-            링크 복사하기
-          </Button>
-        </Modal>
-      </div>
+      <ProfileModal />
+      <MemberInviteModal />
+      <DeleteUserModal />
+      <AddTaskListModal />
+      <ChangePasswordModal />
+      <ResetPasswordModal />
+      <AddTaskModal />
+      <DeleteTaskModal />
     </div>
   );
 }

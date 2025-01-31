@@ -54,7 +54,7 @@ export default {
         },
         // Border Colors
         border: {
-          primary: '#F8FAFC',
+          primary: 'rgba(248, 250, 252, 0.1)',
         },
         // Text Colors
         text: {
