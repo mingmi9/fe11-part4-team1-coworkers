@@ -3,6 +3,8 @@ import kebab from '@icons/kebab-small-button.svg';
 import TodoListCheckBox from './TodoListCheckBox';
 import { useRouter } from 'next/navigation';
 import Dropdown from '../common/Dropdown';
+import DeleteTaskModal from '../modal/DeleteTaskModal';
+import { useState } from 'react';
 
 interface TodoListCardProps {
   taskList: string;
@@ -20,6 +22,8 @@ export default function TodoListCard({
   color,
 }: TodoListCardProps) {
   const router = useRouter();
+  const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
+
   const handleTaskList = () => {
     router.push(`/team/${teamId}/taskList`);
   };
@@ -27,7 +31,7 @@ export default function TodoListCard({
     console.log('수정하는 함수');
   };
   const handleDelete = () => {
-    console.log('삭제하는 함수');
+    setIsOpenDeleteModal(true);
   };
 
   return (
@@ -82,6 +86,11 @@ export default function TodoListCard({
             </>
           )}
         </Dropdown>
+        <DeleteTaskModal
+          isOpen={isOpenDeleteModal}
+          onClose={() => setIsOpenDeleteModal(false)}
+          task={taskList}
+        />
       </div>
     </div>
   );

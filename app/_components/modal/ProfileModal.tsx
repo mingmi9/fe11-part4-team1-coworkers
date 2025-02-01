@@ -1,16 +1,25 @@
 'use client';
 
-import { useState } from 'react';
 import { Modal } from '../common/Modal';
 import Image from 'next/image';
 import Button from '../common/Button';
 import defaultImg from '@icons/member.svg';
 
-export default function ProfileModal() {
-  const [isOpenModal, setIsOpenModal] = useState(false);
+interface ProfileModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  profileImg?: string;
+  name: string;
+  email: string;
+}
 
-  const handleOpenModal = () => setIsOpenModal(true);
-  const handleCloseModal = () => setIsOpenModal(false);
+export default function ProfileModal({
+  isOpen,
+  onClose,
+  profileImg,
+  name,
+  email,
+}: ProfileModalProps) {
   const handleCopyEmail = async () => {
     try {
       await navigator.clipboard.writeText(email);
@@ -21,15 +30,10 @@ export default function ProfileModal() {
     }
   };
 
-  const profileImg = '';
-  const name = '코드잇';
-  const email = '1234@gamil.com';
-
   return (
     <div>
-      <button onClick={handleOpenModal}>프로필 모달</button>
-      <Modal isOpen={isOpenModal} onClose={handleCloseModal} type="profile">
-        <Modal.CloseButton onClose={handleCloseModal} className="mr-[3.2rem]" />
+      <Modal isOpen={isOpen} onClose={onClose} type="profile">
+        <Modal.CloseButton onClose={onClose} className="mr-[3.2rem]" />
         <div className="mb-[2.4rem] mt-[4.8rem] flex flex-col">
           <div className="relative mobile:h-[4.6rem] mobile:w-[4.6rem] tablet:h-[5.2rem] tablet:w-[5.2rem] pc:h-[5.2rem] pc:w-[5.2rem]">
             <Image

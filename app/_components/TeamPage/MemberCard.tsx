@@ -2,6 +2,8 @@ import defaultImg from '@icons/member.svg';
 import kebab from '@icons/kebab-small-button.svg';
 import Image from 'next/image';
 import Dropdown from '../common/Dropdown';
+import { useState } from 'react';
+import ProfileModal from '../modal/ProfileModal';
 
 interface MemberCardProps {
   profileImg?: string;
@@ -16,8 +18,10 @@ export default function MemberCard({
   email,
   isAdmin,
 }: MemberCardProps) {
+  const [isOpenModal, setIsOpenModal] = useState(false);
+
   const handleCopyModal = () => {
-    console.log('모달띄우는 함수');
+    setIsOpenModal(true);
   };
 
   const handleKickMember = () => {
@@ -40,46 +44,56 @@ export default function MemberCard({
           <div className="text-[1.2rem] text-text-secondary">{email}</div>
         </div>
       </div>
-      <Dropdown>
-        {({ isOpen, toggleDropdown }) => (
-          <>
-            <Dropdown.Button onClick={toggleDropdown}>
-              <div className="h-[1.6rem] w-[1.6rem] flex-shrink-0">
-                <Image
-                  src={kebab}
-                  width={16}
-                  height={16}
-                  alt="케밥"
-                  className="hover:brightness-150"
-                />
-              </div>
-            </Dropdown.Button>
-            <Dropdown.Menu
-              isOpen={isOpen}
-              boxClass="w-[10rem] top-[2rem] right-0 shadow-2xl border-[0.1rem] border-border-primary/10"
-            >
-              <Dropdown.Item
-                toggleDropdown={toggleDropdown}
-                onClick={handleCopyModal}
-                className="justify-center"
+      <div>
+        <Dropdown>
+          {({ isOpen, toggleDropdown }) => (
+            <>
+              <Dropdown.Button onClick={toggleDropdown}>
+                <div className="h-[1.6rem] w-[1.6rem] flex-shrink-0">
+                  <Image
+                    src={kebab}
+                    width={16}
+                    height={16}
+                    alt="케밥"
+                    className="hover:brightness-150"
+                  />
+                </div>
+              </Dropdown.Button>
+              <Dropdown.Menu
+                isOpen={isOpen}
+                boxClass="w-[10rem] top-[2rem] right-0 shadow-2xl border-[0.1rem] border-border-primary/10"
               >
-                복사하기
-              </Dropdown.Item>
-              {isAdmin ? (
                 <Dropdown.Item
                   toggleDropdown={toggleDropdown}
-                  onClick={handleKickMember}
+                  onClick={handleCopyModal}
                   className="justify-center"
                 >
-                  추방하기
+                  복사하기
                 </Dropdown.Item>
-              ) : (
-                ''
-              )}
-            </Dropdown.Menu>
-          </>
-        )}
-      </Dropdown>
+                {isAdmin ? (
+                  <Dropdown.Item
+                    toggleDropdown={toggleDropdown}
+                    onClick={handleKickMember}
+                    className="justify-center"
+                  >
+                    추방하기
+                  </Dropdown.Item>
+                ) : (
+                  ''
+                )}
+              </Dropdown.Menu>
+            </>
+          )}
+        </Dropdown>
+
+        <ProfileModal
+          isOpen={isOpenModal}
+          onClose={() => setIsOpenModal(false)}
+          profileImg={profileImg}
+          name={name}
+          email={email}
+        />
+      </div>
     </div>
   );
 }

@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import AddTaskListModal from '../modal/AddTaskListModal';
 import TodoListCard from './TodoListCard';
 
 interface TodoListSectionProps {
@@ -13,6 +15,7 @@ export default function TodoListSection({
   tasks,
   teamId,
 }: TodoListSectionProps) {
+  const [isOpenModal, setIsOpenModal] = useState(false);
   const color = [
     'bg-point-purple',
     'bg-point-blue',
@@ -28,20 +31,28 @@ export default function TodoListSection({
   };
 
   const handleAddTodoList = () => {
-    console.log('새로운 목록 추가하기');
-  }
+    setIsOpenModal(true);
+  };
 
   return (
     <div className="w-full">
       <div className="mb-[1.6rem] flex justify-between">
         <div className="text-[1.6rem] text-text-primary">
-          할 일 목록{' '}
+          할 일 목록
           <span className="text-text-default">({tasks.length}개)</span>
         </div>
-        <button className="text-brand-primary hover:brightness-150" onClick={handleAddTodoList}>
-          + 새로운 목록 추가하기
-        </button>{' '}
-        {/*추후 모달 연결*/}
+        <div>
+          <button
+            className="text-brand-primary hover:brightness-150"
+            onClick={handleAddTodoList}
+          >
+            + 새로운 목록 추가하기
+          </button>
+          <AddTaskListModal
+            isOpen={isOpenModal}
+            onClose={() => setIsOpenModal(false)}
+          />
+        </div>
       </div>
       <div className="flex flex-col gap-[1.6rem]">
         {tasks.map((tasks, index) => (

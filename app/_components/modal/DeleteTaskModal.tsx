@@ -1,23 +1,24 @@
 'use client';
 
-import { useState } from 'react';
 import { Modal } from '../common/Modal';
 import Button from '../common/Button';
 import AlertImg from '@icons/alert.svg';
 import Image from 'next/image';
 
-export default function DeleteTaskModal() {
-  const [isOpenModal, setIsOpenModal] = useState(false);
+interface DeleteTaskModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  task: string;
+}
 
-  const handleOpenModal = () => setIsOpenModal(true);
-  const handleCloseModal = () => setIsOpenModal(false);
-
-  const task = '법인 설립 안내 드리기';
-
+export default function DeleteTaskModal({
+  isOpen,
+  onClose,
+  task,
+}: DeleteTaskModalProps) {
   return (
     <div>
-      <button onClick={handleOpenModal}>할 일 삭제하기</button>
-      <Modal isOpen={isOpenModal} onClose={handleCloseModal} className="">
+      <Modal isOpen={isOpen} onClose={onClose} className="">
         <div className="mt-[4rem] flex flex-col items-center justify-center gap-[1.6rem]">
           <Image src={AlertImg} alt="경고 아이콘" width={24} height={24} />
           <div className="mb-[2.4rem]">
@@ -32,7 +33,7 @@ export default function DeleteTaskModal() {
           <Button
             size="modal-small"
             variant="outlined_secondary"
-            onClick={handleCloseModal}
+            onClick={onClose}
           >
             닫기
           </Button>

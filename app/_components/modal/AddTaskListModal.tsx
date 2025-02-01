@@ -1,20 +1,21 @@
 'use client';
 
-import { useState } from 'react';
 import { Modal } from '../common/Modal';
 import Button from '../common/Button';
 
-export default function AddTaskListModal() {
-  const [isOpenModal, setIsOpenModal] = useState(false);
+interface AddTaskListModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
 
-  const handleOpenModal = () => setIsOpenModal(true);
-  const handleCloseModal = () => setIsOpenModal(false);
-
+export default function AddTaskListModal({
+  isOpen,
+  onClose,
+}: AddTaskListModalProps) {
   return (
     <div>
-      <button onClick={handleOpenModal}>새로운 목록 추가</button>
-      <Modal isOpen={isOpenModal} onClose={handleCloseModal} className="">
-        <Modal.CloseButton onClose={handleCloseModal} className="mr-[1.6rem]" />
+      <Modal isOpen={isOpen} onClose={onClose} className="">
+        <Modal.CloseButton onClose={onClose} className="mr-[1.6rem]" />
         <div className="mb-[1.6rem] flex flex-col gap-[0.8rem]">
           <Modal.Title
             title="새로운 목록 추가"

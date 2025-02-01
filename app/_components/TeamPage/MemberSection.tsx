@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import MemberCard from './MemberCard';
+import MemberInviteModal from '../modal/MemberInviteModal';
 
 interface MemberSectionProps {
   member: {
@@ -10,8 +12,10 @@ interface MemberSectionProps {
 }
 
 export default function MemberSection({ member, isAdmin }: MemberSectionProps) {
+  const [isOpenModal, setIsOpenModal] = useState(false);
+
   const handleInviteMember = () => {
-    console.log('새로운 멤버 초대하는 함수');
+    setIsOpenModal(true);
   };
 
   return (
@@ -21,12 +25,18 @@ export default function MemberSection({ member, isAdmin }: MemberSectionProps) {
           멤버 <span className="text-text-default">({member.length}명)</span>
         </div>
         {isAdmin && (
-          <button
-            className="text-brand-primary hover:brightness-150"
-            onClick={handleInviteMember}
-          >
-            + 새로운 멤버 초대하기
-          </button>
+          <div>
+            <button
+              className="text-brand-primary hover:brightness-150"
+              onClick={handleInviteMember}
+            >
+              + 새로운 멤버 초대하기
+            </button>
+            <MemberInviteModal
+              isOpen={isOpenModal}
+              onClose={() => setIsOpenModal(false)}
+            />
+          </div>
         )}
       </div>
       <div className="flex flex-wrap gap-[2.4rem] mobile:gap-[1.6rem]">

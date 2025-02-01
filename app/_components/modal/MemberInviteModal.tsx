@@ -1,20 +1,21 @@
 'use client';
 
-import { useState } from 'react';
 import { Modal } from '../common/Modal';
 import Button from '../common/Button';
 
-export default function MemberInviteModal() {
-  const [isOpenModal, setIsOpenModal] = useState(false);
+interface MemberInviteModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
 
-  const handleOpenModal = () => setIsOpenModal(true);
-  const handleCloseModal = () => setIsOpenModal(false);
-
+export default function MemberInviteModal({
+  isOpen,
+  onClose,
+}: MemberInviteModalProps) {
   return (
     <div>
-      <button onClick={handleOpenModal}>멤버 초대하기 </button>
-      <Modal isOpen={isOpenModal} onClose={handleCloseModal} className="">
-        <Modal.CloseButton onClose={handleCloseModal} className="mr-[1.6rem]" />
+      <Modal isOpen={isOpen} onClose={onClose} className="">
+        <Modal.CloseButton onClose={onClose} className="mr-[1.6rem]" />
 
         <Modal.Title
           title="멤버 초대"
