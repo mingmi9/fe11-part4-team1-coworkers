@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Dropdown from '../common/Dropdown';
 import { useState } from 'react';
 import ProfileModal from '../modal/ProfileModal';
+import KickUserModal from '../modal/KickUserModal';
 
 interface MemberCardProps {
   profileImg?: string;
@@ -18,14 +19,15 @@ export default function MemberCard({
   email,
   isAdmin,
 }: MemberCardProps) {
-  const [isOpenModal, setIsOpenModal] = useState(false);
+  const [isOpenCopyModal, setIsOpenCopyModal] = useState(false);
+  const [isOpenKickModal, setIsOpenKickModal] = useState(false);
 
   const handleCopyModal = () => {
-    setIsOpenModal(true);
+    setIsOpenCopyModal(true);
   };
 
   const handleKickMember = () => {
-    console.log('멤버 추방하는 함수');
+    setIsOpenKickModal(true);
   };
 
   return (
@@ -87,11 +89,16 @@ export default function MemberCard({
         </Dropdown>
 
         <ProfileModal
-          isOpen={isOpenModal}
-          onClose={() => setIsOpenModal(false)}
+          isOpen={isOpenCopyModal}
+          onClose={() => setIsOpenCopyModal(false)}
           profileImg={profileImg}
           name={name}
           email={email}
+        />
+        <KickUserModal
+          isOpen={isOpenKickModal}
+          onClose={() => setIsOpenKickModal(false)}
+          name={name}
         />
       </div>
     </div>
