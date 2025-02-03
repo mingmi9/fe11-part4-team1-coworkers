@@ -5,10 +5,25 @@ interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   children: React.ReactNode;
-  className: string;
+  className?: string;
+  type?: keyof typeof typeStyle;
 }
 
-export const Modal = ({ isOpen, onClose, children, className }: ModalProps) => {
+const typeStyle = {
+  normal:
+    'mobile:w-full mobile:rounded-[1.2rem_1.2rem_0_0] tablet:w-[38.4rem] tablet:rounded-[1.2rem] pc:w-[384px] pc:rounded-[1.2rem]',
+  profile:
+    'mobile:w-full mobile:rounded-[2.4rem_2.4rem_0_0] tablet:w-[34.4rem] tablet:rounded-[2.4rem] pc:w-[34.4rem] pc:rounded-[2.4rem]',
+  data: 'mobile:w-full mobile:rounded-[1.2rem_1.2rem_0_0] tablet:w-[38.4rem] tablet:rounded-[1.2rem] pc:w-[384px] pc:rounded-[1.2rem]',
+};
+
+export const Modal = ({
+  isOpen,
+  onClose,
+  children,
+  className,
+  type = 'normal',
+}: ModalProps) => {
   if (!isOpen) return null;
 
   const handleBackgroundClick = (e: React.MouseEvent) => {
@@ -21,7 +36,7 @@ export const Modal = ({ isOpen, onClose, children, className }: ModalProps) => {
       onClick={handleBackgroundClick}
     >
       <div
-        className={`mx-auto flex h-auto flex-col items-center justify-center bg-background-secondary text-center mobile:absolute mobile:bottom-0 mobile:w-full mobile:rounded-[1.2rem_1.2rem_0_0] tablet:relative tablet:w-[38.4rem] tablet:rounded-[1.2rem] pc:relative pc:w-[384px] pc:rounded-[1.2rem] ${className}`}
+        className={`mx-auto flex h-auto flex-col items-center justify-center bg-background-secondary text-center mobile:absolute mobile:bottom-0 tablet:relative pc:relative ${type ? typeStyle[type] : ' '} ${className}`}
       >
         {children}
       </div>
@@ -30,7 +45,7 @@ export const Modal = ({ isOpen, onClose, children, className }: ModalProps) => {
 };
 
 interface TitleProps {
-  title: string;
+  title?: string;
   subTitle?: string;
   className?: string;
 }
@@ -50,12 +65,14 @@ const Title = ({ title, subTitle, className }: TitleProps) => (
   </div>
 );
 
-const CloseButton = ({ onClose }: { onClose: () => void }) => (
-  <div className="relative top-[1.6rem] flex mobile:w-full tablet:w-[38.4rem] pc:w-[38.4rem]">
-    <button
-      onClick={onClose}
-      className="absolute mobile:right-0 tablet:right-[1.6rem] pc:right-[1.6rem]"
-    >
+interface CloseButtonProps {
+  onClose: () => void;
+  className?: string;
+}
+
+const CloseButton = ({ onClose, className }: CloseButtonProps) => (
+  <div className="relative top-[1.6rem] flex w-full">
+    <button onClick={onClose} className={`absolute right-0 ${className}`}>
       <Image src={XButton} alt="모달 닫기 버튼" width={24} height={24} />
     </button>
   </div>

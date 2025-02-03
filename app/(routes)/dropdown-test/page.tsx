@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import Dropdown from '../_components/common/Dropdown';
+import Dropdown from '@/_components/common/Dropdown';
 import Image from 'next/image';
 
 const DropdownPage = () => {
