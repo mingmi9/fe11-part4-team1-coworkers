@@ -5,10 +5,8 @@ import TaskListNav from '@/(routes)/task-list/_components/TaskListNav';
 const TaskListPage = () => {
   return (
     <div className="h-screen bg-background-primary px-[3.2rem] py-[2.4rem] pc:px-[16vw]">
-      <div className="mb-[1.6rem]">
+      <div className="mb-[1.6rem] flex flex-col gap-[1.6rem]">
         <DateSelector />
-      </div>
-      <div className="mb-[1.6rem]">
         <TaskListNav />
       </div>
       <TaskCard />
