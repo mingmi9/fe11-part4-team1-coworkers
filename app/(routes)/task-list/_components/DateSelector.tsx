@@ -15,8 +15,10 @@ import arrowLeft from '@icons/arrow-left.svg';
 import arrowRight from '@icons/arrow-right.svg';
 import calendar from '@icons/icon_calendar.svg';
 
-const DateSelector = () => {
-  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+const DateSelector = (/*today*/) => {
+  const [selectedDate, setSelectedDate] = useState<Date>(
+    new Date() /*new Date*() 삭제 후 today추가*/,
+  );
   const [popoverOpen, setPopoverOpen] = useState<boolean>(false);
 
   const handleDateChange = (direction: 'prev' | 'next') => {
