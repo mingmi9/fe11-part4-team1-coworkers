@@ -1,19 +1,8 @@
 'use client';
 import { useState, useEffect } from 'react';
-import ArticleCard from './ArticleCard';
 import useResize from '@/_hooks/useResize';
-
-interface Article {
-  id: number;
-  title: string;
-  writer: {
-    nickname: string;
-    id: number;
-  };
-  createdAt: string;
-  likeCount: number;
-  image?: string | null;
-}
+import BestArticleCard from './BestArticleCard';
+import { Article } from '@/(routes)/boards/type/Article';
 
 const BestArticleList = () => {
   const [bestArticle, setBestArticle] = useState<Article[]>([]);
@@ -91,14 +80,7 @@ const BestArticleList = () => {
   return (
     <div className="grid grid-cols-1 gap-[1.6rem] tablet:grid-cols-2 pc:grid-cols-3 pc:gap-[2rem]">
       {bestArticle.slice(0, visibleCount).map((article) => (
-        <ArticleCard
-          key={article.id}
-          article={article}
-          onClickMenu={() =>
-            console.log('Menu clicked for article ' + article.id)
-          }
-          isBest={true}
-        />
+        <BestArticleCard key={article.id} article={article} />
       ))}
     </div>
   );

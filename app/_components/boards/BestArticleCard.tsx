@@ -4,12 +4,12 @@ import MenuDropdown from './MenuDropdown';
 import { Article } from '@/(routes)/boards/type/Article';
 import Card from './Card';
 
-export interface ArticleCardProps {
+export interface BestArticleCardProps {
   article: Article;
   onClickMenu?: () => void;
 }
 
-const ArticleCard = ({ article }: ArticleCardProps) => {
+const BestArticleCard = ({ article }: BestArticleCardProps) => {
   // 좋아요
   const [likeState, setLikeState] = useState({
     liked: false,
@@ -36,10 +36,13 @@ const ArticleCard = ({ article }: ArticleCardProps) => {
 
   return (
     <div
-      className={`relative w-full cursor-default rounded-[1.2rem] border-background-tertiary bg-background-secondary p-[1.6rem] pt-[2.4rem] font-medium tablet:border tablet:px-[3.2rem] tablet:py-[2.4rem]`}
+      className={`relative w-full cursor-default rounded-[1.2rem] border border-background-tertiary bg-background-secondary p-[1.6rem] pt-[1rem] font-medium tablet:px-[2.4rem]`}
     >
+      {/* 베스트 표시 */}
+      <Card.Medal />
+
       <div
-        className={`flex h-[7.4rem] cursor-pointer items-start justify-between tablet:h-[7.2rem]`}
+        className={`tablet:h-[10.4rem]flex h-[7.4rem] cursor-pointer items-start justify-between`}
       >
         <div className="flex w-full items-start justify-between">
           <div>
@@ -47,9 +50,9 @@ const ArticleCard = ({ article }: ArticleCardProps) => {
             <Card.Title>{article.title}</Card.Title>
             {/* 날짜 */}
             <div
-              className={`mt-[1.2rem] tablet:mt-[2.8rem] tablet:hidden ${subText}`}
+              className={`mt-[1.2rem] tablet:mt-[2.8rem] ${subText}`}
             >
-              <Card.Date date={article.createdAt} />
+              <Card.Date date={article.createdAt}  />
             </div>
           </div>
 
@@ -57,10 +60,6 @@ const ArticleCard = ({ article }: ArticleCardProps) => {
           {article.image && <Card.PreviewImage src={article.image} />}
         </div>
 
-        {/* 메뉴 */}
-        <div className={`hidden tablet:block`}>
-          <MenuDropdown onEdit={handleEdit} onDelete={handleDelete} />
-        </div>
       </div>
 
       <div className="mt-[1.6rem] flex items-center justify-between tablet:mt-[2.4rem]">
@@ -68,13 +67,6 @@ const ArticleCard = ({ article }: ArticleCardProps) => {
           {/* 프로필 */}
           <Card.Profile nickname={article.writer.nickname} />
 
-          {/* 날짜 */}
-          <div
-            className={`tablet:flex hidden items-center ${subText}`}
-          >
-            <span className="mx-[1.6rem] h-[1.2rem] w-[.1rem] bg-background-tertiary"></span>
-            <Card.Date date={article.createdAt} />
-          </div>
         </div>
 
         <div className="flex items-center">
@@ -85,17 +77,16 @@ const ArticleCard = ({ article }: ArticleCardProps) => {
             liked={likeState.liked}
           />
           {/* 메뉴 */}
-          <div className={`tablet:hidden`}>
             <MenuDropdown
               onEdit={handleEdit}
               onDelete={handleDelete}
               menuPosition="top-[-8.6rem]"
             />
-          </div>
+    
         </div>
       </div>
     </div>
   );
 };
 
-export default ArticleCard;
+export default BestArticleCard;

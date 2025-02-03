@@ -6,7 +6,7 @@ import BestArticleList from '@/_components/boards/BestArticleList';
 import ArticleCard from '@/_components/boards/ArticleCard';
 import SortDropdown from '@/_components/boards/SortDropdown';
 
-const ArticleListPage = () => {
+const BoardsPage = () => {
   const handleButton = () => alert('글쓰기');
   const [selectedOption, setSelectedOption] = useState<string>('최신순');
   const handleSelect = (value: string) => {
@@ -112,11 +112,7 @@ const ArticleListPage = () => {
 
       <div className="grid grid-cols-1 gap-[1.6rem] tablet:gap-[2.4rem] tablet:gap-x-[2rem] pc:grid-cols-2">
         {articles.map((article) => (
-          <ArticleCard
-            key={article.id}
-            article={article}
-            onClickMenu={() => console.log('clicked menu ' + article.id)}
-          />
+           <ArticleCard key={article.id} article={article} />
         ))}
       </div>
 
@@ -135,4 +131,4 @@ const ArticleListPage = () => {
   );
 };
 
-export default ArticleListPage;
+export default BoardsPage;
