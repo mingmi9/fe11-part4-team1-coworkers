@@ -112,7 +112,7 @@ const BoardsPage = () => {
 
       <div className="grid grid-cols-1 gap-[1.6rem] tablet:gap-[2.4rem] tablet:gap-x-[2rem] pc:grid-cols-2">
         {articles.map((article) => (
-           <ArticleCard key={article.id} article={article} />
+          <ArticleCard key={article.id} article={article} />
         ))}
       </div>
 

@@ -25,7 +25,7 @@ const Search = () => {
     setQuery(e.target.value);
   };
   return (
-    <div className="flex w-full gap-[.8rem] rounded-[1.2rem] border border-background-tertiary bg-background-secondary px-[1.6rem] py-[1.2rem] tablet:p-[1.6rem] tablet:gap-[1.2rem]">
+    <div className="flex w-full gap-[.8rem] rounded-[1.2rem] border border-background-tertiary bg-background-secondary px-[1.6rem] py-[1.2rem] tablet:gap-[1.2rem] tablet:p-[1.6rem]">
       <Image
         src="/icons/ic-search-board.svg"
         alt="검색"

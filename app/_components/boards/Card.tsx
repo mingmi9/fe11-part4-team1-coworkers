@@ -63,8 +63,8 @@ export const LikeButton = ({
     <button
       onClick={onLikeClick}
       className={classNames(
-        'flex items-center gap-[.4rem] text-xs font-normal tablet:text-sm', 
-        { 'text-red-500': liked, 'text-text-disabled': !liked }
+        'flex items-center gap-[.4rem] text-xs font-normal tablet:text-sm',
+        { 'text-red-500': liked, 'text-text-disabled': !liked },
       )}
     >
       <Image
@@ -79,11 +79,7 @@ export const LikeButton = ({
 };
 
 const Card = Object.assign(
-  (props: { children: ReactNode }) => (
-    <>
-      {props.children}
-    </>
-  ),
+  (props: { children: ReactNode }) => <>{props.children}</>,
   {
     Medal,
     Title,

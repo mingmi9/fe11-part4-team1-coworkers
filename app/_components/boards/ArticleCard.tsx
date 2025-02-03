@@ -15,7 +15,7 @@ const ArticleCard = ({ article }: ArticleCardProps) => {
     liked: false,
     likeCount: article.likeCount,
   });
-  
+
   const handleLikeClick = () => {
     setLikeState((prev) => ({
       liked: !prev.liked,
@@ -69,9 +69,7 @@ const ArticleCard = ({ article }: ArticleCardProps) => {
           <Card.Profile nickname={article.writer.nickname} />
 
           {/* 날짜 */}
-          <div
-            className={`tablet:flex hidden items-center ${subText}`}
-          >
+          <div className={`hidden items-center tablet:flex ${subText}`}>
             <span className="mx-[1.6rem] h-[1.2rem] w-[.1rem] bg-background-tertiary"></span>
             <Card.Date date={article.createdAt} />
           </div>

@@ -1,4 +1,3 @@
-
 export interface Writer {
   nickname: string;
   id: number;
