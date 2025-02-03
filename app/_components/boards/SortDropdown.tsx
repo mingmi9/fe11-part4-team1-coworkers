@@ -19,9 +19,7 @@ const SortDropdown = ({ selectedOption, onSelect }: SortDropdownProps) => {
           <Dropdown.Button onClick={toggleDropdown}>
             <div
               className={`${
-                isOpen
-                  ? 'bg-background-tertiary'
-                  : 'bg-background-secondary'
+                isOpen ? 'bg-background-tertiary' : 'bg-background-secondary'
               } flex w-[9.4rem] items-center justify-between rounded-[0.8rem] px-[1.4rem] py-[1rem] text-xs text-text-primary tablet:w-[12rem] tablet:rounded-[1.2rem] tablet:text-sm`}
             >
               {selectedOption}
@@ -39,10 +37,16 @@ const SortDropdown = ({ selectedOption, onSelect }: SortDropdownProps) => {
             boxClass="w-full top-[5.2rem]"
             contClass="text-xs tablet:text-sm"
           >
-            <Dropdown.Item toggleDropdown={toggleDropdown} onClick={() => handleSelect('최신순')}>
+            <Dropdown.Item
+              toggleDropdown={toggleDropdown}
+              onClick={() => handleSelect('최신순')}
+            >
               최신순
             </Dropdown.Item>
-            <Dropdown.Item toggleDropdown={toggleDropdown} onClick={() => handleSelect('인기순')}>
+            <Dropdown.Item
+              toggleDropdown={toggleDropdown}
+              onClick={() => handleSelect('인기순')}
+            >
               인기순
             </Dropdown.Item>
           </Dropdown.Menu>
