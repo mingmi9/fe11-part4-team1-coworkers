@@ -51,7 +51,7 @@ const ArticleCard = ({ article, isBest = false }: ArticleCardProps) => {
 
   return (
     <div
-      className={`cursor-default relative w-full rounded-[1.2rem] border-background-tertiary bg-background-secondary p-[1.6rem] font-medium ${isBest ? 'border pt-[1rem] tablet:px-[2.4rem]' : 'pt-[2.4rem] tablet:border tablet:px-[3.2rem] tablet:py-[2.4rem]'}`}
+      className={`relative w-full cursor-default rounded-[1.2rem] border-background-tertiary bg-background-secondary p-[1.6rem] font-medium ${isBest ? 'border pt-[1rem] tablet:px-[2.4rem]' : 'pt-[2.4rem] tablet:border tablet:px-[3.2rem] tablet:py-[2.4rem]'}`}
     >
       {/* 베스트 표시 */}
       {isBest && (
@@ -62,7 +62,7 @@ const ArticleCard = ({ article, isBest = false }: ArticleCardProps) => {
       )}
 
       <div
-        className={`${isBest ? 'tablet:h-[10.4rem]' : 'tablet:h-[7.2rem]'} cursor-pointer flex h-[7.4rem] items-start justify-between`}
+        className={`${isBest ? 'tablet:h-[10.4rem]' : 'tablet:h-[7.2rem]'} flex h-[7.4rem] cursor-pointer items-start justify-between`}
       >
         <div className="flex w-full items-start justify-between">
           <div>
@@ -85,6 +85,7 @@ const ArticleCard = ({ article, isBest = false }: ArticleCardProps) => {
                 src={article.image}
                 alt="게시글 이미지"
                 fill
+                sizes="7.2rem"
                 className="bg-blue-50 object-cover"
               />
             </div>
@@ -125,7 +126,7 @@ const ArticleCard = ({ article, isBest = false }: ArticleCardProps) => {
           {/* 좋아요 */}
           <button
             onClick={handleLikeClick}
-            className={`flex items-center gap-[.4rem] ${subText} ${liked ? 'text-red-500' : 'text-text-secondary'}`}
+            className={`flex items-center gap-[.4rem] ${subText} ${liked ? 'text-red-500' : 'text-text-disabled'}`}
           >
             <Image
               src={liked ? likedImage : likeImage}

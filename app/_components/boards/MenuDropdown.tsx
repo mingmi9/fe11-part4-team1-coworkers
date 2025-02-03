@@ -1,3 +1,4 @@
+'use client';
 import Image from 'next/image';
 import Dropdown from '../common/Dropdown';
 import kebab from '@icons/kebab-small-button.svg';

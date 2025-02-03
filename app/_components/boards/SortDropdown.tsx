@@ -1,3 +1,4 @@
+'use client';
 import Image from 'next/image';
 import Dropdown from '@/_components/common/Dropdown';
 
