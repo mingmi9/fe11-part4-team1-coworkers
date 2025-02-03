@@ -131,26 +131,6 @@ const ArticleListPage = () => {
           글쓰기
         </Button>
       </div>
-
-      {/* <BestArticleCard
-        key={articles[0].id}
-        article={articles[0]}
-        onClickMenu={() =>
-          console.log('Menu clicked for best ' + articles[0].id)
-        }
-      /> */}
-      {/* <BestArticleList /> */}
-      {/* <div className="space-y-4">
-        {articles.map((article) => (
-          <ArticleCard
-            key={article.id}
-            article={article}
-            onClickMenu={() =>
-              console.log('Menu clicked for article ' + article.id)
-            }
-          />
-        ))}
-      </div> */}
     </div>
   );
 };
