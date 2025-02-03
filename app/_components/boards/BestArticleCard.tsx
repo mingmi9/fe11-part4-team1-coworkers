@@ -15,7 +15,7 @@ const BestArticleCard = ({ article }: BestArticleCardProps) => {
     liked: false,
     likeCount: article.likeCount,
   });
-  
+
   const handleLikeClick = () => {
     setLikeState((prev) => ({
       liked: !prev.liked,
@@ -49,24 +49,20 @@ const BestArticleCard = ({ article }: BestArticleCardProps) => {
             {/* 게시글 제목 */}
             <Card.Title>{article.title}</Card.Title>
             {/* 날짜 */}
-            <div
-              className={`mt-[1.2rem] tablet:mt-[2.8rem] ${subText}`}
-            >
-              <Card.Date date={article.createdAt}  />
+            <div className={`mt-[1.2rem] tablet:mt-[2.8rem] ${subText}`}>
+              <Card.Date date={article.createdAt} />
             </div>
           </div>
 
           {/* 게시글 이미지 */}
           {article.image && <Card.PreviewImage src={article.image} />}
         </div>
-
       </div>
 
       <div className="mt-[1.6rem] flex items-center justify-between tablet:mt-[2.4rem]">
         <div className="flex">
           {/* 프로필 */}
           <Card.Profile nickname={article.writer.nickname} />
-
         </div>
 
         <div className="flex items-center">
@@ -77,12 +73,11 @@ const BestArticleCard = ({ article }: BestArticleCardProps) => {
             liked={likeState.liked}
           />
           {/* 메뉴 */}
-            <MenuDropdown
-              onEdit={handleEdit}
-              onDelete={handleDelete}
-              menuPosition="top-[-8.6rem]"
-            />
-    
+          <MenuDropdown
+            onEdit={handleEdit}
+            onDelete={handleDelete}
+            menuPosition="top-[-8.6rem]"
+          />
         </div>
       </div>
     </div>
