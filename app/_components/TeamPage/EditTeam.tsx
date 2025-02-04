@@ -2,6 +2,7 @@ import { useState, useRef } from 'react';
 import Image from 'next/image';
 import Button from '../common/Button';
 import btn from '@icons/btn-size-small.svg';
+import Input from '../common/Input/Input';
 
 interface EditTeamProps {
   teamImg: string;
@@ -29,13 +30,15 @@ export default function EditTeam({ teamImg, teamName }: EditTeamProps) {
 
   return (
     <div>
-      <h1>팀 수정하기</h1>
-      <form>
-        <div>
+      <h1 className="mb-[6rem] mt-[14rem] flex justify-center text-[4rem]">
+        팀 수정하기
+      </h1>
+      <form className="flex flex-col gap-[2.4rem]">
+        <div className="flex flex-col gap-[0.8rem]">
           <div>팀 프로필</div>
           <div className="relative">
             <div
-              className="h-[6.4rem] w-[6.4rem] overflow-hidden rounded-full border border-border-primary/10 object-cover hover:brightness-75"
+              className="h-[6.4rem] w-[6.4rem] overflow-hidden rounded-full border-[0.3rem] border-border-primary/10 object-cover hover:brightness-75"
               onClick={handleImageClick}
               style={{ cursor: 'pointer', display: 'inline-block' }}
             >
@@ -55,11 +58,11 @@ export default function EditTeam({ teamImg, teamName }: EditTeamProps) {
             />
           </div>
         </div>
-        <div>
+        <div className="flex flex-col gap-[0.8rem]">
           <div>팀 이름</div>
           <div>
-            <input
-              className="bg-black text-text-primary"
+            <Input
+              className="h-[4rem] w-full"
               value={name}
               onChange={(e) => setName(e.target.value)}
               type="text"
@@ -68,6 +71,9 @@ export default function EditTeam({ teamImg, teamName }: EditTeamProps) {
         </div>
         <Button size="large">수정하기</Button>
       </form>
+      <div className="mt-[2rem] flex justify-center text-[1.4rem]">
+        팀 이름은 회사명이나 모임 이름등으로 설정하면 좋아요.
+      </div>
     </div>
   );
 }

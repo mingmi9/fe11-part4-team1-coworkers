@@ -27,7 +27,7 @@ export default function TodoListCard({
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
 
   const handleTaskList = () => {
-    router.push(`/team/${teamId}/taskList`);
+    router.push(`/team/${teamId}/task-list`);
   };
   const handleEdit = () => {
     setIsOpenEditModal(true);

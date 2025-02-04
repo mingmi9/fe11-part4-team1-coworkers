@@ -2,15 +2,23 @@ import team_Thumbnail from '@images/thumbnail_team.png';
 import gear from '@icons/gear.svg';
 import Image from 'next/image';
 import Dropdown from '../common/Dropdown';
+import { useRouter } from 'next/navigation';
 
 interface TeamHeaderProps {
   teamName: string;
+  teamId: string;
   isAdmin: boolean;
 }
 
-export default function TeamHeader({ teamName, isAdmin }: TeamHeaderProps) {
+export default function TeamHeader({
+  teamName,
+  teamId,
+  isAdmin,
+}: TeamHeaderProps) {
+  const router = useRouter();
+
   const handleEdit = () => {
-    console.log('수정하는 함수');
+    router.push(`/team/${teamId}/edit`);
   };
 
   return (

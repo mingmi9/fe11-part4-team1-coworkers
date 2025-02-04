@@ -92,7 +92,11 @@ export default function TeamPage() {
 
   return (
     <div className="mx-auto mt-[3rem] flex h-full flex-col items-center gap-[3rem] mobile:w-[34.3rem] tablet:w-[69.6rem] pc:w-[120rem]">
-      <TeamHeader teamName={teamname} isAdmin={isAdmin} />
+      <TeamHeader
+        teamName={teamname}
+        teamId={teamid as string}
+        isAdmin={isAdmin}
+      />
       <TodoListSection tasks={taskMockData} teamId={teamid as string} />
       {isAdmin && (
         <ReportSection
