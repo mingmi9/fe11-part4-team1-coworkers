@@ -1,7 +1,6 @@
 'use client';
 
 import Button from '@/_components/common/Button';
-import EditTeam from '@/_components/TeamPage/EditTeam';
 import MemberSection from '@/_components/TeamPage/MemberSection';
 import ReportSection from '@/_components/TeamPage/ReportSection';
 import TeamHeader from '@/_components/TeamPage/TeamHeader';
@@ -76,7 +75,6 @@ const taskMockData = [
 ];
 
 const teamname = '경영관리팀';
-const teamImg = 'https://picsum.photos/200/300';
 
 export default function TeamPage() {
   const { teamid } = useParams();
@@ -104,7 +102,6 @@ export default function TeamPage() {
       )}
       <MemberSection member={mockData} isAdmin={isAdmin} />
       <Button onClick={handleAdmin}>관리자 모드</Button>
-      {/* <EditTeam teamName={teamname} teamImg={teamImg} /> */}
     </div>
   );
 }
