@@ -39,11 +39,17 @@ const PasswordInput: React.FC<PasswordInputProps> = ({
           <button
             type="button"
             onClick={togglePasswordVisibility}
-            className="w-6 h-6 flex items-center justify-center"
-            aria-label={isPasswordVisible ? '비밀번호 숨기기' : '비밀번호 보이기'}
+            className="flex h-[2.4rem] w-[2.4rem] items-center justify-center"
+            aria-label={
+              isPasswordVisible ? '비밀번호 숨기기' : '비밀번호 보이기'
+            }
           >
             <Image
-              src={isPasswordVisible ? '/icons/visibility_off.svg' : '/icons/visibility_on.svg'}
+              src={
+                isPasswordVisible
+                  ? '/icons/visibility_off.svg'
+                  : '/icons/visibility_on.svg'
+              }
               alt={isPasswordVisible ? '비밀번호 숨기기' : '비밀번호 보이기'}
               width={20}
               height={20}
@@ -54,21 +60,12 @@ const PasswordInput: React.FC<PasswordInputProps> = ({
       />
       {/* 에러 메시지 표시 */}
       {error && errorMessage && (
-        <p className="text-status-danger text-sm mt-1">{errorMessage}</p>
+        <p className="mt-[1.6rem] text-[1.4rem] text-status-danger">
+          {errorMessage}
+        </p>
       )}
     </div>
   );
 };
 
 export default PasswordInput;
-
-
-
-
-
-
-
-
-
-
-
