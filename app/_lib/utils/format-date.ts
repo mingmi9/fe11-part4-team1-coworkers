@@ -1,5 +1,7 @@
-import dayjs from "dayjs";
+import dayjs from 'dayjs';
+import 'dayjs/locale/ko';
 
+dayjs.locale('ko');
 /* 사용 예시
 첫 번쨰 인자 : 변환할 데이터
 두 번쨰 인자 : 변환할 포맷
