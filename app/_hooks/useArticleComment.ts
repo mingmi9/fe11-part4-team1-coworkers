@@ -3,7 +3,7 @@ import {
   deleteArticleComment,
   getArticleComment,
   updateArticleComment,
-} from '@lib/api/Article-comment-api';
+} from '@lib/api/article-comment-api';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export const useArticleComment = (options = {}) => {
