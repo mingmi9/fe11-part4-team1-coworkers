@@ -5,7 +5,7 @@ import Dropdown from '@/_components/common/Dropdown';
 
 import { formatDate } from '@/_lib/utils/format-date';
 
-const TaskCard = (/*currentListId, today*/) => {
+const TaskCard = (/*{ id, date, recurringId, frequency }*/) => {
   const mockTaskData = {
     doneBy: {
       user: {
