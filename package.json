@@ -6,31 +6,58 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@radix-ui/react-popover": "^1.1.5",
+    "@radix-ui/react-slot": "^1.1.1",
     "@tanstack/react-query": "^5.64.1",
     "axios": "^1.7.9",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "date-fns": "^3.6.0",
+    "classnames": "^2.5.1",
     "dayjs": "^1.11.13",
     "lodash": "^4.17.21",
     "lodash.debounce": "^4.0.8",
+    "lucide-react": "^0.473.0",
     "next": "15.1.4",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "react": "^18.2.0",
+    "react-day-picker": "^8.10.1",
+    "react-dom": "^18.2.0",
+    "tailwind-merge": "^2.6.0",
+    "tailwindcss-animate": "^1.0.7",
     "zustand": "^5.0.3"
   },
   "devDependencies": {
+    "@chromatic-com/storybook": "^3.2.4",
     "@eslint/eslintrc": "^3",
+    "@storybook/addon-essentials": "^8.5.2",
+    "@storybook/addon-interactions": "^8.5.2",
+    "@storybook/addon-onboarding": "^8.5.2",
+    "@storybook/blocks": "^8.5.2",
+    "@storybook/nextjs": "^8.5.2",
+    "@storybook/react": "^8.5.2",
+    "@storybook/test": "^8.5.2",
     "@types/lodash.debounce": "^4.0.9",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.1.4",
+    "eslint-plugin-storybook": "^0.11.2",
     "postcss": "^8",
     "prettier": "^3.4.2",
     "prettier-plugin-tailwindcss": "^0.6.10",
+    "storybook": "^8.5.2",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
+  },
+  "eslintConfig": {
+    "extends": [
+      "plugin:storybook/recommended"
+    ]
   }
 }
