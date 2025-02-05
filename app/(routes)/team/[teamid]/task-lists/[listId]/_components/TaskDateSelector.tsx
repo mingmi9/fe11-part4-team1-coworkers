@@ -14,10 +14,19 @@ import {
 import arrowLeft from '@icons/arrow-left.svg';
 import arrowRight from '@icons/arrow-right.svg';
 import calendar from '@icons/icon_calendar.svg';
+import Link from 'next/link';
 
-const DateSelector = (/*today*/) => {
+interface TaskDateSelectorProps {
+  currentDate: Date;
+  currentTeamId: number;
+}
+
+const TaskDateSelector = ({
+  currentDate,
+  currentTeamId,
+}: TaskDateSelectorProps) => {
   const [selectedDate, setSelectedDate] = useState<Date>(
-    new Date() /*new Date*() 삭제 후 today추가*/,
+    new Date() /*new Date*() 삭제 후 currentDate추가*/,
   );
   const [popoverOpen, setPopoverOpen] = useState<boolean>(false);
 
@@ -30,8 +39,9 @@ const DateSelector = (/*today*/) => {
       return newDate;
     });
   };
-  const handlePrevDate = () => handleDateChange('prev');
-  const handleNextDate = () => handleDateChange('next');
+
+  const stringifiedPrevDate = handleDateChange('prev');
+  const stringifiedNextDate = handleDateChange('next');
 
   const handleDateSelect = (date: Date | undefined) => {
     if (date) {
@@ -43,23 +53,25 @@ const DateSelector = (/*today*/) => {
   };
 
   return (
-    <div className="flex items-center justify-between">
+    <nav className="flex items-center justify-between">
       <div className="flex items-center gap-2">
-        <button
+        <Link
+          href={`?date=${stringifiedPrevDate}`}
           className="flex size-[2rem] items-center justify-center rounded-full bg-background-secondary pc:size-[2.4rem]"
-          onClick={handlePrevDate}
         >
           <Image src={arrowLeft} alt="이전 날짜" />
-        </button>
-        <h2 className="w-[11rem] text-center font-medium pc:w-[13rem] pc:text-[2rem]">
+        </Link>
+        <time className="w-[11rem] text-center font-medium pc:w-[13rem] pc:text-[2rem]">
           {formatDate(selectedDate.toISOString(), 'M월 D일 (ddd)')}
-        </h2>
-        <button
+        </time>
+
+        <Link
+          href={`?date=${stringifiedNextDate}`}
           className="flex size-[2rem] items-center justify-center rounded-full bg-background-secondary pc:size-[2.4rem]"
-          onClick={handleNextDate}
         >
           <Image src={arrowRight} alt="다음 날짜" />
-        </button>
+        </Link>
+
         <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
           <PopoverTrigger asChild>
             <button className="flex size-10 items-center justify-center rounded-full hover:bg-background-tertiary">
@@ -83,8 +95,8 @@ const DateSelector = (/*today*/) => {
       <div className="cursor-pointer">
         <span className="text-brand-primary">+ 새로운 목록 추가하기</span>
       </div>
-    </div>
+    </nav>
   );
 };
 
-export default DateSelector;
+export default TaskDateSelector;
