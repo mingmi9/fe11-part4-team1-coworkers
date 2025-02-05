@@ -1,5 +1,5 @@
 import Header from '@/_components/layout/Header';
-import './globals.css';
+import './_styles/globals.css';
 import { Metadata } from 'next';
 import QueryProvider from './_lib/QueryProvider';
 
