@@ -1,30 +1,36 @@
-import DateSelector from '@/(routes)/task-list/_components/DateSelector';
-import TaskListNav from '@/(routes)/task-list/_components/TaskListNav';
-import TaskSection from '@/(routes)/task-list/_components/TaskSection';
+import TaskDateSelector from '@/(routes)/team/[teamid]/task-lists/[listId]/_components/TaskDateSelector';
+import TaskListNav from '@/(routes)/team/[teamid]/task-lists/[listId]/_components/TaskListNav';
+import TaskSection from '@/(routes)/team/[teamid]/task-lists/[listId]/_components/TaskSection';
 
 interface TaskListPageProps {
   params: {
-    groupId: string;
+    teamId: string;
     listId: string;
   };
+
   searchParams: {
     date: string;
   };
 }
 
 const TaskListPage = ({ params, searchParams }: TaskListPageProps) => {
-  const currentGroupId = Number(params.groupId);
+  // 기존 teamid였던 경로를 teamId로 변경해야 함
+  const currentTeamId = Number(params.teamId);
   const currentListId = Number(params.listId);
   const currentDate = new Date(searchParams.date);
 
   return (
     <div className="h-screen bg-background-primary px-[3.2rem] py-[2.4rem] pc:px-[16vw]">
       <div className="mb-[1.6rem] flex flex-col gap-[1.6rem]">
-        <DateSelector />
+        <TaskDateSelector
+          currentDate={currentDate}
+          currentTeamId={currentTeamId}
+        />
         <TaskListNav />
       </div>
+
       <TaskSection
-        currentGroupId={currentGroupId}
+        currentTeamId={currentTeamId}
         currentDate={currentDate}
         currentListId={currentListId}
       />
