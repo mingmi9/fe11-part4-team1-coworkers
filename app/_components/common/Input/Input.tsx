@@ -1,7 +1,7 @@
 import React, { InputHTMLAttributes, useId, useState } from 'react';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-  label: string;
+  label?: string;
   error?: boolean;
   errorMessage?: string;
   isAllowSpace?: boolean;
@@ -24,7 +24,9 @@ const Input: React.FC<InputProps> = ({
 }) => {
   const generatedId = useId();
   const inputId = id || generatedId;
-  const [internalError, setInternalError] = useState<string | undefined>(undefined);
+  const [internalError, setInternalError] = useState<string | undefined>(
+    undefined,
+  );
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let newValue = e.target.value;
@@ -58,7 +60,7 @@ const Input: React.FC<InputProps> = ({
   const finalErrorMessage = externalErrorMessage ?? internalError;
 
   return (
-    <div className="flex flex-col mb-4 relative">
+    <div className="relative mb-4 flex flex-col">
       <label htmlFor={inputId} className="mb-2">
         {label}
       </label>
@@ -70,17 +72,12 @@ const Input: React.FC<InputProps> = ({
           value={value}
           onChange={handleChange}
           placeholder={placeholder}
-          className={`text-text-primary border-none
-            ${finalError ? 'border-status-danger focus:ring-status-danger' : 'border-border-primary focus:ring-interaction-hover'}
-            bg-background-secondary rounded-xl px-2.5 focus:outline-none focus:ring-2 
-            placeholder:text-text-default w-full max-w-[28.75rem] h-[2.8125rem] lg:h-[3rem] 
-            text-[1rem] lg:text-[1.125rem] ${rightIcon ? 'pr-12' : ''} // 오른쪽 아이콘 공간 확보
-          `}
+          className={`border-none text-text-primary ${finalError ? 'border-status-danger focus:ring-status-danger' : 'border-border-primary focus:ring-interaction-hover'} lg:h-[3rem] lg:text-[1.125rem] h-[2.8125rem] w-full max-w-[28.75rem] rounded-xl bg-background-secondary px-2.5 text-[1rem] placeholder:text-text-default focus:outline-none focus:ring-2 ${rightIcon ? 'pr-12' : ''} // 오른쪽 아이콘 공간 확보`}
         />
-        
+
         {/* 오른쪽 아이콘 */}
         {rightIcon && (
-          <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
+          <div className="absolute right-4 top-1/2 -translate-y-1/2 transform">
             {rightIcon}
           </div>
         )}
@@ -88,27 +85,12 @@ const Input: React.FC<InputProps> = ({
 
       {/* 에러 메시지 */}
       {finalError && finalErrorMessage && (
-        <span className="text-status-danger text-sm mt-1">{finalErrorMessage}</span>
+        <span className="mt-1 text-sm text-status-danger">
+          {finalErrorMessage}
+        </span>
       )}
     </div>
   );
 };
 
 export default Input;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
