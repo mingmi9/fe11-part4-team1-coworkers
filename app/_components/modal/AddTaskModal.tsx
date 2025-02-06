@@ -7,6 +7,7 @@ import Dropdown from '../common/Dropdown';
 import ToggleBtn from '@icons/toggle.svg';
 import Image from 'next/image';
 import CalendarInModal from './CalendarInModal';
+import Input from '../common/Input/Input';
 
 export default function AddTaskModal() {
   const [isOpenModal, setIsOpenModal] = useState(false);
@@ -57,15 +58,14 @@ export default function AddTaskModal() {
           </p>
         </div>
         <div className="mb-[3.2rem] flex flex-col gap-[2.4rem]">
-          <div className="flex flex-col items-start gap-[1.6rem]">
+          <div className="flex flex-col items-start gap-[0.8rem]">
             <span className="text-[1.6rem] font-medium leading-[1.9rem]">
               할 일 제목
             </span>
-            {/*추후 input 컴포넌트로 변경*/}
-            <input
+            <Input
               placeholder="할 일 제목을 입력해주세요."
-              className="h-[4.8rem] w-[33.6rem] rounded-[1.2rem] border-[0.1rem] border-border-primary bg-background-secondary p-[1.6rem] text-[1.6rem] font-normal leading-[1.9rem] text-text-primary placeholder:text-[1.6rem] placeholder:font-normal placeholder:leading-[1.9rem] placeholder:text-text-default"
-            ></input>
+              className="w-[33.6rem]"
+            />
           </div>
           <div className="flex flex-col items-start gap-[1.6rem]">
             <span className="text-[1.6rem] font-medium leading-[1.9rem]">
@@ -147,15 +147,11 @@ export default function AddTaskModal() {
               )}
             </div>
           </div>
-          <div className="flex flex-col items-start gap-[1.6rem]">
+          <div className="flex flex-col items-start gap-[0.8rem]">
             <span className="text-[1.6rem] font-medium leading-[1.9rem]">
               할 일 메모
             </span>
-            {/*추후 input 컴포넌트로 변경*/}
-            <input
-              placeholder="메모를 입력해주세요."
-              className="h-[7.5rem] w-[33.6rem] rounded-[1.2rem] border-[0.1rem] border-border-primary bg-background-secondary p-[1.6rem] text-start text-[1.6rem] font-normal leading-[1.9rem] text-text-primary placeholder:text-[1.6rem] placeholder:font-normal placeholder:leading-[1.9rem] placeholder:text-text-default"
-            ></input>
+            <Input placeholder="메모를 입력해주세요." className="w-[33.6rem]" />
           </div>
         </div>
         <div className="mb-[3.2rem]">

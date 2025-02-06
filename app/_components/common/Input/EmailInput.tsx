@@ -17,7 +17,9 @@ const EmailInput: React.FC<EmailInputProps> = ({
   error: externalError,
   errorMessage: externalErrorMessage,
 }) => {
-  const [internalError, setInternalError] = useState<string | undefined>(undefined);
+  const [internalError, setInternalError] = useState<string | undefined>(
+    undefined,
+  );
 
   // 기본 이메일 유효성 검사
   const validateEmail = (email: string) => {
@@ -44,7 +46,7 @@ const EmailInput: React.FC<EmailInputProps> = ({
   const finalErrorMessage = externalErrorMessage ?? internalError;
 
   return (
-    <div className="flex flex-col mb-4">
+    <div className="mb-[1.6rem] flex flex-col">
       <Input
         label={label}
         value={value}
@@ -60,7 +62,3 @@ const EmailInput: React.FC<EmailInputProps> = ({
 };
 
 export default EmailInput;
-
-
-
-

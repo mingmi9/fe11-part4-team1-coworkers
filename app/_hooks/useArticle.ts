@@ -4,7 +4,7 @@ import {
   getArticles,
   getArticlesById,
   updateArticle,
-} from '@/_lib/api/Article-api';
+} from '@/_lib/api/article-api';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export const useArticle = (options = {}) => {
