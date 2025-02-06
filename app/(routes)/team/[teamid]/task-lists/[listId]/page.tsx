@@ -26,7 +26,11 @@ const TaskListPage = ({ params, searchParams }: TaskListPageProps) => {
           currentDate={currentDate}
           currentTeamId={currentTeamId}
         />
-        <TaskListNav />
+        <TaskListNav
+          currentTeamId={currentTeamId}
+          currentListId={currentListId}
+          currentDate={currentDate}
+        />
       </div>
 
       <TaskSection
