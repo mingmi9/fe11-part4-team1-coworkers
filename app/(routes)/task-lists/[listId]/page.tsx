@@ -1,6 +1,6 @@
-import TaskDateSelector from '@/(routes)/team/[teamid]/task-lists/[listId]/_components/TaskDateSelector';
-import TaskListNav from '@/(routes)/team/[teamid]/task-lists/[listId]/_components/TaskListNav';
-import TaskSection from '@/(routes)/team/[teamid]/task-lists/[listId]/_components/TaskSection';
+import TaskDateSelector from '@/(routes)/task-lists/[listId]/_components/TaskDateSelector';
+import TaskListNav from '@/(routes)/task-lists/[listId]/_components/TaskListNav';
+import TaskSection from '@/(routes)/task-lists/[listId]/_components/TaskSection';
 
 interface TaskListPageProps {
   params: {
