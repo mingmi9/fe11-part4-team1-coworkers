@@ -2,23 +2,27 @@ import team_Thumbnail from '@images/thumbnail_team.png';
 import gear from '@icons/gear.svg';
 import Image from 'next/image';
 import Dropdown from '../common/Dropdown';
+import { useRouter } from 'next/navigation';
 
 interface TeamHeaderProps {
   teamName: string;
+  teamId: string;
   isAdmin: boolean;
 }
 
-export default function TeamHeader({ teamName, isAdmin }: TeamHeaderProps) {
-  const handleEdit = () => {
-    console.log('수정하는 함수');
-  };
+export default function TeamHeader({
+  teamName,
+  teamId,
+  isAdmin,
+}: TeamHeaderProps) {
+  const router = useRouter();
 
-  const handleDelete = () => {
-    console.log('삭제하는 함수');
+  const handleEdit = () => {
+    router.push(`/team/${teamId}/edit`);
   };
 
   return (
-    <div className="border-border-primary/10 relative flex h-[6.4rem] w-full items-center justify-between rounded-[1.2rem] border-[0.1rem] bg-background-secondary px-[2.4rem] py-[2rem]">
+    <div className="relative flex h-[6.4rem] w-full items-center justify-between rounded-[1.2rem] border-[0.1rem] border-border-primary/10 bg-background-secondary px-[2.4rem] py-[2rem]">
       <div className="z-10 text-[2rem] font-bold text-text-inverse">
         {teamName}
       </div>
@@ -41,13 +45,6 @@ export default function TeamHeader({ teamName, isAdmin }: TeamHeaderProps) {
                     className="justify-center"
                   >
                     수정하기
-                  </Dropdown.Item>
-                  <Dropdown.Item
-                    toggleDropdown={toggleDropdown}
-                    onClick={handleDelete}
-                    className="justify-center"
-                  >
-                    삭제하기
                   </Dropdown.Item>
                 </Dropdown.Menu>
               </>

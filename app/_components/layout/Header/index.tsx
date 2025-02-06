@@ -6,9 +6,9 @@ import GnbButton from '@/_components/layout/Header/GnbButton';
 
 const Header: React.FC = () => {
   return (
-    <header className="sticky top-0 z-10 w-full h-[6rem] bg-background-secondary flex items-center justify-between px-[1.6rem] tablet:px-[3.2rem] pc:px-[16vw]">
+    <header className="sticky top-0 z-20 flex h-[6rem] w-full items-center justify-between bg-background-secondary px-[1.6rem] tablet:px-[3.2rem] pc:px-[16vw]">
       <div className="flex items-center justify-between">
-        <div className="tablet:hidden mr-[1.6rem]">
+        <div className="mr-[1.6rem] tablet:hidden">
           <GnbButton />
         </div>
         <Link href="/" aria-label="홈으로 이동">
@@ -22,18 +22,18 @@ const Header: React.FC = () => {
             className="cursor-pointer tablet:mr-[3.2rem]"
           />
         </Link>
-        <nav 
-          className="items-center justify-center tablet:gap-[3.2rem] text-text-primary text-[1.6rem] font-medium hidden tablet:flex"
+        <nav
+          className="hidden items-center justify-center text-[1.6rem] font-medium text-text-primary tablet:flex tablet:gap-[3.2rem]"
           aria-label="메인 네비게이션"
         >
           <TeamSelector />
-          <Link href="/board">
+          <Link href="/boards">
             <span>자유 게시판</span>
           </Link>
         </nav>
       </div>
 
-      <UserAccount />  
+      <UserAccount />
     </header>
   );
 };

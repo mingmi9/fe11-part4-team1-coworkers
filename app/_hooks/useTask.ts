@@ -6,7 +6,7 @@ import {
   getTasksByDate,
   updateTask,
   updateTaskOrder,
-} from '@lib/api/task-api';
+} from '@/_lib/api/task-api';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export const useTask = (groupId: number, taskListId: number, options = {}) => {

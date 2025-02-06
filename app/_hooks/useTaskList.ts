@@ -4,17 +4,23 @@ import {
   getTaskList,
   updateTaskList,
   updateTaskListOrder,
-} from '@lib/api/tasklist-api';
+} from '@/_lib/api/tasklist-api';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useOptimisticUpdate } from './useOptimisticUpdate';
 
-export const useTaskList = (groupId: number, id: number, options = {}) => {
+export const useTaskList = (
+  groupId: number,
+  id: number,
+  currentDate: Date,
+  options = {},
+) => {
   const queryClient = useQueryClient();
+  const stringCurrentDate = currentDate.toISOString();
 
   // 할 일 목록 조회
   const useGetTaskList = useQuery({
-    queryKey: ['taskList', groupId, id],
-    queryFn: () => getTaskList(groupId, id, ''),
+    queryKey: ['taskList', groupId, id, stringCurrentDate],
+    queryFn: () => getTaskList(groupId, id, stringCurrentDate),
     ...options,
   });
 
