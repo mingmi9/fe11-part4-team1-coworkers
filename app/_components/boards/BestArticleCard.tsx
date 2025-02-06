@@ -69,7 +69,7 @@ const BestArticleCard = ({ article }: BestArticleCardProps) => {
           {/* 좋아요 */}
           <Card.LikeButton
             likeCount={likeState.likeCount}
-            onLikeClick={handleLikeClick}
+            onClick={handleLikeClick}
             liked={likeState.liked}
           />
           {/* 메뉴 */}
