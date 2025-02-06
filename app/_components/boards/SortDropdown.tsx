@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Dropdown from '@/_components/common/Dropdown';
 
 interface SortDropdownProps {
-  selectedOption: string;
+  selectedOption: 'recent' | 'like';
   onSelect: (value: string) => void;
 }
 
@@ -11,7 +11,10 @@ const SortDropdown = ({ selectedOption, onSelect }: SortDropdownProps) => {
   const handleSelect = (value: string) => {
     onSelect(value);
   };
-
+  const optionText = {
+    recent: '최신순',
+    like: '인기순',
+  };
   return (
     <Dropdown>
       {({ isOpen, toggleDropdown }) => (
@@ -22,7 +25,7 @@ const SortDropdown = ({ selectedOption, onSelect }: SortDropdownProps) => {
                 isOpen ? 'bg-background-tertiary' : 'bg-background-secondary'
               } flex w-[9.4rem] items-center justify-between rounded-[0.8rem] px-[1.4rem] py-[1rem] text-xs text-text-primary tablet:w-[12rem] tablet:rounded-[1.2rem] tablet:text-sm`}
             >
-              {selectedOption}
+              {optionText[selectedOption]}
               <Image
                 src="/icons/toggle.svg"
                 alt=""
@@ -39,13 +42,13 @@ const SortDropdown = ({ selectedOption, onSelect }: SortDropdownProps) => {
           >
             <Dropdown.Item
               toggleDropdown={toggleDropdown}
-              onClick={() => handleSelect('최신순')}
+              onClick={() => handleSelect('recent')}
             >
               최신순
             </Dropdown.Item>
             <Dropdown.Item
               toggleDropdown={toggleDropdown}
-              onClick={() => handleSelect('인기순')}
+              onClick={() => handleSelect('like')}
             >
               인기순
             </Dropdown.Item>
