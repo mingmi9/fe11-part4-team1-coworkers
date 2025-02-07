@@ -9,15 +9,18 @@ import Image from 'next/image';
 import CalendarInModal from './CalendarInModal';
 import Input from '../common/Input/Input';
 
-export default function AddTaskModal() {
-  const [isOpenModal, setIsOpenModal] = useState(false);
+export default function AddTaskModal({
+  isOpenModal,
+  handleCloseModal,
+}: {
+  isOpenModal: boolean;
+  handleCloseModal: () => void;
+}) {
   const [selectedOption, setSelectedOption] = useState('반복 안함');
   const [isOpenCalendar, setIsOpenCalendar] = useState(false);
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedDay, setSelectedDay] = useState<string[]>([]);
 
-  const handleOpenModal = () => setIsOpenModal(true);
-  const handleCloseModal = () => setIsOpenModal(false);
   const handleOpenCalendar = () => setIsOpenCalendar(true);
   const handleCloseCalendar = () => setIsOpenCalendar(false);
   const handleSelectDate = (date: string) => {
@@ -43,7 +46,6 @@ export default function AddTaskModal() {
 
   return (
     <div>
-      <button onClick={handleOpenModal}>할 일 만들기</button>
       <Modal isOpen={isOpenModal} onClose={handleCloseModal}>
         <Modal.CloseButton onClose={handleCloseModal} className="mr-[1.6rem]" />
         <div className="mb-[2.4rem] flex flex-col gap-[1.6rem]">
