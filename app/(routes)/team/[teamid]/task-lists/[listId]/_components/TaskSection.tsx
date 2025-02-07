@@ -1,6 +1,6 @@
 'use client';
 
-import { useTaskList } from '@/_hooks/useTaskList';
+import { useTask } from '@/_hooks/useTask';
 import TaskCard from '@/(routes)/team/[teamid]/task-lists/[listId]/_components/TaskCard';
 
 interface Task {
@@ -42,13 +42,11 @@ const TasksSection = ({
 }: TasksProps) => {
   // const stringCurrentDate = currentDate.toISOString();
   // useTaskList 훅에서 할 일 목록 조회용 훅(useGetTaskList) 사용
-  const { useGetTaskList } = useTaskList(
+  const { data: taskList } = useTask(
     currentTeamId,
     currentListId,
     currentDate,
-  );
-
-  const { data: taskList } = useGetTaskList;
+  ).useGetTaskByDate(currentDate.toISOString());
 
   if (!taskList) throw new Error('TaskList Data를 불러올 수 없습니다.');
   if (taskList.length === 0) return null;
