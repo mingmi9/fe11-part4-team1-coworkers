@@ -1,100 +1,112 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from '@/_components/common/Button';
 import Search from '@/_components/boards/Search';
 import BestArticleList from '@/_components/boards/BestArticleList';
 import ArticleCard from '@/_components/boards/ArticleCard';
 import SortDropdown from '@/_components/boards/SortDropdown';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { Article } from './type/Article';
+import { getArticles } from '@/_lib/api/article-api';
 
 const BoardsPage = () => {
   const handleButton = () => alert('글쓰기');
-  const [selectedOption, setSelectedOption] = useState<string>('최신순');
-  const handleSelect = (value: string) => {
-    setSelectedOption(value);
-    console.log('선택:', value);
+  const [articles, setArticles] = useState<Article[]>([]);
+  const [sortOrder, setSortOrder] = useState<'recent' | 'like'>('recent');
+  const [page, setPage] = useState<number>(1);
+  const [keyword, setKeyword] = useState<string>('');
+  const [hasMore, setHasMore] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const pageSize = 4;
+
+  const fetchArticles = async (
+    page = 1,
+    order: 'recent' | 'like' = 'recent',
+    searchKeyword = '',
+  ) => {
+    try {
+      setIsLoading(true);
+      const response = await getArticles({
+        page: page,
+        pageSize: pageSize,
+        orderBy: order,
+        keyword: searchKeyword,
+      });
+      console.log('리스폰스:', response);
+      const { list } = response;
+
+      if (page === 1) {
+        setArticles(list);
+      } else {
+        setArticles((prevArticles) => [
+          ...prevArticles,
+          ...list.filter(
+            (article: Article) =>
+              !prevArticles.some(
+                (prevArticle) => prevArticle.id === article.id,
+              ),
+          ),
+        ]);
+      }
+
+      if (list.length < pageSize) {
+        setHasMore(false);
+      } else {
+        setHasMore(true);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      setHasMore(false);
+    } finally {
+      setIsLoading(false);
+    }
   };
-  const articles = [
-    {
-      createdAt: '2025-01-23T19:18:29.982Z',
-      likeCount: 15,
-      writer: {
-        nickname: '김코딩',
-        id: 1,
-      },
-      image: '/images/kakaotalk.png',
-      title:
-        '게시글 제목입니다게시글 제목입니다게시글 제목입니다게시글 제목입니다게시글 제목입니다게시글 제목입니다게시글 제목입니다게시글 제목입니다.',
-      id: 1,
-    },
-    {
-      createdAt: '2025-01-23T19:18:29.982Z',
-      likeCount: 15,
-      writer: {
-        nickname: '김코딩3',
-        id: 2,
-      },
-      title: '게시글 제목입니다.',
-      id: 2,
-    },
-    {
-      createdAt: '2025-01-23T19:18:29.982Z',
-      likeCount: 15,
-      writer: {
-        nickname: '김코딩',
-        id: 3,
-      },
-      image: '/article-image.jpg',
-      title: '게시글 제목입니다.',
-      id: 3,
-    },
-    {
-      createdAt: '2025-01-22T19:18:29.982Z',
-      likeCount: 3,
-      writer: {
-        nickname: '김코딩',
-        id: 5,
-      },
-      image: '/article-image2.jpg',
-      title: '게시글 제목입니다.',
-      id: 5,
-    },
-    {
-      createdAt: '2025-01-22T19:18:29.982Z',
-      likeCount: 3,
-      writer: {
-        nickname: '김코딩4',
-        id: 6,
-      },
-      image: '/article-image2.jpg',
-      title: '게시글 제목입니다.',
-      id: 6,
-    },
-    {
-      createdAt: '2025-01-22T19:18:29.982Z',
-      likeCount: 3,
-      writer: {
-        nickname: '김코딩',
-        id: 7,
-      },
-      image: '/article-image2.jpg',
-      title: '게시글 제목입니다.',
-      id: 7,
-    },
-  ];
+
+  useEffect(() => {
+    setArticles([]);
+    setPage(1);
+    setHasMore(true);
+    fetchArticles(1, sortOrder, keyword);
+  }, [keyword, sortOrder]);
+
+  useEffect(() => {
+    if (page > 1) {
+      fetchArticles(page, sortOrder, keyword);
+    }
+  }, [page, sortOrder, keyword]);
+
+  // 정렬 순서
+  const handleSelect = (value: string) => {
+    if (value === 'recent' || value === 'like') {
+      setSortOrder(value);
+      setPage(1);
+    } else {
+      console.error('Invalid value:', value);
+    }
+  };
+  // 검색
+  const handleSearchChange = (searchKeyword: string) => {
+    setKeyword(searchKeyword);
+    setPage(1);
+  };
+   // 검색 결과 없음
+   const searchNoResults = keyword && articles.length === 0 && !isLoading;
 
   return (
     <div className="relative pt-[3.2rem] tablet:pt-[4rem]">
       <h2 className="text-lg font-bold tablet:text-2xl">자유게시판</h2>
       <div className="my-[2.4rem] tablet:my-[3.2rem] pc:my-[4rem]">
-        <Search />
+        <Search onChange={handleSearchChange} />
       </div>
 
-      <h3 className="mb-[2.4rem] font-medium tablet:mb-[4rem] tablet:text-xl tablet:font-semibold">
-        베스트 게시글
-      </h3>
-      <div>
-        <BestArticleList />
-      </div>
+      {!keyword && (
+        <div>
+          <h3 className="mb-[2.4rem] font-medium tablet:mb-[4rem] tablet:text-xl tablet:font-semibold">
+            베스트 게시글
+          </h3>
+          <BestArticleList />
+        </div>
+      )}
 
       <div className="my-[3.2rem] h-[1px] w-full bg-text-primary opacity-[10%] tablet:my-[4rem]"></div>
 
@@ -103,26 +115,35 @@ const BoardsPage = () => {
           게시글
         </h3>
         <div>
-          <SortDropdown
-            selectedOption={selectedOption}
-            onSelect={handleSelect}
-          />
+          <SortDropdown selectedOption={sortOrder} onSelect={handleSelect} />
         </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-[1.6rem] tablet:gap-[2.4rem] tablet:gap-x-[2rem] pc:grid-cols-2">
-        {articles.map((article) => (
-          <ArticleCard key={article.id} article={article} />
-        ))}
-      </div>
+      {searchNoResults && (
+        <div className="p-[1.6rem] tablet:py-[2rem] text-center tablet:text-lg text-text-disabled">
+          검색 결과가 없습니다.
+        </div>
+      )}
+
+      <InfiniteScroll
+        dataLength={articles.length}
+        next={() => setPage((prevPage) => prevPage + 1)}
+        hasMore={hasMore}
+        loader={<div>Loading...</div>}
+      >
+        <div className="grid grid-cols-1 gap-[1.6rem] tablet:gap-[2.4rem] tablet:gap-x-[2rem] pc:grid-cols-2">
+          {articles.map((article) => (
+            <ArticleCard key={article.id} article={article} />
+          ))}
+        </div>
+      </InfiniteScroll>
 
       <div className="fixed bottom-[6.2rem] right-[1.6rem] tablet:bottom-[4.5rem] tablet:right-[2.4rem] pc:right-[6.5rem]">
         <Button
-          size="large"
           icon="plus"
           round="full"
           onClick={handleButton}
-          className="w-[10.4rem]"
+          className="w-[10.4rem] text-[1.5rem]"
         >
           글쓰기
         </Button>

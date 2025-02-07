@@ -5,9 +5,9 @@ export interface Writer {
 
 export interface Article {
   createdAt: string;
-  likeCount: number;
-  writer: Writer;
-  image?: string | null;
-  title: string;
   id: number;
+  title: string;
+  image?: string | null;
+  writer: Writer;
+  likeCount: number;
 }
