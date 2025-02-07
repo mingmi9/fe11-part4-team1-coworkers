@@ -24,16 +24,14 @@ const TaskListPage = ({ params, searchParams }: TaskListPageProps) => {
   const currentDate = new Date(searchParams.date);
 
   const [isOpenAddTaskModal, setIsOpenAddTaskModal] = useState(false);
+
   const [isOpenAddTaskListModal, setIsOpenAddTaskListModal] = useState(false);
 
   return (
     <div className="h-screen bg-background-primary px-[3.2rem] py-[2.4rem] pc:px-[16vw]">
       <div className="mb-[1.6rem] flex flex-col gap-[1.6rem]">
         <div className="flex items-center justify-between">
-          <TaskDateSelector
-            currentDate={currentDate}
-            currentTeamId={currentTeamId}
-          />
+          <TaskDateSelector currentDate={currentDate} />
           <button onClick={() => setIsOpenAddTaskListModal(true)}>
             <span className="text-brand-primary">+ 새로운 목록 추가하기</span>
           </button>
