@@ -1,7 +1,7 @@
 'use client';
 
 import { useTask } from '@/_hooks/useTask';
-import TaskCard from '@/(routes)/team/[teamid]/task-lists/[listId]/_components/TaskCard';
+import TaskCard from '@/(routes)/task-lists/[listId]/_components/TaskCard';
 
 interface Task {
   doneBy: {
