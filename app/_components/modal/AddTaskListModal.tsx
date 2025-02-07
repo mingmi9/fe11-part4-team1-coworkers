@@ -5,18 +5,18 @@ import Button from '../common/Button';
 import Input from '../common/Input/Input';
 
 interface AddTaskListModalProps {
-  isOpen: boolean;
-  onClose: () => void;
+  isOpenModal: boolean;
+  handleCloseModal: () => void;
 }
 
 export default function AddTaskListModal({
-  isOpen,
-  onClose,
+  isOpenModal,
+  handleCloseModal,
 }: AddTaskListModalProps) {
   return (
     <div>
-      <Modal isOpen={isOpen} onClose={onClose} className="">
-        <Modal.CloseButton onClose={onClose} className="mr-[1.6rem]" />
+      <Modal isOpen={isOpenModal} onClose={handleCloseModal} className="">
+        <Modal.CloseButton onClose={handleCloseModal} className="mr-[1.6rem]" />
         <div className="mb-[1.6rem] flex flex-col gap-[0.8rem]">
           <Modal.Title
             title="새로운 목록 추가"

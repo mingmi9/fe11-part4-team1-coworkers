@@ -18,16 +18,11 @@ import Link from 'next/link';
 
 interface TaskDateSelectorProps {
   currentDate: Date;
-  currentTeamId: number;
 }
 
-const TaskDateSelector = ({
-  currentDate,
-  currentTeamId,
-}: TaskDateSelectorProps) => {
-  const [selectedDate, setSelectedDate] = useState<Date>(
-    new Date() /*new Date*() 삭제 후 currentDate추가*/,
-  );
+const TaskDateSelector = ({ currentDate }: TaskDateSelectorProps) => {
+  const [selectedDate, setSelectedDate] = useState<Date>(currentDate);
+
   const [popoverOpen, setPopoverOpen] = useState<boolean>(false);
 
   const handleDateChange = (direction: 'prev' | 'next') => {
@@ -53,48 +48,43 @@ const TaskDateSelector = ({
   };
 
   return (
-    <nav className="flex items-center justify-between">
-      <div className="flex items-center gap-2">
-        <Link
-          href={`?date=${stringifiedPrevDate}`}
-          className="flex size-[2rem] items-center justify-center rounded-full bg-background-secondary pc:size-[2.4rem]"
-        >
-          <Image src={arrowLeft} alt="이전 날짜" />
-        </Link>
-        <time className="w-[11rem] text-center font-medium pc:w-[13rem] pc:text-[2rem]">
-          {formatDate(selectedDate.toISOString(), 'M월 D일 (ddd)')}
-        </time>
+    <nav className="flex items-center gap-2">
+      <Link
+        href={`?date=${stringifiedPrevDate}`}
+        className="flex size-[2rem] items-center justify-center rounded-full bg-background-secondary pc:size-[2.4rem]"
+      >
+        <Image src={arrowLeft} alt="이전 날짜" />
+      </Link>
+      <time className="w-[11rem] text-center font-medium pc:w-[13rem] pc:text-[2rem]">
+        {formatDate(selectedDate.toISOString(), 'M월 D일 (ddd)')}
+      </time>
 
-        <Link
-          href={`?date=${stringifiedNextDate}`}
-          className="flex size-[2rem] items-center justify-center rounded-full bg-background-secondary pc:size-[2.4rem]"
-        >
-          <Image src={arrowRight} alt="다음 날짜" />
-        </Link>
+      <Link
+        href={`?date=${stringifiedNextDate}`}
+        className="flex size-[2rem] items-center justify-center rounded-full bg-background-secondary pc:size-[2.4rem]"
+      >
+        <Image src={arrowRight} alt="다음 날짜" />
+      </Link>
 
-        <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
-          <PopoverTrigger asChild>
-            <button className="flex size-10 items-center justify-center rounded-full hover:bg-background-tertiary">
-              <Image src={calendar} alt="달력" className="size-6 pc:size-8" />
-            </button>
-          </PopoverTrigger>
-          <PopoverContent
-            className="w-auto rounded-xl border border-interaction-hover bg-background-secondary p-0 shadow-lg"
-            align="start"
-          >
-            <Calendar
-              mode="single"
-              selected={selectedDate}
-              onSelect={handleDateSelect}
-              initialFocus
-              className="text-text-primary"
-            />
-          </PopoverContent>
-        </Popover>
-      </div>
-      <div className="cursor-pointer">
-        <span className="text-brand-primary">+ 새로운 목록 추가하기</span>
-      </div>
+      <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
+        <PopoverTrigger asChild>
+          <button className="flex size-10 items-center justify-center rounded-full hover:bg-background-tertiary">
+            <Image src={calendar} alt="달력" className="size-6 pc:size-8" />
+          </button>
+        </PopoverTrigger>
+        <PopoverContent
+          className="w-auto rounded-xl border border-interaction-hover bg-background-secondary p-0 shadow-lg"
+          align="start"
+        >
+          <Calendar
+            mode="single"
+            selected={selectedDate}
+            onSelect={handleDateSelect}
+            initialFocus
+            className="text-text-primary"
+          />
+        </PopoverContent>
+      </Popover>
     </nav>
   );
 };

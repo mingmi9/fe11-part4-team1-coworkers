@@ -2,6 +2,7 @@ import TaskDateSelector from '@/(routes)/task-lists/[listId]/_components/TaskDat
 import TaskListNav from '@/(routes)/task-lists/[listId]/_components/TaskListNav';
 import TaskSection from '@/(routes)/task-lists/[listId]/_components/TaskSection';
 import Button from '@/_components/common/Button';
+import AddTaskListModal from '@/_components/modal/AddTaskListModal';
 import AddTaskModal from '@/_components/modal/AddTaskModal';
 import { useState } from 'react';
 
@@ -22,18 +23,21 @@ const TaskListPage = ({ params, searchParams }: TaskListPageProps) => {
   const currentListId = Number(params.listId);
   const currentDate = new Date(searchParams.date);
 
-  const [isOpenModal, setIsOpenModal] = useState(false);
-
-  const handleOpenModal = () => setIsOpenModal(true);
-  const handleCloseModal = () => setIsOpenModal(false);
+  const [isOpenAddTaskModal, setIsOpenAddTaskModal] = useState(false);
+  const [isOpenAddTaskListModal, setIsOpenAddTaskListModal] = useState(false);
 
   return (
     <div className="h-screen bg-background-primary px-[3.2rem] py-[2.4rem] pc:px-[16vw]">
       <div className="mb-[1.6rem] flex flex-col gap-[1.6rem]">
-        <TaskDateSelector
-          currentDate={currentDate}
-          currentTeamId={currentTeamId}
-        />
+        <div className="flex items-center justify-between">
+          <TaskDateSelector
+            currentDate={currentDate}
+            currentTeamId={currentTeamId}
+          />
+          <button onClick={() => setIsOpenAddTaskListModal(true)}>
+            <span className="text-brand-primary">+ 새로운 목록 추가하기</span>
+          </button>
+        </div>
         <TaskListNav />
       </div>
 
@@ -47,13 +51,19 @@ const TaskListPage = ({ params, searchParams }: TaskListPageProps) => {
         size="modal-medium"
         round="xl"
         className="mb-[3.2rem]"
-        onClick={handleOpenModal}
+        onClick={() => setIsOpenAddTaskModal(true)}
       >
         할 일 추가
       </Button>
+
+      {/* 모달들 */}
       <AddTaskModal
-        isOpenModal={isOpenModal}
-        handleCloseModal={handleCloseModal}
+        isOpenModal={isOpenAddTaskModal}
+        handleCloseModal={() => setIsOpenAddTaskModal(false)}
+      />
+      <AddTaskListModal
+        isOpenModal={isOpenAddTaskListModal}
+        handleCloseModal={() => setIsOpenAddTaskListModal(false)}
       />
     </div>
   );
