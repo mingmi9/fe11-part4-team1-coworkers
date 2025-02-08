@@ -6,6 +6,7 @@ interface PasswordInputProps {
   value: string; // 입력값 (비밀번호)
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void; // 입력값 변경 시 호출되는 함수
   placeholder?: string; // 입력 필드에 표시되는 플레이스홀더 텍스트
+  onBlur?: () => void;
   id?: string; // 입력 필드의 ID
   error?: boolean; // 에러 발생 여부
   errorMessage?: string; // 에러 메시지 (옵션)
@@ -15,6 +16,7 @@ const PasswordInput: React.FC<PasswordInputProps> = ({
   value,
   onChange,
   placeholder,
+  onBlur,
   id,
   error,
   errorMessage,
@@ -31,6 +33,7 @@ const PasswordInput: React.FC<PasswordInputProps> = ({
         label="비밀번호"
         value={value}
         onChange={onChange}
+        onBlur={onBlur}
         placeholder={placeholder}
         id={id}
         type={isPasswordVisible ? 'text' : 'password'}
