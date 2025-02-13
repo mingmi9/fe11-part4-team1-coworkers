@@ -73,6 +73,13 @@ export default {
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
       },
+      backgroundImage: {
+        'gradation-main': 'linear-gradient(90deg, #10B981 0%, #CEF57E 100%)',
+      },
+      boxShadow: {
+        'drop-shadow-white': '0rem 0rem 1.2rem 0.2rem #ffffff40',
+        'drop-shadow-black': '0rem 0rem 1.2rem 0.2rem #00000040',
+      },
     },
   },
   plugins: [animate],
