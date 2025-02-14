@@ -6,19 +6,19 @@ import AlertImg from '@icons/alert.svg';
 import Image from 'next/image';
 
 interface DeleteTaskModalProps {
-  isOpenModal: boolean;
+  isOpen: boolean;
   handleCloseModal: () => void;
   taskName: string;
 }
 
 export default function DeleteTaskModal({
-  isOpenModal,
+  isOpen,
   handleCloseModal,
   taskName,
 }: DeleteTaskModalProps) {
   return (
     <div>
-      <Modal isOpen={isOpenModal} onClose={handleCloseModal} className="">
+      <Modal isOpen={isOpen} onClose={handleCloseModal} className="">
         <div className="mt-[4rem] flex flex-col items-center justify-center gap-[1.6rem]">
           <Image src={AlertImg} alt="경고 아이콘" width={24} height={24} />
           <div className="mb-[2.4rem]">

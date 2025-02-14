@@ -96,8 +96,8 @@ export default function TodoListCard({
 
         <DeleteTaskModal
           isOpen={isOpenDeleteModal}
-          onClose={() => setIsOpenDeleteModal(false)}
-          task={taskList}
+          handleCloseModal={() => setIsOpenDeleteModal(false)}
+          taskName={taskList}
         />
       </div>
     </div>
