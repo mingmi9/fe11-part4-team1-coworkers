@@ -1,85 +1,34 @@
 'use client';
 import { useState, useEffect } from 'react';
-import useResize from '@/_hooks/useResize';
 import BestArticleCard from './BestArticleCard';
 import { Article } from '@/(routes)/boards/type/Article';
+import { getArticles } from '@/_lib/api/article-api';
 
 const BestArticleList = () => {
   const [bestArticle, setBestArticle] = useState<Article[]>([]);
-  const [visibleCount, setVisibleCount] = useState(3);
-  const screenType = useResize();
 
-  const fetchArticle = async () => {
-    // try {
-    //   const data = await getArticle({
-    //     page: 1,
-    //     pageSize: visibleCount,
-    //     orderBy: 'like',
-    //   });
-    //   const response = data.data;
-    //   setBestArticle(response.list);
-    // } catch (error) {
-    //   console.error(error);
-    // }
-    const data: Article[] = [
-      {
-        id: 1,
-        title: 'Top Article 1',
-        writer: { nickname: '나나', id: 1 },
-        createdAt: '2023-01-01T12:00:00Z',
-        likeCount: 15134350,
-        image: '/images/kakaotalk.png',
-      },
+  const fetchBestArticles = async () => {
+    try {
+      const response = await getArticles({
+        page: 1,
+        pageSize: 3,
+        orderBy: 'like',
+      });
+      const { list } = response;
+      setBestArticle(list);
+    } catch (error) {
+      console.error(error);
+    }
 
-      {
-        id: 2,
-        title: 'Top Article 2',
-        writer: { nickname: '도도', id: 2 },
-        createdAt: '2023-01-02T12:00:00Z',
-        likeCount: 120,
-        image: '/images/kakaotalk.png',
-      },
-
-      {
-        id: 3,
-        title: 'Top Article 3',
-        writer: { nickname: '바비', id: 3 },
-        createdAt: '2023-01-03T12:00:00Z',
-        likeCount: 100,
-        image: '/images/kakaotalk.png',
-      },
-
-      {
-        id: 4,
-        title: 'Top Article 4',
-        writer: { nickname: '바비', id: 4 },
-        createdAt: '2023-01-04T12:00:00Z',
-        likeCount: 90,
-        image: '/images/kakaotalk.png',
-      },
-    ];
-
-    setBestArticle(data);
   };
 
-  // 베스트 게시글 레이아웃
   useEffect(() => {
-    if (screenType === 'pc') {
-      setVisibleCount(3);
-    } else if (screenType === 'tablet') {
-      setVisibleCount(2);
-    } else if (screenType === 'mobile') {
-      setVisibleCount(1);
-    }
-  }, [screenType]);
-
-  useEffect(() => {
-    fetchArticle();
+    fetchBestArticles();
   }, []);
 
   return (
-    <div className="grid grid-cols-1 gap-[1.6rem] tablet:grid-cols-2 pc:grid-cols-3 pc:gap-[2rem]">
-      {bestArticle.slice(0, visibleCount).map((article) => (
+    <div className="grid grid-cols-1 gap-[1.6rem] tablet:grid-cols-2 pc:grid-cols-3 pc:gap-[2rem]  max-h-[18.5rem] tablet:max-h-[19.3rem] overflow-hidden">
+      {bestArticle.map((article) => (
         <BestArticleCard key={article.id} article={article} />
       ))}
     </div>

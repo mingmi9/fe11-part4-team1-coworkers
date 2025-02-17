@@ -51,17 +51,17 @@ export const Profile = ({ nickname }: { nickname: string }) => (
 
 export const LikeButton = ({
   likeCount,
-  onLikeClick,
   liked,
+  onClick,
 }: {
   likeCount: number;
-  onLikeClick: () => void;
   liked: boolean;
+  onClick: () => void;
 }) => {
   const displayedLikeCount = likeCount > 9999 ? '9999+' : likeCount;
   return (
     <button
-      onClick={onLikeClick}
+      onClick={onClick}
       className={classNames(
         'flex items-center gap-[.4rem] text-xs font-normal tablet:text-sm',
         { 'text-red-500': liked, 'text-text-disabled': !liked },

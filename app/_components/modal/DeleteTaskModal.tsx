@@ -6,23 +6,23 @@ import AlertImg from '@icons/alert.svg';
 import Image from 'next/image';
 
 interface DeleteTaskModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  task: string;
+  isOpenModal: boolean;
+  handleCloseModal: () => void;
+  taskName: string;
 }
 
 export default function DeleteTaskModal({
-  isOpen,
-  onClose,
-  task,
+  isOpenModal,
+  handleCloseModal,
+  taskName,
 }: DeleteTaskModalProps) {
   return (
     <div>
-      <Modal isOpen={isOpen} onClose={onClose} className="">
+      <Modal isOpen={isOpenModal} onClose={handleCloseModal} className="">
         <div className="mt-[4rem] flex flex-col items-center justify-center gap-[1.6rem]">
           <Image src={AlertImg} alt="경고 아이콘" width={24} height={24} />
           <div className="mb-[2.4rem]">
-            <Modal.Title title={`'${task}'`} className="flex flex-col" />
+            <Modal.Title title={`'${taskName}'`} className="flex flex-col" />
             <p className="mb-[0.8rem]">할 일을 정말 삭제하시겠어요?</p>
             <p className="text-[1.4rem] font-medium leading-[1.7rem] text-text-secondary">
               삭제 후에는 되돌릴 수 없습니다.
@@ -33,7 +33,7 @@ export default function DeleteTaskModal({
           <Button
             size="modal-small"
             variant="outlined_secondary"
-            onClick={onClose}
+            onClick={handleCloseModal}
           >
             닫기
           </Button>
