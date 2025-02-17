@@ -1,0 +1,23 @@
+# 회원가입 요청
+POST https://fe-project-cowokers.vercel.app/11-7/auth/signUp
+Content-Type: application/json
+Accept: application/json
+
+{
+  "email": "qqqq1111@test.com",
+  "nickname": "테스트닉네임",
+  "password": "Qwer1234!",
+  "passwordConfirmation": "Qwer1234!"
+}
+
+###
+
+POST https://fe-project-cowokers.vercel.app/11-7/auth/signIn
+Content-Type: application/json
+Accept: application/json
+
+#로그인
+{
+  "email": "qqqq1111@test.com",
+  "password": "Qwer1234!",
+}
