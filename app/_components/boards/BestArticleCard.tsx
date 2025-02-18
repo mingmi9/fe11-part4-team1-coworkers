@@ -1,55 +1,44 @@
 'use client';
-import { useState } from 'react';
-import MenuDropdown from './MenuDropdown';
-import { Article } from '@/(routes)/boards/type/Article';
+import { useEffect, useState } from 'react';
+import { Article } from '@/(routes)/boards/type/Boards';
 import Card from './Card';
 
 export interface BestArticleCardProps {
   article: Article;
-  onClickMenu?: () => void;
+  onArticleClick: () => void;
 }
 
-const BestArticleCard = ({ article }: BestArticleCardProps) => {
+const BestArticleCard = ({ article, onArticleClick }: BestArticleCardProps) => {
   // 좋아요
   const [likeState, setLikeState] = useState({
     liked: false,
-    likeCount: article.likeCount,
+    likeCount: 0,
   });
 
-  const handleLikeClick = () => {
-    setLikeState((prev) => ({
-      liked: !prev.liked,
-      likeCount: prev.liked ? prev.likeCount - 1 : prev.likeCount + 1,
-    }));
-  };
-
-  // 메뉴
-  const handleEdit = () => {
-    console.log('수정하기');
-  };
-
-  const handleDelete = () => {
-    console.log('삭제하기');
-  };
-
-  const subText = 'text-xs text-text-disabled font-normal tablet:text-sm';
+  useEffect(() => {
+    if (article) {
+      setLikeState({
+        liked: !!article.isLiked,
+        likeCount: article.likeCount,
+      });
+    }
+  }, [article]);
 
   return (
-    <div
-      className={`relative w-full cursor-default rounded-[1.2rem] border border-background-tertiary bg-background-secondary p-[1.6rem] pt-[1rem] font-medium tablet:px-[2.4rem]`}
-    >
+    <div className="relative w-full cursor-default rounded-[1.2rem] border border-background-tertiary bg-background-secondary p-[1.6rem] pt-[1rem] font-medium tablet:px-[2.4rem]">
       {/* 베스트 표시 */}
       <Card.Medal />
 
-      <div
-        className={`tablet:h-[10.4rem]flex h-[7.4rem] cursor-pointer items-start justify-between`}
-      >
-        <div className="flex w-full items-start justify-between">
+      <div className="tablet:h-[10.4rem]flex h-[7.4rem] cursor-pointer items-start justify-between">
+        <div
+          onClick={onArticleClick}
+          className="flex w-full items-start justify-between"
+        >
           <div>
             {/* 게시글 제목 */}
             <Card.Title>{article.title}</Card.Title>
             {/* 날짜 */}
-            <div className={`mt-[1.2rem] tablet:mt-[2.8rem] ${subText}`}>
+            <div className="mt-[1.2rem] tablet:mt-[2.8rem]">
               <Card.Date date={article.createdAt} />
             </div>
           </div>
@@ -65,20 +54,11 @@ const BestArticleCard = ({ article }: BestArticleCardProps) => {
           <Card.Profile nickname={article.writer.nickname} />
         </div>
 
-        <div className="flex items-center">
-          {/* 좋아요 */}
-          <Card.LikeButton
-            likeCount={likeState.likeCount}
-            onClick={handleLikeClick}
-            liked={likeState.liked}
-          />
-          {/* 메뉴 */}
-          <MenuDropdown
-            onEdit={handleEdit}
-            onDelete={handleDelete}
-            menuPosition="top-[-8.6rem]"
-          />
-        </div>
+        {/* 좋아요 */}
+        <Card.LikeButton
+          likeCount={likeState.likeCount}
+          liked={likeState.liked}
+        />
       </div>
     </div>
   );
