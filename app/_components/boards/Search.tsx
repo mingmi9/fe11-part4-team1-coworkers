@@ -11,12 +11,12 @@ const Search = ({ onChange }: SearchProps) => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    onChange(value);  
+    onChange(value);
   };
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setDebounce(debounce); 
+      setDebounce(debounce);
     }, 500);
 
     return () => clearTimeout(timer);
@@ -34,11 +34,10 @@ const Search = ({ onChange }: SearchProps) => {
         type="text"
         placeholder="검색어를 입력해주세요"
         className="w-full bg-transparent text-sm font-normal placeholder-text-default focus:outline-none tablet:text-base"
-        onChange={handleChange}  
+        onChange={handleChange}
       />
     </div>
   );
 };
 
 export default Search;
-

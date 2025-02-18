@@ -4,11 +4,11 @@ import Dropdown from '@/_components/common/Dropdown';
 
 interface SortDropdownProps {
   selectedOption: 'recent' | 'like';
-  onSelect: (value: string) => void;
+  onSelect: (value: 'recent' | 'like') => void;
 }
 
 const SortDropdown = ({ selectedOption, onSelect }: SortDropdownProps) => {
-  const handleSelect = (value: string) => {
+  const handleSelect = (value: 'recent' | 'like') => {
     onSelect(value);
   };
   const optionText = {
