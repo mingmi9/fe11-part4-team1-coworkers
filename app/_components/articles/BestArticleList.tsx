@@ -1,7 +1,7 @@
 'use client';
 import { useArticle } from '@/_hooks/useArticle';
 import BestArticleCard from './BestArticleCard';
-import { Article } from '@/(routes)/boards/type/Boards';
+import { Article } from '@/(routes)/articles/type/Articles';
 
 interface BestArticleListProps {
   onArticleClick: (articleId: number) => void;
@@ -22,7 +22,7 @@ const BestArticleList = ({ onArticleClick }: BestArticleListProps) => {
     return <div>Error</div>;
   }
   const bestArticle = data?.list || [];
-  
+
   return (
     <div className="grid max-h-[18.5rem] grid-cols-1 gap-[1.6rem] overflow-hidden tablet:max-h-[19.3rem] tablet:grid-cols-2 pc:grid-cols-3 pc:gap-[2rem]">
       {bestArticle.map((article: Article) => (

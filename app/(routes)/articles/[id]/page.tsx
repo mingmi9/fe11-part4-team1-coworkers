@@ -5,14 +5,14 @@ import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/_store/auth-store';
 import { useArticle } from '@/_hooks/useArticle';
 import { useArticleComment } from '@/_hooks/useArticleComment';
-import { Comment } from '../type/Boards';
-import Card from '@/_components/boards/Card';
+import { Comment } from '../type/Articles';
+import Card from '@/_components/articles/Card';
 import Button from '@/_components/common/Button';
-import CommentCard from '@/_components/boards/CommentCard';
-import MenuDropdown from '@/_components/boards/MenuDropdown';
+import CommentCard from '@/_components/articles/CommentCard';
+import MenuDropdown from '@/_components/articles/MenuDropdown';
 import { useLike } from '@/_hooks/useLike';
 
-const BoardDetailPage = () => {
+const ArticlePage = () => {
   const router = useRouter();
   const { isLoggedIn, user } = useAuthStore();
   const { id } = useParams();
@@ -32,7 +32,7 @@ const BoardDetailPage = () => {
 
   // 게시글 수정
   const handleEdit = () => {
-    router.push(`/boards/${id}/edit`);
+    router.push(`/articles/${id}/edit`);
   };
 
   // 게시글 삭제
@@ -47,7 +47,7 @@ const BoardDetailPage = () => {
     deleteArticle(Number(id), {
       onSuccess: () => {
         alert('게시글이 삭제되었습니다.');
-        router.push('/boards');
+        router.push('/articles');
       },
       onError: (error: Error) => {
         console.error('게시글 삭제 실패:', error);
@@ -242,7 +242,7 @@ const BoardDetailPage = () => {
         value={newComment}
         onChange={(e) => setNewComment(e.target.value)}
         placeholder="댓글을 입력해주세요."
-        className="my-[1.6rem] h-[10.4rem] w-full rounded-[1.2rem] border border-background-tertiary bg-background-secondary px-[1.6rem] py-[.8rem] text-sm placeholder-[#9CA3AF] focus:outline-none tablet:text-base"
+        className="my-[1.6rem] h-[10.4rem] w-full rounded-[1.2rem] border border-background-tertiary bg-background-secondary px-[1.6rem] py-[.8rem] text-sm placeholder-[#9CA3AF] focus:border-brand-primary focus:outline-none tablet:text-base"
       />
       <div className="flex justify-end">
         <Button
@@ -275,4 +275,4 @@ const BoardDetailPage = () => {
   );
 };
 
-export default BoardDetailPage;
+export default ArticlePage;

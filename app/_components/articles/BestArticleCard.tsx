@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { Article } from '@/(routes)/boards/type/Boards';
+import { Article } from '@/(routes)/articles/type/Articles';
 import Card from './Card';
 
 export interface BestArticleCardProps {

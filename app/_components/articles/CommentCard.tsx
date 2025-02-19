@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import MenuDropdown from './MenuDropdown';
-import { Comment } from '@/(routes)/boards/type/Boards';
+import { Comment } from '@/(routes)/articles/type/Articles';
 import Card from './Card';
 import { useAuthStore } from '@/_store/auth-store';
 import Button from '../common/Button';

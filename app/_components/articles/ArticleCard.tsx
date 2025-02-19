@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import MenuDropdown from './MenuDropdown';
-import { Article } from '@/(routes)/boards/type/Boards';
+import { Article } from '@/(routes)/articles/type/Articles';
 import Card from './Card';
 import { useAuthStore } from '@/_store/auth-store';
 import { useArticle } from '@/_hooks/useArticle';
@@ -42,7 +42,7 @@ const ArticleCard = ({
 
   // 메뉴
   const handleEdit = () => {
-    router.push(`/boards/${id}/edit`);
+    router.push(`/articles/${id}/edit`);
   };
 
   const handleDelete = () => {

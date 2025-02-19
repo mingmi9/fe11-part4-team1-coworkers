@@ -1,19 +1,19 @@
 'use client';
 import { useEffect, useState } from 'react';
 import Button from '@/_components/common/Button';
-import Search from '@/_components/boards/Search';
-import BestArticleList from '@/_components/boards/BestArticleList';
-import ArticleCard from '@/_components/boards/ArticleCard';
-import SortDropdown from '@/_components/boards/SortDropdown';
+import Search from '@/_components/articles/Search';
+import BestArticleList from '@/_components/articles/BestArticleList';
+import ArticleCard from '@/_components/articles/ArticleCard';
+import SortDropdown from '@/_components/articles/SortDropdown';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { Article } from './type/Boards';
+import { Article } from './type/Articles';
 import { useArticle } from '@/_hooks/useArticle';
-import { Divider } from '@/_components/boards/Card';
+import { Divider } from '@/_components/articles/Card';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/_store/auth-store';
 
 const pageSize = 6;
-const BoardsPage = () => {
+const ArticlesPage = () => {
   const { isLoggedIn } = useAuthStore();
   const router = useRouter();
   const [articles, setArticles] = useState<Article[]>([]);
@@ -74,12 +74,13 @@ const BoardsPage = () => {
 
   // 게시글 이동
   const handleCardClick = (articleId: number) => {
-    router.push(`/boards/${articleId}`);
+    router.push(`/articles/${articleId}`);
   };
 
-  const handleButton = () => {
-    router.push('/boards/create');
-  }
+  // 게시글 작성 페이지
+  const handleCreateClick = () => {
+    router.push('/articles/create');
+  };
 
   // 오류
   if (isError) {
@@ -143,7 +144,7 @@ const BoardsPage = () => {
           <Button
             icon="plus"
             round="full"
-            onClick={handleButton}
+            onClick={handleCreateClick}
             className="w-[10.4rem] text-[1.5rem]"
           >
             글쓰기
@@ -154,4 +155,4 @@ const BoardsPage = () => {
   );
 };
 
-export default BoardsPage;
+export default ArticlesPage;
