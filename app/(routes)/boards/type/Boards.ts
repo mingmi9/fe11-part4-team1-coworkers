@@ -15,7 +15,7 @@ export interface Article {
   commentCount?: number;
 }
 
-export interface Comment {
+export interface Comment { 
   writer: Writer;
   createdAt: string;
   content: string;
