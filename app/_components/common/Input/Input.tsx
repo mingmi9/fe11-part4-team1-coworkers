@@ -22,7 +22,7 @@ const Input: React.FC<InputProps> = ({
   isAllowSpace = true,
   rightIcon,
   onValidate, // 추가 유효성 검사 함수
-  className,
+  className = '',
 }) => {
   const generatedId = useId();
   const inputId = id || generatedId;
@@ -78,8 +78,10 @@ const Input: React.FC<InputProps> = ({
           value={inputValue}
           onChange={handleChange}
           placeholder={placeholder}
-          className={`${className} h-[4.8rem] max-w-[46rem] rounded-[1.2rem] border-[0.1rem] bg-background-secondary px-[1.6rem] text-[1.6rem] text-text-primary placeholder:text-text-default focus:border-brand-primary focus:outline-none ${finalError ? 'border-status-danger focus:border-status-danger' : 'border-border-primary focus:border-interaction-hover'} ${rightIcon ? 'pr-[4.8rem]' : ''} // 오른쪽 아이콘 공간 확보`}
-        />
+          className={`w-full rounded-[1.2rem] border-[0.1rem] bg-background-secondary px-[1.6rem] text-[1.6rem] text-text-primary placeholder:text-text-default focus:border-brand-primary focus:outline-none 
+            ${finalError ? 'border-status-danger focus:border-status-danger' : 'border-border-primary focus:border-interaction-hover'} 
+            ${rightIcon ? 'pr-[4.8rem]' : ''} 
+            ${className}`} />
 
         {/* 오른쪽 아이콘 */}
         {rightIcon && (
