@@ -1,16 +1,17 @@
 'use client';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import BestArticleList from '@/_components/articles/BestArticleList';
 import Button from '@/_components/common/Button';
 import Search from '@/_components/articles/Search';
-import BestArticleList from '@/_components/articles/BestArticleList';
 import ArticleCard from '@/_components/articles/ArticleCard';
 import SortDropdown from '@/_components/articles/SortDropdown';
+import { Divider } from '@/_components/articles/Card';
 import InfiniteScroll from 'react-infinite-scroll-component';
+
+import { useAuthStore } from '@/_store/auth-store';
 import { Article } from './type/Articles';
 import { useArticle } from '@/_hooks/useArticle';
-import { Divider } from '@/_components/articles/Card';
-import { useRouter } from 'next/navigation';
-import { useAuthStore } from '@/_store/auth-store';
 
 const pageSize = 6;
 const ArticlesPage = () => {
@@ -37,13 +38,7 @@ const ArticlesPage = () => {
       if (page === 1) {
         setArticles(list);
       } else {
-        setArticles((prevArticles) => {
-          const newArticles = list.filter(
-            (newArticle: Article) =>
-              !prevArticles.some((article) => article.id === newArticle.id),
-          );
-          return [...prevArticles, ...newArticles];
-        });
+         setArticles((prevArticles) => [...prevArticles, ...list]);
       }
       setHasMore(list.length === pageSize);
     }

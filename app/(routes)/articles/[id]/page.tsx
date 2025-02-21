@@ -1,15 +1,16 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
-import { useParams } from 'next/navigation';
-import { useRouter } from 'next/navigation';
-import { useAuthStore } from '@/_store/auth-store';
-import { useArticle } from '@/_hooks/useArticle';
-import { useArticleComment } from '@/_hooks/useArticleComment';
+import { useRouter, useParams } from 'next/navigation';
 import { Comment } from '../type/Articles';
 import Card from '@/_components/articles/Card';
 import Button from '@/_components/common/Button';
 import CommentCard from '@/_components/articles/CommentCard';
 import MenuDropdown from '@/_components/articles/MenuDropdown';
+import { commonInputClass } from '@/_components/articles/InputField';
+
+import { useAuthStore } from '@/_store/auth-store';
+import { useArticle } from '@/_hooks/useArticle';
+import { useArticleComment } from '@/_hooks/useArticleComment';
 import { useLike } from '@/_hooks/useLike';
 
 const ArticlePage = () => {
@@ -30,7 +31,7 @@ const ArticlePage = () => {
   // 게시글 상세 조회
   const { data: article, isLoading, isError } = useGetArticlesById(Number(id));
 
-  // 게시글 수정
+  // 게시글 수정페이지 이동
   const handleEdit = () => {
     router.push(`/articles/${id}/edit`);
   };
@@ -43,7 +44,7 @@ const ArticlePage = () => {
     if (!id) {
       return;
     }
-
+    if (window.confirm('정말 삭제하시겠습니까?')) {
     deleteArticle(Number(id), {
       onSuccess: () => {
         alert('게시글이 삭제되었습니다.');
@@ -54,6 +55,7 @@ const ArticlePage = () => {
         alert('게시글 삭제에 실패했습니다.');
       },
     });
+  }
   };
 
   // 댓글 조회
@@ -200,9 +202,9 @@ const ArticlePage = () => {
   return (
     <div className="py-[6.4rem] tablet:py-[8rem]">
       <div className="flex items-center justify-between">
-        <h3 className="font-medium text-text-secondary tablet:text-lg">
+        <h2 className="font-medium text-text-secondary tablet:text-lg">
           {article.title}
-        </h3>
+        </h2>
         {user?.id === article.writer.id && (
           <MenuDropdown onEdit={handleEdit} onDelete={handleDelete} />
         )}
@@ -230,19 +232,19 @@ const ArticlePage = () => {
           />
         </div>
       </div>
-      <p className="font-regular mb-[8rem] mt-[4.8rem] text-sm text-text-secondary tablet:py-[1rem] tablet:text-base">
+      <div className="font-regular mb-[8rem] mt-[4.8rem] text-sm text-text-secondary tablet:py-[1rem] tablet:text-base">
         {article.content}
-      </p>
       {article.image && <Card.DetailImage src={article.image} />}
+      </div>
 
-      <h2 className="font-medium tablet:text-lg tablet:font-semibold">
+      <div className="font-medium tablet:text-lg tablet:font-semibold">
         댓글달기
-      </h2>
+      </div>
       <textarea
         value={newComment}
         onChange={(e) => setNewComment(e.target.value)}
         placeholder="댓글을 입력해주세요."
-        className="my-[1.6rem] h-[10.4rem] w-full rounded-[1.2rem] border border-background-tertiary bg-background-secondary px-[1.6rem] py-[.8rem] text-sm placeholder-[#9CA3AF] focus:border-brand-primary focus:outline-none tablet:text-base"
+        className={`${commonInputClass} my-[1.6rem] h-[10.4rem] w-full px-[1.6rem] py-[.8rem]`}
       />
       <div className="flex justify-end">
         <Button
