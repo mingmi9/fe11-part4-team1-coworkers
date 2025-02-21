@@ -27,7 +27,7 @@ const Header: React.FC = () => {
           aria-label="메인 네비게이션"
         >
           <TeamSelector />
-          <Link href="/boards">
+          <Link href="/articles">
             <span>자유 게시판</span>
           </Link>
         </nav>

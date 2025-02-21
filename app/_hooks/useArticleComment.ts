@@ -13,9 +13,9 @@ export const useArticleComment = (options = {}) => {
   const useCreateArticleComment = useMutation({
     mutationFn: (data: { articleId: number; content: string }) =>
       createArticleComment(data.articleId, { content: data.content }),
-    onSuccess: (data) => {
+    onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ['articleComments', data.articleId],
+        queryKey: ['articleComments'],
       });
     },
   });
@@ -35,9 +35,9 @@ export const useArticleComment = (options = {}) => {
   const useUpdateArticleComment = useMutation({
     mutationFn: (data: { commentId: number; content: string }) =>
       updateArticleComment(data.commentId, { content: data.content }),
-    onSuccess: (data) => {
+    onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ['articleComment', data.commentId],
+        queryKey: ['articleComments'],
       });
     },
   });
@@ -45,9 +45,9 @@ export const useArticleComment = (options = {}) => {
   // 게시글의 댓글 삭제
   const useDeleteArticleComment = useMutation({
     mutationFn: (commentId: number) => deleteArticleComment(commentId),
-    onSuccess: (data) => {
+    onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ['articleComment', data.commentId],
+        queryKey: ['articleComments'],
       });
     },
   });
