@@ -29,11 +29,9 @@ export default function AddTaskListModal({
         name: taskListName,
       });
 
-      // 목록 생성 성공
-
       alert('목록이 생성되었습니다.');
       window.location.reload();
-      handleCloseModal(); // 모달 닫기
+      handleCloseModal();
     } catch {
       alert('생성 실패');
     }
@@ -58,7 +56,6 @@ export default function AddTaskListModal({
           <span className="text-[1.6rem] font-medium leading-[1.9rem]">
             목록 이름
           </span>
-          {/*추후 input 컴포넌트로 변경*/}
           <Input
             placeholder="목록 이름을 입력해주세요"
             className="w-[28rem]"

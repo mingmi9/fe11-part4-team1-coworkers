@@ -15,7 +15,7 @@ interface GroupData {
 export default function EditPage() {
   const { teamid } = useParams();
   const [groupData, setGroupData] = useState<GroupData | null>(null);
-  const [loading, setLoading] = useState(true); // 로딩 상태 추가
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchUserGroups = async () => {
@@ -36,10 +36,10 @@ export default function EditPage() {
 
         console.log('받아온 그룹 데이터:', data);
         setGroupData(data);
-        setLoading(false); // 데이터 로딩 완료 후 false로 설정
+        setLoading(false);
       } catch (error) {
         console.error('그룹 정보 불러오기 실패:', error);
-        setLoading(false); // 데이터 로딩 완료 후 false로 설정
+        setLoading(false);
       }
     };
 
@@ -47,7 +47,7 @@ export default function EditPage() {
   }, [teamid]);
 
   if (loading) {
-    return <div>로딩 중...</div>; // 로딩 중일 때 텍스트나 다른 로딩 UI 표시
+    return <div>로딩 중...</div>;
   }
 
   return (
