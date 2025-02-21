@@ -1,8 +1,8 @@
 import { instance } from '../axios-instance';
 
 // 그룹 정보 조회
-export const getGroupInfo = async (id: number) => {
-  const response = await instance.get(`/groups/${id}`);
+export const getGroupInfo = async (id: number, config = {}) => {
+  const response = await instance.get(`/groups/${id}`, config);
   return response.data;
 };
 
@@ -10,8 +10,9 @@ export const getGroupInfo = async (id: number) => {
 export const updateGroupInfo = async (
   id: number,
   data: { image: string; name: string },
+  config = {},
 ) => {
-  const response = await instance.patch(`/groups/${id}`, data);
+  const response = await instance.patch(`/groups/${id}`, data, config);
   return response.data;
 };
 

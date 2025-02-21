@@ -4,18 +4,34 @@ import { Modal } from '../common/Modal';
 import Button from '../common/Button';
 import AlertImg from '@icons/alert.svg';
 import Image from 'next/image';
+import { deleteGroupMember } from '@/_lib/api/group-api';
 
 interface KickUserModalProps {
   isOpen: boolean;
   onClose: () => void;
   name: string;
+  id: number;
+  teamId: string;
 }
 
 export default function DeleteUserModal({
   isOpen,
   onClose,
   name,
+  id,
+  teamId,
 }: KickUserModalProps) {
+  const handleKick = async () => {
+    try {
+      await deleteGroupMember(Number(teamId), id);
+
+      alert('추방되었습니다');
+      window.location.reload();
+      onClose();
+    } catch {
+      alert('추방 실패');
+    }
+  };
   return (
     <div>
       <Modal isOpen={isOpen} onClose={onClose} className="">
@@ -36,7 +52,7 @@ export default function DeleteUserModal({
           >
             닫기
           </Button>
-          <Button size="modal-small" variant="danger">
+          <Button size="modal-small" variant="danger" onClick={handleKick}>
             추방하기
           </Button>
         </div>
