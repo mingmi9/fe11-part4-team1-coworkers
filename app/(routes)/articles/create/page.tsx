@@ -21,9 +21,10 @@ const CreateArticlePage = () => {
   const { useCreateArticle } = useArticle();
   const { useUploadImage } = useImage();
 
-
-  const { mutateAsync: createArticle, isPending: isSubmitting} = useCreateArticle;
-  const { mutateAsync: uploadImage, isPending: isUploadingImage} = useUploadImage;
+  const { mutateAsync: createArticle, isPending: isSubmitting } =
+    useCreateArticle;
+  const { mutateAsync: uploadImage, isPending: isUploadingImage } =
+    useUploadImage;
   const titleInputRef = useRef<HTMLInputElement | null>(null);
   const contentInputRef = useRef<HTMLInputElement | HTMLTextAreaElement | null>(
     null,
@@ -36,7 +37,7 @@ const CreateArticlePage = () => {
     setTitle(e.target.value);
     if (e.target.value.trim()) {
       setTitleError('');
-    }else{
+    } else {
       setTitleError('제목을 입력해주세요.');
     }
   };
@@ -48,7 +49,7 @@ const CreateArticlePage = () => {
     setContent(e.target.value);
     if (e.target.value.trim()) {
       setContentError('');
-    }else{
+    } else {
       setContentError('내용을 입력해주세요.');
     }
   };
@@ -67,7 +68,7 @@ const CreateArticlePage = () => {
     setImage(null);
     setPreviewImage(null);
   };
-  
+
   // 게시글 등록
   const handleSubmit = async () => {
     let hasError = false;
@@ -87,19 +88,19 @@ const CreateArticlePage = () => {
     }
 
     // 이미지 등록
-    let imageUrl: string | undefined = undefined; 
+    let imageUrl: string | undefined = undefined;
     if (image) {
       try {
         const uploadResponse = await uploadImage(image);
-        imageUrl = uploadResponse?.url; 
+        imageUrl = uploadResponse?.url;
       } catch (error) {
         console.error('이미지 업로드 실패:', error);
         alert('이미지 업로드에 실패했습니다.');
-        return; 
+        return;
       }
     }
 
-    // 게시글 등록 
+    // 게시글 등록
     const articleData = {
       title,
       content,
@@ -116,8 +117,8 @@ const CreateArticlePage = () => {
     }
   };
 
-   // 로그인 체크
-   useEffect(() => {
+  // 로그인 체크
+  useEffect(() => {
     if (!isLoggedIn) {
       alert('로그인이 필요합니다.');
       router.push('/login');
@@ -174,7 +175,7 @@ const CreateArticlePage = () => {
         <Button
           round="xl"
           onClick={handleSubmit}
-           disabled={isDisabled}
+          disabled={isDisabled}
           className="mt-[.8rem] w-full text-[1.4rem] font-semibold"
         >
           등록

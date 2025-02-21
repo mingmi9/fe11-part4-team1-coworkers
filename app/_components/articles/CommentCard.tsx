@@ -48,8 +48,7 @@ const CommentCard = ({
             <textarea
               value={newContent}
               onChange={(e) => setNewContent(e.target.value)}
-              className=
-              {`${commonInputClass} w-full my-[1.6rem] h-[10.4rem] px-[1.6rem] py-[.8rem]`}
+              className={`${commonInputClass} my-[1.6rem] h-[10.4rem] w-full px-[1.6rem] py-[.8rem]`}
             />
             <div className="flex gap-[.4rem]">
               <Button size="small" variant="default" onClick={handleSave}>

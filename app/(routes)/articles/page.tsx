@@ -38,7 +38,7 @@ const ArticlesPage = () => {
       if (page === 1) {
         setArticles(list);
       } else {
-         setArticles((prevArticles) => [...prevArticles, ...list]);
+        setArticles((prevArticles) => [...prevArticles, ...list]);
       }
       setHasMore(list.length === pageSize);
     }

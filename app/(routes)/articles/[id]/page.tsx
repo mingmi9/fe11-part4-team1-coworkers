@@ -45,17 +45,17 @@ const ArticlePage = () => {
       return;
     }
     if (window.confirm('정말 삭제하시겠습니까?')) {
-    deleteArticle(Number(id), {
-      onSuccess: () => {
-        alert('게시글이 삭제되었습니다.');
-        router.push('/articles');
-      },
-      onError: (error: Error) => {
-        console.error('게시글 삭제 실패:', error);
-        alert('게시글 삭제에 실패했습니다.');
-      },
-    });
-  }
+      deleteArticle(Number(id), {
+        onSuccess: () => {
+          alert('게시글이 삭제되었습니다.');
+          router.push('/articles');
+        },
+        onError: (error: Error) => {
+          console.error('게시글 삭제 실패:', error);
+          alert('게시글 삭제에 실패했습니다.');
+        },
+      });
+    }
   };
 
   // 댓글 조회
@@ -234,7 +234,7 @@ const ArticlePage = () => {
       </div>
       <div className="font-regular mb-[8rem] mt-[4.8rem] text-sm text-text-secondary tablet:py-[1rem] tablet:text-base">
         {article.content}
-      {article.image && <Card.DetailImage src={article.image} />}
+        {article.image && <Card.DetailImage src={article.image} />}
       </div>
 
       <div className="font-medium tablet:text-lg tablet:font-semibold">

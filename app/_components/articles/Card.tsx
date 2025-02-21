@@ -96,14 +96,14 @@ export const DateDivider = () => {
 };
 
 export const DetailImage = ({ src }: { src: string }) => (
-  <div className="relative w-full h-auto min-h-10 mt-8 tablet:mt-10 overflow-hidden tablet:w-[50rem]">
+  <div className="relative mt-8 h-auto min-h-10 w-full overflow-hidden tablet:mt-10 tablet:w-[50rem]">
     <Image
       src={src}
       alt="게시글 이미지"
-      layout='intrinsic'
+      layout="intrinsic"
       width={500}
       height={500}
-      className="bg-blue-50  "
+      className="bg-blue-50"
     />
   </div>
 );
@@ -117,11 +117,10 @@ export const CommentCount = ({
 }) => (
   <button
     onClick={onClick}
-    className={classNames(
-      'flex items-center gap-[.4rem]',
-      SubText,
-      { 'cursor-pointer': onClick, 'cursor-default': !onClick }
-    )}
+    className={classNames('flex items-center gap-[.4rem]', SubText, {
+      'cursor-pointer': onClick,
+      'cursor-default': !onClick,
+    })}
   >
     <Image src="/icons/ic-comment.svg" alt="댓글" width={16} height={16} />
     {commentCount}
