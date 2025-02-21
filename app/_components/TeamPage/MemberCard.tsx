@@ -11,6 +11,8 @@ interface MemberCardProps {
   name: string;
   email: string;
   isAdmin: boolean;
+  id: number;
+  teamId: string;
 }
 
 export default function MemberCard({
@@ -18,6 +20,8 @@ export default function MemberCard({
   name,
   email,
   isAdmin,
+  id,
+  teamId,
 }: MemberCardProps) {
   const [isOpenCopyModal, setIsOpenCopyModal] = useState(false);
   const [isOpenKickModal, setIsOpenKickModal] = useState(false);
@@ -99,6 +103,8 @@ export default function MemberCard({
           isOpen={isOpenKickModal}
           onClose={() => setIsOpenKickModal(false)}
           name={name}
+          id={id}
+          teamId={teamId}
         />
       </div>
     </div>

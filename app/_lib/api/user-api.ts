@@ -22,8 +22,8 @@ export const deleteUser = async () => {
 };
 
 // 유저가 속한 그룹 목록 조회
-export const getUserGroups = async () => {
-  const response = await instance.get(`/user/groups`);
+export const getUserGroups = async (config = {}) => {
+  const response = await instance.get(`/user/groups`, config);
   return response.data;
 };
 

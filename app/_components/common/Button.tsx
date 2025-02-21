@@ -22,6 +22,7 @@ interface ButtonProps {
   round?: 'full' | 'xl';
   disabled?: boolean;
   onClick?: () => void;
+  type?: 'submit';
   children: ReactNode;
 }
 
