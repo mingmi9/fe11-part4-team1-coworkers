@@ -2,7 +2,7 @@ import { instance } from '../axios-instance';
 
 // 게시글 작성
 export const createArticle = async (data: {
-  image: string;
+  image?: string;
   content: string;
   title: string;
 }) => {

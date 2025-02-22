@@ -1,11 +1,12 @@
 'use client';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import MenuDropdown from './MenuDropdown';
-import { Article } from '@/(routes)/articles/type/Articles';
 import Card from './Card';
+
 import { useAuthStore } from '@/_store/auth-store';
 import { useArticle } from '@/_hooks/useArticle';
-import { useParams, useRouter } from 'next/navigation';
+import { Article } from '@/(routes)/articles/type/Articles';
 
 export interface ArticleCardProps {
   article: Article;
@@ -20,7 +21,6 @@ const ArticleCard = ({
 }: ArticleCardProps) => {
   const router = useRouter();
   const { user } = useAuthStore();
-  const { id } = useParams();
 
   const { useDeleteArticle } = useArticle();
   const { mutate: deleteArticle } = useDeleteArticle;
@@ -42,19 +42,20 @@ const ArticleCard = ({
 
   // 메뉴
   const handleEdit = () => {
-    router.push(`/articles/${id}/edit`);
+    router.push(`/articles/${article.id}/edit`);
   };
 
   const handleDelete = () => {
     if (window.confirm('정말 삭제하시겠습니까?')) {
       deleteArticle(article.id, {
         onSuccess: () => {
-          alert('삭제되었습니다');
+          alert('게시글이 삭제되었습니다');
           onDelete(article.id);
+          router.push('/articles');
         },
         onError: (error) => {
-          alert('삭제 실패');
-          console.error(error);
+          console.error('게시글 삭제 실패:', error);
+          alert('게시글 삭제에 실패했습니다.');
         },
       });
     }
@@ -100,12 +101,16 @@ const ArticleCard = ({
           </div>
         </div>
 
-        <div className="flex items-center">
+        <div className="flex items-center gap-[.8rem] tablet:gap-[1rem]">
+          {/* 댓글 수 */}
+          <Card.CommentCount commentCount={article.commentCount || 0} />
+
           {/* 좋아요 */}
           <Card.LikeButton
             likeCount={likeState.likeCount}
             liked={likeState.liked}
           />
+
           {/* 메뉴 */}
           {user?.id === article.writer.id && (
             <div className="tablet:hidden">

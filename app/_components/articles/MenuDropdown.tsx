@@ -21,7 +21,7 @@ const MenuDropdown = ({
         <>
           <Dropdown.Button
             onClick={toggleDropdown}
-            className="relative ml-[.8rem] block size-[1.6rem] flex-shrink-0 tablet:ml-[1.6rem] tablet:size-[2.4rem]"
+            className="relative block size-[1.6rem] flex-shrink-0 tablet:size-[2.4rem]"
           >
             <Image
               src={kebab}

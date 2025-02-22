@@ -23,10 +23,10 @@ export const PreviewImage = ({ src }: { src: string }) => (
   <div className="relative ml-[1.6rem] size-[6.4rem] flex-shrink-0 overflow-hidden rounded-[.8rem] tablet:size-[7.2rem]">
     <Image
       src={src}
-      alt="게시글 이미지"
+      alt="미리보기 이미지"
       fill
       sizes="7.2rem"
-      className="bg-blue-50 object-cover"
+      className="object-cover"
     />
   </div>
 );
@@ -96,20 +96,15 @@ export const DateDivider = () => {
 };
 
 export const DetailImage = ({ src }: { src: string }) => (
-  <div className="relative ml-[1.6rem] size-[18rem] flex-shrink-0 overflow-hidden rounded-[.8rem] tablet:size-[50rem]">
+  <div className="relative mt-8 h-auto min-h-10 w-full overflow-hidden tablet:mt-10 tablet:w-[50rem]">
     <Image
       src={src}
       alt="게시글 이미지"
-      fill
-      sizes="18rem"
-      className="bg-blue-50 object-cover"
+      layout="intrinsic"
+      width={500}
+      height={500}
+      className="bg-blue-50"
     />
-  </div>
-);
-
-export const CommentText = ({ children }: { children: ReactNode }) => (
-  <div className="line-clamp-2 text-sm text-text-primary tablet:text-base">
-    {children}
   </div>
 );
 
@@ -122,7 +117,10 @@ export const CommentCount = ({
 }) => (
   <button
     onClick={onClick}
-    className={`flex items-center gap-[.4rem] ${SubText}`}
+    className={classNames('flex items-center gap-[.4rem]', SubText, {
+      'cursor-pointer': onClick,
+      'cursor-default': !onClick,
+    })}
   >
     <Image src="/icons/ic-comment.svg" alt="댓글" width={16} height={16} />
     {commentCount}
@@ -141,7 +139,6 @@ const Card = Object.assign(
     Divider,
     DateDivider,
     DetailImage,
-    CommentText,
     CommentCount,
   },
 );
