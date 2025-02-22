@@ -30,7 +30,7 @@ const CreateArticlePage = () => {
     null,
   );
 
-  // 제목 입력
+  // 제목, 내용 입력
   const handleTitleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
@@ -42,7 +42,6 @@ const CreateArticlePage = () => {
     }
   };
 
-  // 내용 입력
   const handleContentChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
@@ -63,32 +62,41 @@ const CreateArticlePage = () => {
       setPreviewImage(imageUrl);
     }
   };
+
   // 이미지 제거
   const handleRemoveImage = () => {
     setImage(null);
     setPreviewImage(null);
   };
 
-  // 게시글 등록
-  const handleSubmit = async () => {
-    let hasError = false;
+  // 필수 값 포커스
+  const setErrorAndFocus = (
+    inputRef: React.RefObject<HTMLInputElement | HTMLTextAreaElement | null>,
+    errorSetter: React.Dispatch<React.SetStateAction<string>>,
+    errorMessage: string,
+  ) => {
+    errorSetter(errorMessage);
+    inputRef.current?.focus();
+    inputRef.current?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+    });
+  };
 
-    if (!content.trim()) {
-      setContentError('내용을 입력해주세요.');
-      hasError = true;
-      contentInputRef.current?.focus();
-    }
+  // 게시글 등록 핸들러
+  const handleSubmit = async () => {
+    // 제목 및 내용 체크
     if (!title.trim()) {
-      setTitleError('제목을 입력해주세요.');
-      hasError = true;
-      titleInputRef.current?.focus();
+      setErrorAndFocus(titleInputRef, setTitleError, '제목을 입력해주세요.');
+      return;
     }
-    if (hasError) {
+    if (!content.trim()) {
+      setErrorAndFocus(contentInputRef, setContentError, '내용을 입력해주세요.');
       return;
     }
 
     // 이미지 등록
-    let imageUrl: string | undefined = undefined;
+    let imageUrl: string | undefined;
     if (image) {
       try {
         const uploadResponse = await uploadImage(image);
@@ -110,7 +118,7 @@ const CreateArticlePage = () => {
     try {
       const response = await createArticle(articleData);
       alert('게시글이 등록되었습니다.');
-      router.push(`/articles/${response.id}`);
+      router.replace(`/articles/${response.id}`);
     } catch (error) {
       console.error('게시글 등록 실패:', error);
       alert('게시글 등록에 실패했습니다.');
@@ -171,12 +179,12 @@ const CreateArticlePage = () => {
         type="file"
       />
 
-      <div className="mt-10 tablet:hidden">
+      <div className="pt-[.8rem] text-[1.4rem] font-semibold tablet:hidden">
         <Button
           round="xl"
           onClick={handleSubmit}
           disabled={isDisabled}
-          className="mt-[.8rem] w-full text-[1.4rem] font-semibold"
+          className="w-full font-semibold"
         >
           등록
         </Button>
