@@ -109,9 +109,9 @@ const SignUpForm = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen text-text-primary p-8">
-      <h1 className="text-4xl font-medium my-10">회원가입</h1>
-      <form onSubmit={handleSubmit} className="w-full max-w-md rounded-lg shadow-lg bg-dark-light p-8 space-y-6">
+    <div className="flex flex-col w-[34.3rem] tablet:w-[46rem] items-center mt-4 min-h-screen text-text-primary py-8 ">
+      <h1 className="text-2xl font-medium pc:text-4xl mt-[4rem] mb-10">회원가입</h1>
+      <form onSubmit={handleSubmit} className="w-full space-y-8">
       <Input
           label="이름"
           value={nickname}
@@ -120,6 +120,8 @@ const SignUpForm = () => {
           onBlur={() => handleBlur('nickname')}
           error={!!errors.nickname}
           errorMessage={errors.nickname}
+          className=" h-[4.4rem] tablet:h-[4.8rem]"
+
         />
         <EmailInput
           label="이메일"
@@ -129,6 +131,7 @@ const SignUpForm = () => {
           onBlur={() => handleBlur('email')}
           error={!!errors.email}
           errorMessage={errors.email}
+          className="h-[4.4rem] tablet:h-[4.8rem]"
         />
         
         <PasswordInput
@@ -138,6 +141,7 @@ const SignUpForm = () => {
           onBlur={() => handleBlur('password')}
           error={!!errors.password}
           errorMessage={errors.password}
+          className="h-[4.4rem] tablet:h-[4.8rem]"
         />
         <PasswordInput
           value={confirmPassword}
@@ -146,13 +150,17 @@ const SignUpForm = () => {
           onBlur={() => handleBlur('confirmPassword')}
           error={!!errors.confirmPassword}
           errorMessage={errors.confirmPassword}
+          className="h-[4.4rem] tablet:h-[4.8rem]"
         />
-        {errors.general && <p className="text-status-danger text-sm">{errors.general}</p>}
-        <Button size="large" className="w-full h-12 bg-brand-primary rounded-xl text-text-inverse font-bold">
+        {errors.general && <p className="text-status-danger text-[1.4rem] font-medium">{errors.general}</p>}
+        </form>
+        <div className="mt-[3rem] tablet:mt-[4rem] w-full">
+        <Button size="large" className="w-full h-[4.7rem] bg-brand-primary  text-text-inverse font-semibold text-[1.6rem]">
           회원가입
         </Button>
-      </form>
-      <div className="mt-8 text-center">
+        </div>
+      
+      <div className="mt-5 text-center">
         <SimpleLogin />
       </div>
     </div>

@@ -89,9 +89,9 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen text-text-primary p-8">
-      <h1 className="text-4xl font-medium mb-10">로그인</h1>
-      <form onSubmit={handleSubmit} className="w-full max-w-md rounded-lg shadow-lg p-8">
+    <div className="flex flex-col items-center justify-center min-h-screen w-full tablet:max-w-[46rem]  text-text-primary py-8">
+      <h1 className="text-2xl pc:text-4xl font-medium mb-6">로그인</h1>
+      <form onSubmit={handleSubmit} className="w-full p-8 flex flex-col gap-4">
         <EmailInput
           label="이메일"
           value={email}
@@ -103,6 +103,7 @@ const LoginForm = () => {
           onBlur={() => handleBlur('email')}
           error={!!emailError}
           errorMessage={emailError}
+          className="h-[4.4rem] tablet:h-[4.8rem]"
         />
         <PasswordInput
           value={password}
@@ -114,9 +115,10 @@ const LoginForm = () => {
           onBlur={() => handleBlur('password')}
           error={!!passwordError}
           errorMessage={passwordError}
+          className="h-[4.4rem] tablet:h-[4.8rem]"
         />
-        {formError && <p className="text-status-danger text-[1rem] mt-2">{formError}</p>}
-        <div className="text-right text-[1rem] text-brand-primary mb-4">
+        {formError && <p className="text-status-danger font-medium text-[1.4rem]">{formError}</p>}
+        <div className="text-right font-medium text-[1.4rem] tablet:text-[1.6rem] text-brand-primary">
           <Link href="/forgot-password" className="hover:underline">비밀번호를 잊으셨나요?</Link>
         </div>
         <Button
@@ -124,17 +126,19 @@ const LoginForm = () => {
           variant="default"
           icon="none"
           round="xl"
-          className={`w-full h-12 text-[1rem] hover:bg-brand-primary text-text-inverse font-medium ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
+          className={`mt-[3rem] w-full h-[4.7rem] font-semibold text-[1.6rem] hover:bg-brand-primary text-text-inverse  ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
           disabled={isLoading}
         >
           {isLoading ? '로그인 중...' : '로그인'}
         </Button>
       </form>
-      <div className="mt-8 text-[1rem] font-medium text-text-primary">
+      <div className="mt-2 text-[1.4rem] tablet:text-[1.6rem] font-medium text-text-primary">
         아직 계정이 없으신가요?{' '}
-        <Link href="/signUp" className="text-brand-primary hover:underline">가입하기</Link>
+        <Link href="/signUp" className="ml-4 text-brand-primary hover:underline">가입하기</Link>
       </div>
-      <SimpleLogin />
+      <div className="mt-6 ">
+      <SimpleLogin/>
+      </div>
     </div>
   );
 };
