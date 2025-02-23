@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import Input from './Input';
 import Image from 'next/image';
 
+
 interface PasswordInputProps {
+  label?: string;
   value: string; // 입력값 (비밀번호)
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void; // 입력값 변경 시 호출되는 함수
   placeholder?: string; // 입력 필드에 표시되는 플레이스홀더 텍스트
@@ -10,9 +12,11 @@ interface PasswordInputProps {
   id?: string; // 입력 필드의 ID
   error?: boolean; // 에러 발생 여부
   errorMessage?: string; // 에러 메시지 (옵션)
+  className?: string;
 }
 
 const PasswordInput: React.FC<PasswordInputProps> = ({
+  label,
   value,
   onChange,
   placeholder,
@@ -20,6 +24,7 @@ const PasswordInput: React.FC<PasswordInputProps> = ({
   id,
   error,
   errorMessage,
+  className,
 }) => {
   const [isPasswordVisible, setPasswordVisible] = useState<boolean>(false);
 
@@ -30,7 +35,7 @@ const PasswordInput: React.FC<PasswordInputProps> = ({
   return (
     <div>
       <Input
-        label="비밀번호"
+        label={label}
         value={value}
         onChange={onChange}
         onBlur={onBlur}
@@ -38,6 +43,7 @@ const PasswordInput: React.FC<PasswordInputProps> = ({
         id={id}
         type={isPasswordVisible ? 'text' : 'password'}
         error={error}
+        className={className}
         rightIcon={
           <button
             type="button"

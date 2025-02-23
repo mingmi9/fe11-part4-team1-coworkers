@@ -5,6 +5,7 @@ interface EmailInputProps extends ComponentProps<typeof Input> {
   onValidate?: (value: string) => string | undefined; // 추가 유효성 검사 함수
   error?: boolean; // 외부에서 전달하는 에러 상태
   errorMessage?: string; // 외부에서 전달하는 에러 메시지
+  className?: string;
 }
 
 const EmailInput: React.FC<EmailInputProps> = ({
@@ -16,6 +17,7 @@ const EmailInput: React.FC<EmailInputProps> = ({
   onValidate,
   error: externalError,
   errorMessage: externalErrorMessage,
+  className,
 }) => {
   const [internalError, setInternalError] = useState<string | undefined>(
     undefined,
@@ -56,6 +58,7 @@ const EmailInput: React.FC<EmailInputProps> = ({
         error={finalError}
         errorMessage={finalErrorMessage}
         isAllowSpace={false}
+        className={className}
       />
     </div>
   );

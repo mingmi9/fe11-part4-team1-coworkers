@@ -1,10 +1,11 @@
 'use client';
 import { useState } from 'react';
-import MenuDropdown from './MenuDropdown';
-import { Comment } from '@/(routes)/articles/type/Articles';
 import Card from './Card';
-import { useAuthStore } from '@/_store/auth-store';
+import MenuDropdown from './MenuDropdown';
 import Button from '../common/Button';
+import { commonInputClass } from './InputField';
+import { useAuthStore } from '@/_store/auth-store';
+import { Comment } from '@/(routes)/articles/type/Articles';
 
 export interface CommentCardProps {
   comment: Comment;
@@ -47,7 +48,7 @@ const CommentCard = ({
             <textarea
               value={newContent}
               onChange={(e) => setNewContent(e.target.value)}
-              className="my-[1.6rem] h-[10.4rem] w-full rounded-[1.2rem] border border-background-tertiary bg-background-secondary px-[1.6rem] py-[.8rem] text-sm placeholder-[#9CA3AF] focus:outline-none tablet:text-base"
+              className={`${commonInputClass} my-[1.6rem] h-[10.4rem] w-full px-[1.6rem] py-[.8rem]`}
             />
             <div className="flex gap-[.4rem]">
               <Button size="small" variant="default" onClick={handleSave}>
@@ -59,7 +60,7 @@ const CommentCard = ({
             </div>
           </div>
         ) : (
-          <Card.CommentText>{comment.content}</Card.CommentText>
+          <div className="text-sm tablet:text-base">{comment.content}</div>
         )}
 
         {/* 메뉴 */}

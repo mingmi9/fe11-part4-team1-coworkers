@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { Article } from '@/(routes)/articles/type/Articles';
 import Card from './Card';
+import { Article } from '@/(routes)/articles/type/Articles';
 
 export interface BestArticleCardProps {
   article: Article;
@@ -54,11 +54,15 @@ const BestArticleCard = ({ article, onArticleClick }: BestArticleCardProps) => {
           <Card.Profile nickname={article.writer.nickname} />
         </div>
 
-        {/* 좋아요 */}
-        <Card.LikeButton
-          likeCount={likeState.likeCount}
-          liked={likeState.liked}
-        />
+        <div className="flex items-center gap-[.8rem] tablet:gap-[1rem]">
+          {/* 댓글 수 */}
+          <Card.CommentCount commentCount={article.commentCount || 0} />
+          {/* 좋아요 수 */}
+          <Card.LikeButton
+            likeCount={likeState.likeCount}
+            liked={likeState.liked}
+          />
+        </div>
       </div>
     </div>
   );
