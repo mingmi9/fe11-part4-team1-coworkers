@@ -205,7 +205,7 @@ const ArticlePage = () => {
         liked: newLikedState,
       });
     } catch (error) {
-      console.error('error', error);
+      console.error('좋아요 실패', error);
       setLikeState((prev) => ({
         liked: !newLikedState,
         likeCount: prev.likeCount + (newLikedState ? -1 : 1),

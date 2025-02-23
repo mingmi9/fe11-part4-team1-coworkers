@@ -38,7 +38,6 @@ export const useArticleComment = () => {
         }
 
         const lastCommentId = lastPage?.list?.[lastPage.list.length - 1]?.id;
-        console.log(lastCommentId);
         return lastCommentId || null; 
       },
       initialPageParam: 0,
