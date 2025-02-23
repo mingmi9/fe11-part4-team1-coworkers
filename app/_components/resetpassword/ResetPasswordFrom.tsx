@@ -71,7 +71,7 @@ export default function ResetPasswordForm() {
   };
 
   return (
-    <div className="combined-reset-password-page gap-[4rem] mt-[4rem] tablet:mt-[16rem] pc:mt-[20rem]">
+    <div className=" gap-[4rem] mt-[4rem] tablet:mt-[16rem] pc:mt-[20rem]">
       <h1 className="text-2xl pc:text-4xl font-medium mb-[4rem] tablet:mb-[8rem] text-center">비밀번호 재설정</h1>
 
       <form 
