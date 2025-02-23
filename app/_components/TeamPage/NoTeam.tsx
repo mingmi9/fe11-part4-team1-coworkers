@@ -26,7 +26,7 @@ export default function NoTeam() {
             size="medium"
             variant="secondary"
             onClick={() => {
-              router.push('/inviteteam');
+              router.push('/team/join');
             }}
           >
             팀 참여하기

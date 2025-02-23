@@ -53,11 +53,15 @@ export default function TeamPage() {
             Authorization: `Bearer ${accessToken}`,
           },
         });
+        console.log(data);
 
-        if (!data.membership) setIsUser(false);
-        else setIsUser(true);
+        if (!data.memberships || data.memberships.length === 0) {
+          setIsUser(false);
+        } else {
+          setIsUser(true);
+        }
       } catch {
-        setIsTeam(false);
+        console.error('유저 정보 조회 실패');
       }
 
       try {
