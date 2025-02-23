@@ -22,7 +22,7 @@ export default function Home() {
   const { isLoggedIn } = useAuthStore();
 
   const handleStartClick = () => {
-    router.push(isLoggedIn ? '/team' : '/login');
+    router.push(isLoggedIn ? '/team' : '/Login');
   };
 
   return (
