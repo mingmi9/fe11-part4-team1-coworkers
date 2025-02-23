@@ -1,11 +1,13 @@
 'use client';
 
 import MemberSection from '@/_components/TeamPage/MemberSection';
+import NoTeam from '@/_components/TeamPage/NoTeam';
 import ReportSection from '@/_components/TeamPage/ReportSection';
 import TeamHeader from '@/_components/TeamPage/TeamHeader';
 import TodoListSection from '@/_components/TeamPage/TodoListSection';
 import { getGroupInfo } from '@/_lib/api/group-api';
-import { getUserMemberships } from '@/_lib/api/user-api';
+import { getUserInfo, getUserMemberships } from '@/_lib/api/user-api';
+import NotFound from '@/not-found';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
@@ -30,6 +32,8 @@ interface Membership {
 
 export default function TeamPage() {
   const { teamid } = useParams();
+  const [isUser, setIsUser] = useState(true);
+  const [isTeam, setIsTeam] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
   const [groupData, setGroupData] = useState<GroupData | null>(null);
 
@@ -42,6 +46,19 @@ export default function TeamPage() {
 
       const parsedData = JSON.parse(authStorage);
       const accessToken = parsedData?.state?.accessToken;
+
+      try {
+        const data = await getUserInfo({
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+
+        if (!data.membership) setIsUser(false);
+        else setIsUser(true);
+      } catch {
+        setIsTeam(false);
+      }
 
       try {
         const data = await getGroupInfo(Number(teamid), {
@@ -58,8 +75,8 @@ export default function TeamPage() {
         if (matchedMembership.role === 'ADMIN') setIsAdmin(true);
         else setIsAdmin(false);
         setGroupData(data);
-      } catch (error) {
-        console.error('그룹 정보 불러오기 실패:', error);
+      } catch {
+        setIsTeam(false);
       }
     };
 
@@ -78,26 +95,32 @@ export default function TeamPage() {
 
   return (
     <div className="mx-auto mt-[3rem] flex h-full flex-col items-center gap-[3rem] mobile:w-[34.3rem] tablet:w-[69.6rem] pc:w-[120rem]">
-      <TeamHeader
-        teamName={groupData?.name ?? '로딩 중...'}
-        teamId={teamid as string}
-        isAdmin={isAdmin}
-      />
-      <TodoListSection
-        tasks={groupData?.taskLists ?? []}
-        teamId={teamid as string}
-      />
-      {isAdmin && (
-        <ReportSection
-          alltasks={alltasksTodo}
-          completedtasks={alltasksCompleted}
-        />
+      {!isUser && <NoTeam />}
+      {isUser && isTeam && (
+        <>
+          <TeamHeader
+            teamName={groupData?.name ?? '로딩 중...'}
+            teamId={teamid as string}
+            isAdmin={isAdmin}
+          />
+          <TodoListSection
+            tasks={groupData?.taskLists ?? []}
+            teamId={teamid as string}
+          />
+          {isAdmin && (
+            <ReportSection
+              alltasks={alltasksTodo}
+              completedtasks={alltasksCompleted}
+            />
+          )}
+          <MemberSection
+            members={groupData?.members ?? []}
+            isAdmin={isAdmin}
+            teamId={teamid as string}
+          />
+        </>
       )}
-      <MemberSection
-        members={groupData?.members ?? []}
-        isAdmin={isAdmin}
-        teamId={teamid as string}
-      />
+      {isUser && !isTeam && <NotFound />}
     </div>
   );
 }

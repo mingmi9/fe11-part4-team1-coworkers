@@ -1,0 +1,148 @@
+# 회원가입 요청
+POST https://fe-project-cowokers.vercel.app/11-7/auth/signUp
+Content-Type: application/json
+Accept: application/json
+
+{
+  "email": "noteam@naver.com",
+  "nickname": "노팀테스트",
+  "password": "Qwer1234!",
+  "passwordConfirmation": "Qwer1234!"
+}
+
+###로그인
+
+POST https://fe-project-cowokers.vercel.app/11-7/auth/signIn
+Content-Type: application/json
+Accept: application/json
+
+{
+  "email": "kyd629@naver.com",
+  "password": "Qwer1234!"
+}
+
+
+###그룹 생성
+POST  https://fe-project-cowokers.vercel.app/11-7/groups
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTYyMSwidGVhbUlkIjoiMTEtNyIsInNjb3BlIjoiYWNjZXNzIiwiaWF0IjoxNzM5Nzc3MzMzLCJleHAiOjE3Mzk3ODA5MzMsImlzcyI6InNwLWNvd29ya2VycyJ9.y18CuuHT9_FNztBSVXrnH07mp86amVaB00YdXnthnzI
+
+{
+  "image": "https://example.com/",
+  "name": "그룹이름 테스트"
+}
+
+###그룹 정보 조회
+
+GET  https://fe-project-cowokers.vercel.app/11-7/groups/2029
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTYyMSwidGVhbUlkIjoiMTEtNyIsInNjb3BlIjoiYWNjZXNzIiwiaWF0IjoxNzM5ODU5MDcyLCJleHAiOjE3Mzk4NjI2NzIsImlzcyI6InNwLWNvd29ya2VycyJ9.YSHf9imZP96wzi_S2klIgMQqd7HlVQY8DTZEPDO3W6E
+
+###그룹 정보 수정
+PATCH  https://fe-project-cowokers.vercel.app/11-7/groups/2029
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTYyMSwidGVhbUlkIjoiMTEtNyIsInNjb3BlIjoiYWNjZXNzIiwiaWF0IjoxNzM5NzgyMTE5LCJleHAiOjE3Mzk3ODU3MTksImlzcyI6InNwLWNvd29ya2VycyJ9.8BnJn9sReEg1rcWidT4P2BPyB9joNnk4X1N5-r6w6Io
+
+{
+  "image": "https://picsum.photos/200/300",
+  "name" : "그룹 이름 수정"
+}
+
+### 유저 정보 조회
+
+GET  https://fe-project-cowokers.vercel.app/11-7/user
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTYyMSwidGVhbUlkIjoiMTEtNyIsInNjb3BlIjoiYWNjZXNzIiwiaWF0IjoxNzM5OTUwMjkxLCJleHAiOjE3Mzk5NTM4OTEsImlzcyI6InNwLWNvd29ya2VycyJ9.TIbzW_BRbhyN0bt0jf2XVy3sSa-3OZ6eGQob06B19BI
+
+### 유저가 속한 그룹 목록 조회
+GET  https://fe-project-cowokers.vercel.app/11-7/user/groups
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTYyMSwidGVhbUlkIjoiMTEtNyIsInNjb3BlIjoiYWNjZXNzIiwiaWF0IjoxNzM5Nzc3ODUzLCJleHAiOjE3Mzk3ODE0NTMsImlzcyI6InNwLWNvd29ya2VycyJ9.v1-tp3iC__odGzHnfU6WNe83ifnggzS1sNIyrrwhT2Y
+
+### 할일 목록 생성
+POST https://fe-project-cowokers.vercel.app/11-7/groups/2029/task-lists
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTYyMSwidGVhbUlkIjoiMTEtNyIsInNjb3BlIjoiYWNjZXNzIiwiaWF0IjoxNzM5NzgyMTE5LCJleHAiOjE3Mzk3ODU3MTksImlzcyI6InNwLWNvd29ya2VycyJ9.8BnJn9sReEg1rcWidT4P2BPyB9joNnk4X1N5-r6w6Io
+
+{
+  "name": "할일 목록 테스트3"
+}
+
+### 유저가 속한 그룹의 멤버조회
+GET https://fe-project-cowokers.vercel.app/11-7/groups/2029/member/1621
+Content-Type: application/json
+Accept: application/json 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTYyMSwidGVhbUlkIjoiMTEtNyIsInNjb3BlIjoiYWNjZXNzIiwiaWF0IjoxNzM5OTUwMjkxLCJleHAiOjE3Mzk5NTM4OTEsImlzcyI6InNwLWNvd29ya2VycyJ9.TIbzW_BRbhyN0bt0jf2XVy3sSa-3OZ6eGQob06B19BI
+
+
+### 초대 링크용 토큰 생성
+GET https://fe-project-cowokers.vercel.app/11-7/groups/2029/invitation
+Content-Type: application/json
+Accept: application/json 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTYyMSwidGVhbUlkIjoiMTEtNyIsInNjb3BlIjoiYWNjZXNzIiwiaWF0IjoxNzM5OTUwMjkxLCJleHAiOjE3Mzk5NTM4OTEsImlzcyI6InNwLWNvd29ya2VycyJ9.TIbzW_BRbhyN0bt0jf2XVy3sSa-3OZ6eGQob06B19BI
+
+
+### 초대 링크용 토큰 생성
+POST https://fe-project-cowokers.vercel.app/11-7/groups/accept-invitation
+Content-Type: application/json
+Accept: application/json 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTYyMSwidGVhbUlkIjoiMTEtNyIsInNjb3BlIjoiYWNjZXNzIiwiaWF0IjoxNzM5OTUwMjkxLCJleHAiOjE3Mzk5NTM4OTEsImlzcyI6InNwLWNvd29ya2VycyJ9.TIbzW_BRbhyN0bt0jf2XVy3sSa-3OZ6eGQob06B19BI
+
+{
+  "userEmail": "kyd629@naver.com",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJncm91cElkIjoyMDI5LCJzY29wZSI6Imludml0YXRpb24iLCJpYXQiOjE3Mzk5NTE3NTUsImV4cCI6MTc0MDIxMDk1NSwiaXNzIjoic3AtY293b3JrZXJzLW1haWxlciJ9.yayox0_CFMAAYtDwSc_rwzHoQoM8abqosfI2WirTyG4"
+}
+
+###멤버 강제 추가
+POST https://fe-project-cowokers.vercel.app/11-7/groups/2029/member
+Content-Type: application/json
+Accept: application/json 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTYyMSwidGVhbUlkIjoiMTEtNyIsInNjb3BlIjoiYWNjZXNzIiwiaWF0IjoxNzM5OTU0NzkwLCJleHAiOjE3Mzk5NTgzOTAsImlzcyI6InNwLWNvd29ya2VycyJ9.84CF32RTQJW10T7OQ5s8xiXVVJ78xFfZQqxliD1HT4g
+
+{
+  "userEmail": "kyd629@naver.com"
+}
+
+###멤버 추방
+DELETE https://fe-project-cowokers.vercel.app/11-7/groups/2029/member/1726
+Content-Type: application/json
+Accept: application/json 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTYyMSwidGVhbUlkIjoiMTEtNyIsInNjb3BlIjoiYWNjZXNzIiwiaWF0IjoxNzM5OTUwMjkxLCJleHAiOjE3Mzk5NTM4OTEsImlzcyI6InNwLWNvd29ya2VycyJ9.TIbzW_BRbhyN0bt0jf2XVy3sSa-3OZ6eGQob06B19BI
+
+###멤버쉽 조회
+GET https://fe-project-cowokers.vercel.app/11-7/user/memberships
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcyNywidGVhbUlkIjoiMTEtNyIsInNjb3BlIjoiYWNjZXNzIiwiaWF0IjoxNzM5OTU0ODU0LCJleHAiOjE3Mzk5NTg0NTQsImlzcyI6InNwLWNvd29ya2VycyJ9.CQrXJ8nJXg7eyWiTQ2GFRo8U7Sq5-UH1fvCEzLD6apQ
+
+
+### 할일 추가
+POST https://fe-project-cowokers.vercel.app/11-7/groups/2029/task-lists/3529/tasks
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTYyMSwidGVhbUlkIjoiMTEtNyIsInNjb3BlIjoiYWNjZXNzIiwiaWF0IjoxNzQwMTE1NjA4LCJleHAiOjE3NDAxMTkyMDgsImlzcyI6InNwLWNvd29ya2VycyJ9.p89sx-wPsbp-JiS8gMh7lNwbKLFFZD1xWuLghBe26uk
+
+{
+  "name": "할일테스트11111",
+  "description": "string",
+  "startDate": "2025-02-21T00:00:00Z",
+  "frequencyType": "DAILY"
+}
+
+###!SECTION
+GET https://fe-project-cowokers.vercel.app/11-7/groups/2029/task-lists/3529/tasks
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTYyMSwidGVhbUlkIjoiMTEtNyIsInNjb3BlIjoiYWNjZXNzIiwiaWF0IjoxNzQwMTE1NjA4LCJleHAiOjE3NDAxMTkyMDgsImlzcyI6InNwLWNvd29ya2VycyJ9.p89sx-wPsbp-JiS8gMh7lNwbKLFFZD1xWuLghBe26uk
+
+###!SECTION
+GET https://fe-project-cowokers.vercel.app/11-7/groups/2029/task-lists/3415/tasks/4980
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTYyMSwidGVhbUlkIjoiMTEtNyIsInNjb3BlIjoiYWNjZXNzIiwiaWF0IjoxNzQwMTE1NjA4LCJleHAiOjE3NDAxMTkyMDgsImlzcyI6InNwLWNvd29ya2VycyJ9.p89sx-wPsbp-JiS8gMh7lNwbKLFFZD1xWuLghBe26uk
