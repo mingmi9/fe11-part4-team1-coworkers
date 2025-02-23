@@ -13,10 +13,11 @@ export const useArticleComment = (options = {}) => {
   const useCreateArticleComment = useMutation({
     mutationFn: (data: { articleId: number; content: string }) =>
       createArticleComment(data.articleId, { content: data.content }),
-    onSuccess: () => {
+    onSuccess: (_data, variables) => {
       queryClient.invalidateQueries({
-        queryKey: ['articleComments'],
+        queryKey: ['articleComments', variables.articleId],
       });
+      console.log('create', variables);
     },
   });
 
@@ -33,21 +34,27 @@ export const useArticleComment = (options = {}) => {
 
   // 게시글의 댓글 수정
   const useUpdateArticleComment = useMutation({
-    mutationFn: (data: { commentId: number; content: string }) =>
-      updateArticleComment(data.commentId, { content: data.content }),
-    onSuccess: () => {
+    mutationFn: (data: {
+      commentId: number;
+      articleId: number;
+      content: string;
+    }) => updateArticleComment(data.commentId, { content: data.content }),
+    onSuccess: (_data, variables) => {
+      console.log('edit', variables.articleId);
       queryClient.invalidateQueries({
-        queryKey: ['articleComments'],
+        queryKey: ['articleComments', variables.articleId],
       });
     },
   });
 
   // 게시글의 댓글 삭제
   const useDeleteArticleComment = useMutation({
-    mutationFn: (commentId: number) => deleteArticleComment(commentId),
-    onSuccess: () => {
+    mutationFn: (data: { commentId: number; articleId: number }) =>
+      deleteArticleComment(data.commentId),
+    onSuccess: (_data, variables) => {
+      console.log('del', variables.articleId);
       queryClient.invalidateQueries({
-        queryKey: ['articleComments'],
+        queryKey: ['articleComments', variables.articleId],
       });
     },
   });

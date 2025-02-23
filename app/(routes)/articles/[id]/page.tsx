@@ -8,6 +8,7 @@ import CommentCard from '@/_components/articles/CommentCard';
 import MenuDropdown from '@/_components/articles/MenuDropdown';
 import { commonInputClass } from '@/_components/articles/InputField';
 
+import { useQueryClient } from '@tanstack/react-query';
 import { useAuthStore } from '@/_store/auth-store';
 import { useArticle } from '@/_hooks/useArticle';
 import { useArticleComment } from '@/_hooks/useArticleComment';
@@ -18,8 +19,11 @@ const ArticlePage = () => {
   const { isLoggedIn, user } = useAuthStore();
   const { id } = useParams();
   const [newComment, setNewComment] = useState<string>('');
+  const [commentsList, setCommentsList] = useState<Comment[]>([]);
+  const [cursor, setCursor] = useState<number>(0);
   const commentSectionRef = useRef<HTMLDivElement | null>(null);
-
+  
+  const queryClient = useQueryClient();
   const { useGetArticlesById, useDeleteArticle } = useArticle();
   const {
     useGetArticleComment,
@@ -27,9 +31,10 @@ const ArticlePage = () => {
     useUpdateArticleComment,
     useDeleteArticleComment,
   } = useArticleComment();
-
+  const articleId = Number(id);
+  
   // 게시글 상세 조회
-  const { data: article, isLoading, isError } = useGetArticlesById(Number(id));
+  const { data: article, isLoading, isError } = useGetArticlesById(articleId);
 
   // 게시글 수정페이지 이동
   const handleEdit = () => {
@@ -45,7 +50,7 @@ const ArticlePage = () => {
       return;
     }
     if (window.confirm('정말 삭제하시겠습니까?')) {
-      deleteArticle(Number(id), {
+      deleteArticle(articleId, {
         onSuccess: () => {
           alert('게시글이 삭제되었습니다.');
           router.push('/articles');
@@ -59,17 +64,41 @@ const ArticlePage = () => {
   };
 
   // 댓글 조회
-  const {
-    data: comments,
-    isLoading: isCommentsLoading,
-    isPending: isCreatingComment,
-  } = useGetArticleComment(Number(id), {
-    limit: 10,
-    cursor: 0,
-  });
+  const { data: comments, isLoading: isCommentsLoading } = useGetArticleComment(
+    articleId,
+    {
+      limit: 5,
+      cursor,
+    },
+  );
+
+  // 댓글 더보기
+  const handleLoadMore = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    if (comments?.list && comments.list.length > 0) {
+      // cursor 값 업데이트
+      const lastCommentId = comments.list[comments.list.length - 1].id;
+      setCursor(lastCommentId);
+    }
+  };
+
+  useEffect(() => {
+    if (comments?.list && comments.list.length > 0) {
+      setCommentsList((prevComments) => {
+        if (cursor === 0) {
+          return comments.list;
+        }
+        return [...prevComments, ...comments.list];
+      });
+    }
+  }, [comments, cursor]);
+
+  // 더보기 버튼
+  const hasMoreComments = commentsList.length < (article?.commentCount || 0);
 
   // 댓글 작성
-  const { mutate: createComment } = useCreateArticleComment;
+  const { mutate: createComment, isPending: isCreatingComment } =
+    useCreateArticleComment;
 
   const handleCommentSubmit = () => {
     if (!isLoggedIn) {
@@ -84,11 +113,14 @@ const ArticlePage = () => {
     }
 
     createComment(
-      { articleId: Number(id), content: newComment },
+      { articleId: articleId, content: newComment },
       {
         onSuccess: () => {
           setNewComment('');
           alert('댓글이 등록되었습니다.');
+          queryClient.invalidateQueries({
+            queryKey: ['articleComments', articleId],
+          });
         },
         onError: () => {
           alert('댓글 등록에 실패했습니다.');
@@ -100,9 +132,9 @@ const ArticlePage = () => {
   // 댓글 수정
   const { mutate: updateComment } = useUpdateArticleComment;
 
-  const handleUpdateComment = async (commentId: number, newContent: string) => {
+  const handleUpdateComment = async (commentId: number, newContent: string, articleId: number) => {
     updateComment(
-      { commentId, content: newContent },
+      { commentId, content: newContent, articleId },
       {
         onSuccess: () => {
           alert('댓글이 수정되었습니다.');
@@ -118,8 +150,8 @@ const ArticlePage = () => {
   // 댓글 삭제
   const { mutate: deleteComment } = useDeleteArticleComment;
 
-  const handleDeleteComment = async (commentId: number) => {
-    deleteComment(commentId, {
+  const handleDeleteComment = async (commentId: number, articleId: number) => {
+    deleteComment({commentId, articleId}, {
       onSuccess: () => {
         alert('댓글이 삭제되었습니다.');
       },
@@ -180,23 +212,20 @@ const ArticlePage = () => {
       console.error('error', error);
       setLikeState((prev) => ({
         liked: !newLikedState,
-        likeCount: newLikedState ? prev.likeCount - 1 : prev.likeCount + 1,
+        likeCount: prev.likeCount + (newLikedState ? -1 : 1),
       }));
     }
   };
 
   // 로딩 및 오류
-  if (isLoading || !article) {
+  if (isLoading || isCommentsLoading || isDeleteArticlePending) {
     return <div>Loading...</div>;
   }
-
-  if (isError || !article) {
+  
+  if (isError || !article || !id) {
     alert('다시 시도해 주세요.');
     router.push('/');
-  }
-
-  if (isCommentsLoading || isDeleteArticlePending) {
-    return <div>Loading...</div>;
+    return;
   }
 
   return (
@@ -249,27 +278,42 @@ const ArticlePage = () => {
       <div className="flex justify-end">
         <Button
           onClick={handleCommentSubmit}
+          disabled={isCreatingComment}
           className="h-[3.2rem] w-[7.4rem] text-[1.4rem] tablet:h-[4.8rem] tablet:w-[18.4rem] tablet:text-[1.6rem]"
         >
-          {isCreatingComment ? '...' : '등록'}
+          등록
         </Button>
       </div>
 
       <Card.Divider className="my-[3.2rem] tablet:my-[4rem]" />
 
       <div ref={commentSectionRef} className="flex flex-col gap-[1.6rem]">
-        {comments?.list && comments.list.length > 0 ? (
-          comments.list.map((comment: Comment) => (
+        {commentsList && commentsList.length > 0 ? (
+          commentsList.map((comment: Comment) => (
             <CommentCard
               key={comment.id}
               comment={comment}
               onUpdateComment={handleUpdateComment}
               onDeleteComment={handleDeleteComment}
+              articleId={article.id}
             />
           ))
         ) : (
           <div className="py-[4rem] text-center text-sm font-medium text-text-default tablet:py-[8rem] tablet:text-base">
             아직 작성된 댓글이 없습니다.
+          </div>
+        )}
+
+        {hasMoreComments && (
+          <div className="text-center">
+            <button
+              type="button"
+              onClick={handleLoadMore}
+              disabled={isCommentsLoading}
+              className="p-4 text-sm tablet:text-base"
+            >
+              + 댓글 더보기
+            </button>
           </div>
         )}
       </div>
