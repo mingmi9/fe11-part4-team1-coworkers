@@ -117,7 +117,7 @@ const LoginForm = () => {
         />
         {formError && <p className="text-status-danger text-[1rem] mt-2">{formError}</p>}
         <div className="text-right text-[1rem] text-brand-primary mb-4">
-          <Link href="/forgot-password" className="hover:underline">비밀번호를 잊으셨나요?</Link>
+          <Link href="/reset-password" className="hover:underline">비밀번호를 잊으셨나요?</Link>
         </div>
         <Button
           size="large"
