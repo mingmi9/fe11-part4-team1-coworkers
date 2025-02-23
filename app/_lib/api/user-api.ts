@@ -1,8 +1,8 @@
 import { instance } from '@lib/axios-instance';
 
 // 유저 정보 조회
-export const getUserInfo = async () => {
-  const response = await instance.get(`/user`);
+export const getUserInfo = async (config = {}) => {
+  const response = await instance.get(`/user`, config);
   return response.data;
 };
 

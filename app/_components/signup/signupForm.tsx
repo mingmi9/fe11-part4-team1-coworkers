@@ -9,6 +9,7 @@ import { useAuthStore } from '@/_store/auth-store';
 import { useRouter } from 'next/navigation';
 import SimpleLogin from '@/_components/login/SimpleLogin';
 import { useAuthMutation } from '@/_hooks/useAuth';
+import axios from 'axios';
 
 const SignUpForm = () => {
   const router = useRouter();
@@ -68,7 +69,7 @@ const SignUpForm = () => {
     if (field === 'password') error = validatePassword(password);
     if (field === 'confirmPassword') error = validateConfirmPassword(confirmPassword);
 
-    setErrors((prev) => ({ ...prev, [field]: error }));
+    setErrors((prev) => ({ ...prev, [field]: error, general: '' }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -78,15 +79,16 @@ const SignUpForm = () => {
     const nicknameError = validateNickname(nickname);
     const passwordError = validatePassword(password);
     const confirmPasswordError = validateConfirmPassword(confirmPassword);
+    
+    setErrors({
+      email: emailError,
+      nickname: nicknameError,
+      password: passwordError,
+      confirmPassword: confirmPasswordError,
+      general: '',
+    });
 
     if (emailError || nicknameError || passwordError || confirmPasswordError) {
-      setErrors({
-        email: emailError,
-        nickname: nicknameError,
-        password: passwordError,
-        confirmPassword: confirmPasswordError,
-        general: '',
-      });
       return;
     }
 
@@ -96,7 +98,9 @@ const SignUpForm = () => {
       {
         onError: (error) => {
           let errorMessage = '회원가입에 실패했습니다. 다시 시도해주세요.';
-          if (error instanceof Error) {
+          if (axios.isAxiosError(error)) {
+            errorMessage = error.response?.data?.message || errorMessage;
+          } else if (error instanceof Error) {
             errorMessage = error.message;
           }
           setErrors((prev) => ({ ...prev, general: errorMessage }));
@@ -109,34 +113,42 @@ const SignUpForm = () => {
   };
 
   return (
-    <div className="flex flex-col w-[34.3rem] tablet:w-[46rem] items-center mt-4 min-h-screen text-text-primary py-8 ">
-      <h1 className="text-2xl font-medium pc:text-4xl mt-[4rem] mb-10">회원가입</h1>
-      <form onSubmit={handleSubmit} className="w-full space-y-8">
-      <Input
+    <div className="flex flex-col w-[34.3rem] tablet:w-[46rem] items-center mt-[1.6rem] min-h-screen text-text-primary py-[3.2rem] ">
+      <h1 className="text-2xl font-medium pc:text-4xl mt-[4rem] mb-[4rem]">회원가입</h1>
+      <form onSubmit={handleSubmit} className="w-full space-y-[3.2rem]">
+        <Input
           label="이름"
           value={nickname}
-          onChange={(e) => setNickname(e.target.value)}
+          onChange={(e) => {
+            setNickname(e.target.value);
+            setErrors((prev) => ({ ...prev, nickname: '' }));
+          }}
           placeholder="이름을 입력해주세요."
           onBlur={() => handleBlur('nickname')}
           error={!!errors.nickname}
           errorMessage={errors.nickname}
-          className=" h-[4.4rem] tablet:h-[4.8rem]"
-
+          className="h-[4.4rem] tablet:h-[4.8rem]"
         />
         <EmailInput
           label="이메일"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => {
+            setEmail(e.target.value);
+            setErrors((prev) => ({ ...prev, email: '' }));
+          }}
           placeholder="이메일을 입력해주세요."
           onBlur={() => handleBlur('email')}
           error={!!errors.email}
           errorMessage={errors.email}
           className="h-[4.4rem] tablet:h-[4.8rem]"
         />
-        
         <PasswordInput
+          label="비밀번호"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) => {
+            setPassword(e.target.value);
+            setErrors((prev) => ({ ...prev, password: '' }));
+          }}
           placeholder="비밀번호를 입력해주세요."
           onBlur={() => handleBlur('password')}
           error={!!errors.password}
@@ -144,23 +156,33 @@ const SignUpForm = () => {
           className="h-[4.4rem] tablet:h-[4.8rem]"
         />
         <PasswordInput
+          label="비밀번호 확인"
           value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
+          onChange={(e) => {
+            setConfirmPassword(e.target.value);
+            setErrors((prev) => ({ ...prev, confirmPassword: '' }));
+          }}
           placeholder="비밀번호를 다시 한 번 입력해주세요."
           onBlur={() => handleBlur('confirmPassword')}
           error={!!errors.confirmPassword}
           errorMessage={errors.confirmPassword}
           className="h-[4.4rem] tablet:h-[4.8rem]"
         />
-        {errors.general && <p className="text-status-danger text-[1.4rem] font-medium">{errors.general}</p>}
-        </form>
-        <div className="mt-[3rem] tablet:mt-[4rem] w-full">
-        <Button size="large" className="w-full h-[4.7rem] bg-brand-primary  text-text-inverse font-semibold text-[1.6rem]">
-          회원가입
-        </Button>
+        <div>
+          <Button 
+            size="large" 
+            className="w-full h-[4.7rem] text-text-inverse font-semibold text-[1.6rem]"
+          >
+            회원가입
+          </Button>
+          {errors.general && (
+            <p className="mt-[1rem] text-status-danger text-[1.4rem] font-medium">
+              {errors.general}
+            </p>
+          )}
         </div>
-      
-      <div className="mt-5 text-center">
+      </form>
+      <div className="mt-[2rem] text-center">
         <SimpleLogin />
       </div>
     </div>
@@ -168,6 +190,7 @@ const SignUpForm = () => {
 };
 
 export default SignUpForm;
+
 
 
 
