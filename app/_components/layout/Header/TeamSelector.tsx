@@ -1,79 +1,53 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Dropdown from '@components/common/Dropdown';
-import toggle from '@icons/toggle.svg'
-import defaultTeamIcon from '@icons/default-team-icon.svg'
+import toggle from '@icons/toggle.svg';
+import defaultTeamIcon from '@icons/default-team-icon.svg';
+import { UserDataProps } from '.';
 
+interface TeamSelectorProps {
+  isLoggedIn: boolean;
+  userData: UserDataProps | null;
+}
 
-const mockUser = {
-  teamId: "team-1",
-  image: "https://picsum.photos/200",
-  nickname: "Test User",
-  email: "test@example.com",
-  id: 1,
-  memberships: [
-    {
-      group: {
-        teamId: "team-1",
-        image: "",
-        name: "인사팀",
-        id: 1,
-        createdAt: "2024-01-01",
-        updatedAt: "2024-01-01"
-      },
-      role: "ADMIN",
-      userImage: "https://picsum.photos/200",
-      userEmail: "test@example.com",
-      userName: "Test User",
-      groupId: 1,
-      userId: 1
-    },
-    {
-      group: {
-        teamId: "team-2",
-        image: "https://picsum.photos/200/300",
-        name: "재무팀일까말까용용용",
-        id: 2,
-        createdAt: "2024-01-01",
-        updatedAt: "2024-01-01"
-      },
-      role: "ADMIN",
-      userImage: "https://picsum.photos/200",
-      userEmail: "test@example.com",
-      userName: "Test User",
-      groupId: 2,
-      userId: 1
+const TeamSelector: React.FC<TeamSelectorProps> = ({
+  userData,
+  isLoggedIn,
+}) => {
+  const [selectedTeam, setSelectedTeam] = useState(
+    userData?.memberships[0]?.group?.name || '내 팀',
+  );
+
+  useEffect(() => {
+    if (userData?.memberships?.length) {
+      setSelectedTeam(userData.memberships[0].group.name);
     }
-  ]
-};
+  }, [userData]);
 
-const TeamSelector: React.FC = () => {
-  const [selectedTeam, setSelectedTeam] = useState(mockUser.memberships[0].group.name);
-  
-  // if (!user?.memberships.length) {
-  //   return (
-  //     <Link href="/addteam">
-  //       팀 생성
-  //     </Link>
-  //   )
-  // }
+  if (!isLoggedIn) {
+    return;
+  }
+
+  if (!userData?.memberships.length) {
+    return <Link href="/addteam">팀 생성</Link>;
+  }
 
   return (
     <div aria-label="팀 선택">
       <Dropdown>
         {({ isOpen, toggleDropdown }) => (
           <>
-            <Dropdown.Button 
+            <Dropdown.Button
               onClick={toggleDropdown}
               aria-expanded={isOpen}
               aria-haspopup="true"
             >
               <div className="flex items-center justify-center gap-2">
                 <span>{selectedTeam}</span>
-                <Image 
+                <Image
                   src={toggle}
                   alt="토글 아이콘"
                   width={24}
@@ -87,27 +61,32 @@ const TeamSelector: React.FC = () => {
               isOpen={isOpen}
               boxClass="w-[22rem] top-[4rem] p-4 flex flex-col gap-2 items-center"
             >
-              {mockUser.memberships.map((membership) => (
-                <Link 
-                  href={`/team/${membership.group.id}`} 
+              {userData?.memberships.map((membership) => (
+                <Link
+                  href={`/team/${membership.group.id}`}
                   key={membership.group.id}
                   className="w-full"
                 >
-                  <Dropdown.Item 
-                    onClick={() => setSelectedTeam(membership.group.name)} 
+                  <Dropdown.Item
+                    onClick={() => setSelectedTeam(membership.group.name)}
                     toggleDropdown={toggleDropdown}
-                    className="flex items-center justify-between gap-4 w-[18.6rem] h-[4.6rem] rounded-xl">
+                    className="flex h-[4.6rem] w-[18.6rem] items-center justify-between gap-4 rounded-xl"
+                  >
                     <div className="flex items-center gap-4">
-                      <Image 
+                      <Image
                         src={membership.group.image || defaultTeamIcon}
-                        alt={membership.group.image ? `${membership.group.name} 팀 이미지` : "기본 팀 아이콘"}
+                        alt={
+                          membership.group.image
+                            ? `${membership.group.name} 팀 이미지`
+                            : '기본 팀 아이콘'
+                        }
                         width={32}
                         height={32}
                         sizes="3.2rem"
-                        className="rounded-md size-[3.2rem] object-cover"
+                        className="size-[3.2rem] rounded-md object-cover"
                       />
-                      <span 
-                        className="font-medium overflow-hidden text-ellipsis whitespace-nowrap"
+                      <span
+                        className="overflow-hidden text-ellipsis whitespace-nowrap font-medium"
                         title={membership.group.name}
                       >
                         {membership.group.name}
@@ -117,9 +96,12 @@ const TeamSelector: React.FC = () => {
                   </Dropdown.Item>
                 </Link>
               ))}
-              
+
               <Link href="/addteam">
-                <Dropdown.Item toggleDropdown={toggleDropdown} className="w-[18.6rem] h-[4.6rem] rounded-xl border border-brand-primary justify-center mt-4">
+                <Dropdown.Item
+                  toggleDropdown={toggleDropdown}
+                  className="mt-4 h-[4.6rem] w-[18.6rem] justify-center rounded-xl border border-brand-primary"
+                >
                   + 팀 추가하기
                 </Dropdown.Item>
               </Link>
@@ -128,7 +110,7 @@ const TeamSelector: React.FC = () => {
         )}
       </Dropdown>
     </div>
-  )
+  );
 };
 
 export default TeamSelector;
