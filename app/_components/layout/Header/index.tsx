@@ -85,16 +85,21 @@ const Header: React.FC = () => {
           <div className="mr-[1.6rem] tablet:hidden">
             <GnbButton />
           </div>
-          <Link href="/" aria-label="홈으로 이동">
-            <Image
-              src="/icons/logo.svg"
-              alt="Coworkers 로고"
-              width={158}
-              height={32}
-              sizes="15.8rem"
-              priority
-              className="cursor-pointer tablet:mr-[3.2rem]"
-            />
+          <Link
+            href="/"
+            aria-label="홈으로 이동"
+            className="tablet:mr-[3.2rem] pc:mr-[4rem]"
+          >
+            <div className="relative h-[2.4rem] w-[10.2rem] pc:h-[3.2rem] pc:w-[15.8rem]">
+              <Image
+                src="/icons/logo.svg"
+                alt="Coworkers"
+                fill
+                sizes="15.8rem"
+                priority
+                className="object-contain"
+              />
+            </div>
           </Link>
           <nav
             className="hidden items-center justify-center text-text-primary tablet:flex tablet:gap-[3.2rem]"
