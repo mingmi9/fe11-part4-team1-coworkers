@@ -83,7 +83,7 @@ const ArticleCard = ({
 
         {/* 메뉴 */}
         {user?.id === article.writer.id && (
-          <div className="hidden tablet:block">
+          <div className="ml-[1.6rem] hidden tablet:block">
             <MenuDropdown onEdit={handleEdit} onDelete={handleDelete} />
           </div>
         )}

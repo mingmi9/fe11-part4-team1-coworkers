@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { Divider } from '@/_components/articles/Card';
 import Button from '@/_components/common/Button';
 import InputField from '@/_components/articles/InputField';
@@ -9,22 +9,25 @@ import { useAuthStore } from '@/_store/auth-store';
 import { useArticle } from '@/_hooks/useArticle';
 import { useImage } from '@/_hooks/useImage';
 
-const CreateArticlePage = () => {
+const EditArticlePage = () => {
   const router = useRouter();
-  const { isLoggedIn } = useAuthStore();
+  const { id } = useParams();
+  const { isLoggedIn, user } = useAuthStore();
+  const { useGetArticlesById, useUpdateArticle } = useArticle();
+  const { useUploadImage } = useImage();
+
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [image, setImage] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [titleError, setTitleError] = useState('');
   const [contentError, setContentError] = useState('');
-  const { useCreateArticle } = useArticle();
-  const { useUploadImage } = useImage();
 
-  const { mutateAsync: createArticle, isPending: isSubmitting } =
-    useCreateArticle;
+  const { mutateAsync: updateArticle, isPending: isSubmitting } =
+    useUpdateArticle;
   const { mutateAsync: uploadImage, isPending: isUploadingImage } =
     useUploadImage;
+
   const titleInputRef = useRef<HTMLInputElement | null>(null);
   const contentInputRef = useRef<HTMLInputElement | HTMLTextAreaElement | null>(
     null,
@@ -35,22 +38,14 @@ const CreateArticlePage = () => {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     setTitle(e.target.value);
-    if (e.target.value.trim()) {
-      setTitleError('');
-    } else {
-      setTitleError('제목을 입력해주세요.');
-    }
+    setTitleError(e.target.value.trim() ? '' : '제목을 입력해주세요.');
   };
 
   const handleContentChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     setContent(e.target.value);
-    if (e.target.value.trim()) {
-      setContentError('');
-    } else {
-      setContentError('내용을 입력해주세요.');
-    }
+    setContentError(e.target.value.trim() ? '' : '내용을 입력해주세요.');
   };
 
   // 이미지 업로드
@@ -69,6 +64,20 @@ const CreateArticlePage = () => {
     setPreviewImage(null);
   };
 
+  // 게시글 데이터 가져오기
+  const {
+    data: article,
+    isLoading: isArticleLoading,
+    isError: isArticleError,
+  } = useGetArticlesById(Number(id));
+  useEffect(() => {
+    if (article) {
+      setTitle(article.title);
+      setContent(article.content);
+      setPreviewImage(article.image);
+    }
+  }, [article]);
+
   // 필수 값 포커스
   const setErrorAndFocus = (
     inputRef: React.RefObject<HTMLInputElement | HTMLTextAreaElement | null>,
@@ -83,7 +92,7 @@ const CreateArticlePage = () => {
     });
   };
 
-  // 게시글 등록 핸들러
+  // 게시글 수정 핸들러
   const handleSubmit = async () => {
     // 제목 및 내용 체크
     if (!title.trim()) {
@@ -91,12 +100,16 @@ const CreateArticlePage = () => {
       return;
     }
     if (!content.trim()) {
-      setErrorAndFocus(contentInputRef, setContentError, '내용을 입력해주세요.');
+      setErrorAndFocus(
+        contentInputRef,
+        setContentError,
+        '내용을 입력해주세요.',
+      );
       return;
     }
 
     // 이미지 등록
-    let imageUrl: string | undefined;
+    let imageUrl: string | null = null;
     if (image) {
       try {
         const uploadResponse = await uploadImage(image);
@@ -108,20 +121,20 @@ const CreateArticlePage = () => {
       }
     }
 
-    // 게시글 등록
+    // 게시글 수정
     const articleData = {
       title,
       content,
-      ...(imageUrl && { image: imageUrl }),
+      image: imageUrl || null,
     };
 
     try {
-      const response = await createArticle(articleData);
-      alert('게시글이 등록되었습니다.');
-      router.replace(`/articles/${response.id}`);
+      await updateArticle({ articleId: Number(id), payload: articleData });
+      alert('게시글이 수정되었습니다.');
+      router.replace(`/articles/${id}`);
     } catch (error) {
-      console.error('게시글 등록 실패:', error);
-      alert('게시글 등록에 실패했습니다.');
+      console.error('게시글 수정 실패:', error);
+      alert('게시글 수정에 실패했습니다.');
     }
   };
 
@@ -130,24 +143,47 @@ const CreateArticlePage = () => {
     if (!isLoggedIn) {
       alert('로그인이 필요합니다.');
       router.push('/login');
+    } else if (article && article?.writer?.id !== user?.id) {
+      alert('접근 권한이 없습니다.');
+      router.push(`/articles/${id}`);
     }
-  }, [isLoggedIn, router]);
+  }, [isLoggedIn, article, user, id, router]);
 
+  // 로딩 및 에러
+  if (isArticleLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (isArticleError) {
+    alert('데이터를 불러오는데 실패했습니다.');
+    router.back();
+  }
+
+  // 버튼 disabled
   const isDisabled = isUploadingImage || isSubmitting;
+
   return (
     <div className="py-[4rem] tablet:py-[5.6rem]">
       <div className="flex items-center justify-between">
         <h2 className="py-[.5rem] text-lg font-medium tablet:text-xl tablet:font-bold">
-          게시글 쓰기
+          게시글 수정
         </h2>
-        <div className="hidden tablet:block">
+        <div className="hidden gap-[.4rem] tablet:flex">
+          <Button
+            variant="secondary"
+            round="xl"
+            onClick={() => router.back()}
+            className="w-[9rem] text-[1.6rem] font-semibold"
+          >
+            취소
+          </Button>
           <Button
             round="xl"
             onClick={handleSubmit}
             disabled={isDisabled}
-            className="w-[14.4rem] text-[1.6rem] font-semibold"
+            className="w-[9rem] text-[1.6rem] font-semibold"
           >
-            등록
+            수정
           </Button>
         </div>
       </div>
@@ -184,13 +220,21 @@ const CreateArticlePage = () => {
           round="xl"
           onClick={handleSubmit}
           disabled={isDisabled}
-          className="w-full font-semibold"
+          className="mb-[.8rem] w-full"
         >
-          등록
+          수정
+        </Button>
+        <Button
+          variant="secondary"
+          round="xl"
+          onClick={() => router.back()}
+          className="w-full"
+        >
+          취소
         </Button>
       </div>
     </div>
   );
 };
 
-export default CreateArticlePage;
+export default EditArticlePage;
