@@ -1,15 +1,15 @@
 'use client';
 
+import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 // import { useAuthStore } from '@/_store/auth-store';
 
 import Dropdown from '@/_components/common/Dropdown';
-// import LogoutComponent from '@/_components/common/Header/logout-component';
+import LogoutModal from '@/_components/modal/LogoutModal';
 
 const UserAccount = () => {
-  // clearAuthData는 LogoutComponent에 prop으로 전달
-  // const { user, isLoggedIn, clearAuthData } = useAuthStore();
+  const [isLogoutOpen, setIsLogoutOpen] = useState(false);
   
   const mockUser = {
     teamId: "team-1",
@@ -49,24 +49,6 @@ const UserAccount = () => {
     ]
   };
 
-  // 로그아웃 모달 추후 추가
-  // const [isLogoutOpen, setIsLogoutOpen] = useState(false);
-
-  // const openLogout = () => {
-  //   setIsLogoutOpen(true);
-  // };
-
-  // const closeLogout = () => {
-  //   setIsLogoutOpen(false);
-  // };
-
-  // if (!isLoggedIn) {
-  //   return (
-  //     <Link href="/login">
-  //       <span className="text-text-primary">로그인</span>
-  //     </Link>
-  //   );
-  // }
 
   return (
     <div aria-label="사용자 메뉴">
@@ -114,7 +96,7 @@ const UserAccount = () => {
               <Dropdown.Item 
                 toggleDropdown={toggleDropdown} 
                 className="rounded-xl justify-center"
-                onClick={() => {/* logout handler 추가 예정 */}}
+                onClick={() => setIsLogoutOpen(true)}
               >
                 로그아웃
               </Dropdown.Item>
@@ -122,7 +104,7 @@ const UserAccount = () => {
           </>
         )}
       </Dropdown>
-      {/* <LogoutComponent isOpen={isLogoutOpen} onClose={closeLogout} /> */}
+      <LogoutModal isOpen={isLogoutOpen} onClose={() => setIsLogoutOpen(false)} />
     </div>
   );
 };
