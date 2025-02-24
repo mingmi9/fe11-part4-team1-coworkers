@@ -39,8 +39,8 @@ export default function DeleteUserModal({
           <Image src={AlertImg} alt="경고 아이콘" width={24} height={24} />
           <div className="mb-[2.4rem]">
             <Modal.Title
-              title={`정말 '${name}' 님을 팀에서 추방하시겠습니까?`}
-              className="mb-[0.8rem] flex flex-col"
+              title={`정말 '${name}' 님을\n팀에서 추방하시겠습니까?`}
+              className="mb-[0.8rem] flex flex-col whitespace-pre-line"
             />
           </div>
         </div>

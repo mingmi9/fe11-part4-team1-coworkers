@@ -2,7 +2,6 @@
 
 import { Modal } from '../common/Modal';
 import Button from '../common/Button';
-import Input from '../common/Input/Input';
 import { useState } from 'react';
 import { createTaskList } from '@/_lib/api/tasklist-api';
 
@@ -39,9 +38,13 @@ export default function AddTaskListModal({
 
   return (
     <div>
-      <Modal isOpen={isOpenModal} onClose={handleCloseModal} className="">
+      <Modal
+        isOpen={isOpenModal}
+        onClose={handleCloseModal}
+        className="px-[3rem]"
+      >
         <Modal.CloseButton onClose={handleCloseModal} className="mr-[1.6rem]" />
-        <div className="mb-[1.6rem] flex flex-col gap-[0.8rem]">
+        <div className="mb-[1.6rem] flex w-full flex-col gap-[0.8rem]">
           <Modal.Title
             title="새로운 목록 추가"
             className="mt-[4.8rem] flex flex-col"
@@ -52,25 +55,27 @@ export default function AddTaskListModal({
             목록별 할 일을 만들 수 있습니다.
           </p>
         </div>
-        <div className="mb-[2.4rem] mt-[2rem] flex flex-col items-start">
-          <span className="text-[1.6rem] font-medium leading-[1.9rem]">
-            목록 이름
-          </span>
-          <Input
-            className="h-[4rem] w-full"
-            placeholder="목록 이름을 입력해주세요"
-            onChange={handleInputChange}
-          />
-        </div>
+        <div className="w-[28rem]">
+          <div className="mb-[2.4rem] mt-[2rem] flex flex-col items-start gap-[0.8rem]">
+            <span className="text-[1.6rem] font-medium leading-[1.9rem]">
+              목록 이름
+            </span>
+            <input
+              placeholder="목록 이름을 입력해주세요"
+              onChange={handleInputChange}
+              className="h-[4rem] w-full rounded-[1.2rem] border-[0.1rem] border-border-primary bg-background-secondary px-[1.6rem] text-[1.6rem] text-text-primary placeholder:text-text-default focus:border-brand-primary focus:outline-none"
+            />
+          </div>
 
-        <Button
-          size="modal-medium"
-          round="xl"
-          className="mb-[3.2rem] w-[24.4rem]"
-          onClick={handleCreate}
-        >
-          만들기
-        </Button>
+          <Button
+            size="modal-medium"
+            round="xl"
+            className="mb-[3.2rem]"
+            onClick={handleCreate}
+          >
+            만들기
+          </Button>
+        </div>
       </Modal>
     </div>
   );

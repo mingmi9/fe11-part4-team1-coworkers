@@ -45,8 +45,10 @@ const TeamSelector: React.FC<TeamSelectorProps> = ({
               aria-expanded={isOpen}
               aria-haspopup="true"
             >
-              <div className="flex items-center justify-center gap-2">
-                <span>{selectedTeam}</span>
+              <div className="flex max-w-[16rem] items-center justify-center gap-2 overflow-hidden">
+                <span className="block flex-grow overflow-hidden text-ellipsis whitespace-nowrap">
+                  {selectedTeam}
+                </span>
                 <Image
                   src={toggle}
                   alt="토글 아이콘"
@@ -59,7 +61,7 @@ const TeamSelector: React.FC<TeamSelectorProps> = ({
             </Dropdown.Button>
             <Dropdown.Menu
               isOpen={isOpen}
-              boxClass="w-[22rem] top-[4rem] p-4 flex flex-col gap-2 items-center shadow-2xl"
+              boxClass="w-[22rem] top-[4rem] p-4 flex flex-col gap-2 shadow-2xl"
             >
               {userData?.memberships.map((membership) => (
                 <Link
@@ -86,7 +88,7 @@ const TeamSelector: React.FC<TeamSelectorProps> = ({
                         className="size-[3.2rem] rounded-xl object-cover"
                       />
                       <span
-                        className="overflow-hidden text-ellipsis whitespace-nowrap font-medium"
+                        className="w-full max-w-[12rem] overflow-hidden text-ellipsis whitespace-nowrap font-medium"
                         title={membership.group.name}
                       >
                         {membership.group.name}
