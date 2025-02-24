@@ -53,8 +53,6 @@ export default function TeamPage() {
             Authorization: `Bearer ${accessToken}`,
           },
         });
-        console.log(data);
-
         if (!data.memberships || data.memberships.length === 0) {
           setIsUser(false);
         } else {

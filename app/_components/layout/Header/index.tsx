@@ -52,7 +52,6 @@ const Header: React.FC = () => {
           Authorization: `Bearer ${accessToken}`,
         },
       });
-      console.log(data);
       setData(data);
       setIsLoggedIn(true);
     } catch {

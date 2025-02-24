@@ -59,7 +59,7 @@ const TeamSelector: React.FC<TeamSelectorProps> = ({
             </Dropdown.Button>
             <Dropdown.Menu
               isOpen={isOpen}
-              boxClass="w-[22rem] top-[4rem] p-4 flex flex-col gap-2 items-center"
+              boxClass="w-[22rem] top-[4rem] p-4 flex flex-col gap-2 items-center shadow-2xl"
             >
               {userData?.memberships.map((membership) => (
                 <Link
@@ -83,7 +83,7 @@ const TeamSelector: React.FC<TeamSelectorProps> = ({
                         width={32}
                         height={32}
                         sizes="3.2rem"
-                        className="size-[3.2rem] rounded-md object-cover"
+                        className="size-[3.2rem] rounded-xl object-cover"
                       />
                       <span
                         className="overflow-hidden text-ellipsis whitespace-nowrap font-medium"
@@ -98,6 +98,14 @@ const TeamSelector: React.FC<TeamSelectorProps> = ({
               ))}
 
               <Link href="/addteam">
+                <Dropdown.Item
+                  toggleDropdown={toggleDropdown}
+                  className="mt-4 h-[4.6rem] w-[18.6rem] justify-center rounded-xl border border-brand-primary"
+                >
+                  + 팀 생성하기
+                </Dropdown.Item>
+              </Link>
+              <Link href="/team/join">
                 <Dropdown.Item
                   toggleDropdown={toggleDropdown}
                   className="mt-4 h-[4.6rem] w-[18.6rem] justify-center rounded-xl border border-brand-primary"

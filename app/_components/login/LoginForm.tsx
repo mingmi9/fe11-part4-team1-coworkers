@@ -14,7 +14,9 @@ const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState<string | undefined>(undefined);
-  const [passwordError, setPasswordError] = useState<string | undefined>(undefined);
+  const [passwordError, setPasswordError] = useState<string | undefined>(
+    undefined,
+  );
   const [formError, setFormError] = useState<string | undefined>(undefined);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -73,12 +75,18 @@ const LoginForm = () => {
       });
 
       router.push('/');
+      window.location.reload();
     } catch (error: unknown) {
       console.error('로그인 실패:', error);
 
       if (typeof error === 'object' && error !== null && 'response' in error) {
-        const responseError = error as { response?: { data?: { message?: string } } };
-        setFormError(responseError.response?.data?.message || '이메일 혹은 비밀번호를 확인해주세요.');
+        const responseError = error as {
+          response?: { data?: { message?: string } };
+        };
+        setFormError(
+          responseError.response?.data?.message ||
+            '이메일 혹은 비밀번호를 확인해주세요.',
+        );
       } else if (error instanceof Error && error.message) {
         setFormError('이메일 혹은 비밀번호를 확인해주세요.');
       } else {
@@ -90,9 +98,9 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen w-full tablet:max-w-[46rem] text-text-primary py-8">
-      <h1 className="text-2xl pc:text-4xl font-medium mb-6">로그인</h1>
-      <form onSubmit={handleSubmit} className="w-full p-8 flex flex-col gap-4">
+    <div className="flex min-h-screen w-full flex-col items-center justify-center py-8 text-text-primary tablet:max-w-[46rem]">
+      <h1 className="mb-6 text-2xl font-medium pc:text-4xl">로그인</h1>
+      <form onSubmit={handleSubmit} className="flex w-full flex-col gap-4 p-8">
         <EmailInput
           label="이메일"
           value={email}
@@ -125,19 +133,28 @@ const LoginForm = () => {
           variant="default"
           icon="none"
           round="xl"
-          className={`mt-[3rem] w-full h-[4.7rem] font-semibold text-[1.6rem] hover:bg-brand-primary text-text-inverse ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
+          className={`mt-[3rem] h-[4.7rem] w-full text-[1.6rem] font-semibold text-text-inverse hover:bg-brand-primary ${isLoading ? 'cursor-not-allowed opacity-50' : ''}`}
           disabled={isLoading}
         >
           {isLoading ? '로그인 중...' : '로그인'}
         </Button>
-        {formError && <p className="text-status-danger font-medium text-[1.4rem] mt-2">{formError}</p>}
+        {formError && (
+          <p className="mt-2 text-[1.4rem] font-medium text-status-danger">
+            {formError}
+          </p>
+        )}
       </form>
-      <div className="mt-2 text-[1.4rem] tablet:text-[1.6rem] font-medium text-text-primary">
+      <div className="mt-2 text-[1.4rem] font-medium text-text-primary tablet:text-[1.6rem]">
         아직 계정이 없으신가요?{' '}
-        <Link href="/signUp" className="ml-4 text-brand-primary hover:underline">가입하기</Link>
+        <Link
+          href="/signUp"
+          className="ml-4 text-brand-primary hover:underline"
+        >
+          가입하기
+        </Link>
       </div>
-      <div className="mt-6 ">
-      <SimpleLogin/>
+      <div className="mt-6">
+        <SimpleLogin />
       </div>
     </div>
   );

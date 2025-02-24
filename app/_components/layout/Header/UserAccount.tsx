@@ -53,7 +53,7 @@ const UserAccount = ({ isLoggedIn, userData }: UserAccountProps) => {
             </Dropdown.Button>
             <Dropdown.Menu
               isOpen={isOpen}
-              boxClass="w-[12rem] top-[5rem] right-0 flex flex-col gap-2 text-text-primary text-[1.4rem]"
+              boxClass="w-[12rem] top-[5rem] right-0 flex flex-col gap-2 text-text-primary text-[1.4rem] shadow-2xl"
             >
               <Link href="/myhistory" className="w-full">
                 <Dropdown.Item
