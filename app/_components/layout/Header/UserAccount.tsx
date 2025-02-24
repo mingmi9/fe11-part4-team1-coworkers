@@ -18,7 +18,7 @@ const UserAccount = ({ isLoggedIn, userData }: UserAccountProps) => {
   if (!isLoggedIn) {
     return (
       <Link
-        href="Login"
+        href="/login"
         className="flex items-center rounded-xl px-4 py-2 text-text-primary transition-colors hover:bg-gray-50/10"
       >
         로그인

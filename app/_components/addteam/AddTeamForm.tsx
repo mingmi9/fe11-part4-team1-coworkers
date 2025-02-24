@@ -27,7 +27,7 @@ const AddTeamForm: React.FC = () => {
       queryClient.setQueryData(['group', data.id], data);
       queryClient.invalidateQueries({ queryKey: ['group'] });
       router.push(`/team/${data.id}`);
-      window.location.reload();
+      
     },
     onError: () => {
       setError('팀 생성 중 오류가 발생했습니다.');

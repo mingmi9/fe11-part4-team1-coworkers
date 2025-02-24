@@ -51,7 +51,7 @@ const SignUpForm = () => {
   const validatePassword = (value: string): string => {
     if (!value) return '비밀번호는 필수 입력입니다.';
     if (value.length < 8) return '비밀번호는 최소 8자 이상이어야 합니다.';
-    const passwordPattern = /^[A-Za-z0-9!@#$%^&*]+$/;
+    const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]+$/;
     if (!passwordPattern.test(value)) return '비밀번호는 숫자, 영문, 특수문자로만 가능합니다.';
     return '';
   };
