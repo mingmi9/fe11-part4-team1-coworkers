@@ -79,8 +79,6 @@ const LoginForm = () => {
         user: response.user,
       });
 
-      router.push('/');
-      window.location.reload();
     } catch (error: unknown) {
       console.error('로그인 실패:', error);
 
