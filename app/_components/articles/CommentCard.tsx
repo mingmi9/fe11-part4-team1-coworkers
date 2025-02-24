@@ -9,14 +9,20 @@ import { Comment } from '@/(routes)/articles/type/Articles';
 
 export interface CommentCardProps {
   comment: Comment;
-  onUpdateComment: (commentId: number, newContent: string) => void;
-  onDeleteComment: (commentId: number) => void;
+  onUpdateComment: (
+    commentId: number,
+    newContent: string,
+    articleId: number,
+  ) => void;
+  onDeleteComment: (commentId: number, articleId: number) => void;
+  articleId: number;
 }
 
 const CommentCard = ({
   comment,
   onUpdateComment,
   onDeleteComment,
+  articleId,
 }: CommentCardProps) => {
   const { user } = useAuthStore();
   const [isEditing, setIsEditing] = useState(false);
@@ -28,7 +34,7 @@ const CommentCard = ({
   };
   const handleSave = () => {
     if (newContent !== comment.content) {
-      onUpdateComment(comment.id, newContent);
+      onUpdateComment(comment.id, newContent, articleId);
     }
     setIsEditing(false);
   };
@@ -37,7 +43,7 @@ const CommentCard = ({
     setIsEditing(false);
   };
   const handleDelete = () => {
-    onDeleteComment(comment.id);
+    onDeleteComment(comment.id, articleId);
   };
 
   return (

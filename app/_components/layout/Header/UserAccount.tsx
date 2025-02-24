@@ -1,8 +1,10 @@
 'use client';
 
+import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Dropdown from '@/_components/common/Dropdown';
+import LogoutModal from '@/_components/modal/LogoutModal';
 import { UserDataProps } from '.';
 
 interface UserAccountProps {
@@ -11,6 +13,8 @@ interface UserAccountProps {
 }
 
 const UserAccount = ({ isLoggedIn, userData }: UserAccountProps) => {
+  const [isLogoutOpen, setIsLogoutOpen] = useState(false);
+
   if (!isLoggedIn) {
     return (
       <Link
@@ -70,9 +74,7 @@ const UserAccount = ({ isLoggedIn, userData }: UserAccountProps) => {
               <Dropdown.Item
                 toggleDropdown={toggleDropdown}
                 className="justify-center rounded-xl"
-                onClick={() => {
-                  /* logout handler 추가 예정 */
-                }}
+                onClick={() => setIsLogoutOpen(true)}
               >
                 로그아웃
               </Dropdown.Item>
@@ -80,7 +82,10 @@ const UserAccount = ({ isLoggedIn, userData }: UserAccountProps) => {
           </>
         )}
       </Dropdown>
-      {/* <LogoutComponent isOpen={isLogoutOpen} onClose={closeLogout} /> */}
+      <LogoutModal
+        isOpen={isLogoutOpen}
+        onClose={() => setIsLogoutOpen(false)}
+      />
     </div>
   );
 };
