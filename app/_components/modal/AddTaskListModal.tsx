@@ -57,8 +57,8 @@ export default function AddTaskListModal({
             목록 이름
           </span>
           <Input
+            className="h-[4rem] w-full"
             placeholder="목록 이름을 입력해주세요"
-            className="h-[4rem] w-[28.1rem]"
             onChange={handleInputChange}
           />
         </div>
@@ -66,7 +66,7 @@ export default function AddTaskListModal({
         <Button
           size="modal-medium"
           round="xl"
-          className="mb-[3.2rem]"
+          className="mb-[3.2rem] w-[24.4rem]"
           onClick={handleCreate}
         >
           만들기
