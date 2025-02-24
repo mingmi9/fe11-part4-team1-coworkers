@@ -5,8 +5,9 @@ import Image from 'next/image';
 import TeamSelector from '@/_components/layout/Header/TeamSelector';
 import UserAccount from '@/_components/layout/Header/UserAccount';
 import GnbButton from '@/_components/layout/Header/GnbButton';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { getUserInfo } from '@/_lib/api/user-api';
+import { useAuthStore } from '@/_store/auth-store';
 
 export interface UserDataProps {
   teamId: string;
@@ -31,35 +32,27 @@ export interface UserDataProps {
 }
 
 const Header: React.FC = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { isLoggedIn, accessToken } = useAuthStore();
   const [data, setData] = useState<UserDataProps | null>(null);
 
-  const fetchUserData = async () => {
-    const authStorage = localStorage.getItem('auth-storage');
-    if (!authStorage) {
-      setIsLoggedIn(false);
+  const fetchUserData = useCallback(async () => {
+    if (!accessToken) {
       setData(null);
       return;
     }
-    const parsedData = JSON.parse(authStorage);
-    const accessToken = parsedData?.state?.accessToken;
-
-    if (!accessToken) return;
 
     try {
-      const data = await getUserInfo({
+      const userData = await getUserInfo({
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
       });
-      setData(data);
-      setIsLoggedIn(true);
-    } catch {
-      console.log('로그인 정보를 가져오는데 실패했습니다');
-      setIsLoggedIn(false);
+      setData(userData);
+    } catch (error) {
+      console.error('로그인 정보를 가져오는데 실패했습니다', error);
       setData(null);
     }
-  };
+  }, [accessToken]);
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -67,18 +60,10 @@ const Header: React.FC = () => {
     } else {
       setData(null);
     }
-  }, [isLoggedIn]);
-
-  useEffect(() => {
-    const authStorage = localStorage.getItem('auth-storage');
-    if (authStorage) {
-      const parsedData = JSON.parse(authStorage);
-      const accessToken = parsedData?.state?.accessToken;
-      setIsLoggedIn(!!accessToken);
-    }
-  }, []);
+  }, [isLoggedIn, fetchUserData]);
 
   return (
+
     <header className="sticky top-0 z-20 flex h-[6rem] w-full items-center bg-background-secondary">
       <div className="mx-auto flex w-full max-w-[120rem] items-center justify-between px-[1.6rem] tablet:px-[3.2rem]">
         <div className="flex items-center justify-between text-[1.6rem] font-medium">
@@ -119,3 +104,4 @@ const Header: React.FC = () => {
 };
 
 export default Header;
+

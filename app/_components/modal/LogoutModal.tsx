@@ -19,8 +19,8 @@ const LogoutModal = ({ isOpen, onClose }: LogoutModalProps) => {
   const handleLogout = () => {
     clearAuthData();
     onClose();
-    router.push('/');
-    window.location.reload();
+    router.push('/login');
+    
   };
 
   return (
