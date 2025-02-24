@@ -128,6 +128,12 @@ const LoginForm = () => {
           errorMessage={passwordError}
           className="h-[4.4rem] tablet:h-[4.8rem]"
         />
+
+        
+        <div className="text-right text-[1rem] text-brand-primary mb-4">
+          <Link href="/reset-password" className="hover:underline">비밀번호를 잊으셨나요?</Link>
+        </div>
+
         <Button
           size="large"
           variant="default"

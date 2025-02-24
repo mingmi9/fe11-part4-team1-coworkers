@@ -7,6 +7,7 @@ import Button from '@/_components/common/Button';
 import CommentCard from '@/_components/articles/CommentCard';
 import MenuDropdown from '@/_components/articles/MenuDropdown';
 import { commonInputClass } from '@/_components/articles/InputField';
+import LoadingSpinner from '@/_components/common/LoadingSpinner';
 
 import { useQueryClient } from '@tanstack/react-query';
 import { useAuthStore } from '@/_store/auth-store';
@@ -215,7 +216,11 @@ const ArticlePage = () => {
 
   // 로딩 및 오류
   if (isLoading || isCommentsLoading || isDeleteArticlePending) {
-    return <div>Loading...</div>;
+    return (
+      <div className="mt-[10rem]">
+        <LoadingSpinner />
+      </div>
+    );
   }
 
   if (isError || !article || !id) {

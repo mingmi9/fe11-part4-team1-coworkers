@@ -12,14 +12,16 @@ import { useImage } from '@/_hooks/useImage';
 const CreateArticlePage = () => {
   const router = useRouter();
   const { isLoggedIn } = useAuthStore();
+  const { useCreateArticle } = useArticle();
+  const { useUploadImage } = useImage();
+
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [image, setImage] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [titleError, setTitleError] = useState('');
   const [contentError, setContentError] = useState('');
-  const { useCreateArticle } = useArticle();
-  const { useUploadImage } = useImage();
+  const [hasHydrated, setHasHydrated] = useState(false);
 
   const { mutateAsync: createArticle, isPending: isSubmitting } =
     useCreateArticle;
@@ -91,7 +93,11 @@ const CreateArticlePage = () => {
       return;
     }
     if (!content.trim()) {
-      setErrorAndFocus(contentInputRef, setContentError, '내용을 입력해주세요.');
+      setErrorAndFocus(
+        contentInputRef,
+        setContentError,
+        '내용을 입력해주세요.',
+      );
       return;
     }
 
@@ -127,11 +133,16 @@ const CreateArticlePage = () => {
 
   // 로그인 체크
   useEffect(() => {
+    setHasHydrated(true);
+  }, []);
+
+  useEffect(() => {
+    if (!hasHydrated) return;
     if (!isLoggedIn) {
       alert('로그인이 필요합니다.');
       router.push('/login');
     }
-  }, [isLoggedIn, router]);
+  }, [isLoggedIn, hasHydrated, router]);
 
   const isDisabled = isUploadingImage || isSubmitting;
   return (

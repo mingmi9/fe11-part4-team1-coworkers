@@ -50,7 +50,7 @@ export default function MemberCard({
         </div>
         <div className="flex flex-col">
           <div className="flex items-center gap-[0.5rem]">
-            <div className="max-w-[calc(100%-1.6rem)] break-words text-[1.4rem] text-text-primary">
+            <div className="break-words text-[1.4rem] text-text-primary">
               {name}
             </div>
             {role === 'ADMIN' && (

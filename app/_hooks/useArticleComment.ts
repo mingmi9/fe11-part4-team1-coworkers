@@ -20,7 +20,7 @@ export const useArticleComment = () => {
   // 게시글의 댓글 목록 조회
   const useGetArticleComment = (
     articleId: number,
-    params: { limit: number; cursor?: number, article:Article },
+    params: { limit: number; cursor?: number; article: Article },
   ) =>
     useInfiniteQuery<CommentResponse>({
       queryKey: ['articleComments', articleId],
@@ -29,16 +29,22 @@ export const useArticleComment = () => {
           limit: params.limit,
           cursor: pageParam as number,
         }),
-      getNextPageParam: (lastPage: CommentResponse, allPages: CommentResponse[]) => {
-        const totalCommentsCount = params.article?.commentCount || 0; 
-        const loadedCommentsCount =  allPages.reduce((acc, page) => acc + page.list.length, 0);
+      getNextPageParam: (
+        lastPage: CommentResponse,
+        allPages: CommentResponse[],
+      ) => {
+        const totalCommentsCount = params.article?.commentCount || 0;
+        const loadedCommentsCount = allPages.reduce(
+          (acc, page) => acc + page.list.length,
+          0,
+        );
 
         if (loadedCommentsCount >= totalCommentsCount) {
-          return undefined;  
+          return undefined;
         }
 
         const lastCommentId = lastPage?.list?.[lastPage.list.length - 1]?.id;
-        return lastCommentId || null; 
+        return lastCommentId || null;
       },
       initialPageParam: 0,
     });

@@ -63,6 +63,7 @@ const Header: React.FC = () => {
   }, [isLoggedIn, fetchUserData]);
 
   return (
+
     <header className="sticky top-0 z-20 flex h-[6rem] w-full items-center justify-between bg-background-secondary px-[1.6rem] tablet:px-[3.2rem] pc:px-[16vw]">
       <div className="flex items-center justify-between">
         <div className="mr-[1.6rem] tablet:hidden">
@@ -92,7 +93,8 @@ const Header: React.FC = () => {
         </nav>
       </div>
 
-      <UserAccount isLoggedIn={isLoggedIn} userData={data ?? null} />
+        <UserAccount isLoggedIn={isLoggedIn} userData={data ?? null} />
+      </div>
     </header>
   );
 };

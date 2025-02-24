@@ -72,7 +72,6 @@ export default function EditTeam({ teamImg, teamName, teamId }: EditTeamProps) {
     } finally {
       setIsSubmitting(false);
       router.push(`/team/${teamId}`);
-      window.location.reload();
     }
   };
 

@@ -4,6 +4,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { Divider } from '@/_components/articles/Card';
 import Button from '@/_components/common/Button';
 import InputField from '@/_components/articles/InputField';
+import LoadingSpinner from '@/_components/common/LoadingSpinner';
 
 import { useAuthStore } from '@/_store/auth-store';
 import { useArticle } from '@/_hooks/useArticle';
@@ -22,6 +23,7 @@ const EditArticlePage = () => {
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [titleError, setTitleError] = useState('');
   const [contentError, setContentError] = useState('');
+  const [hasHydrated, setHasHydrated] = useState(false);
 
   const { mutateAsync: updateArticle, isPending: isSubmitting } =
     useUpdateArticle;
@@ -140,6 +142,11 @@ const EditArticlePage = () => {
 
   // 로그인 체크
   useEffect(() => {
+    setHasHydrated(true);
+  }, []);
+
+  useEffect(() => {
+    if (!hasHydrated) return;
     if (!isLoggedIn) {
       alert('로그인이 필요합니다.');
       router.push('/login');
@@ -147,16 +154,21 @@ const EditArticlePage = () => {
       alert('접근 권한이 없습니다.');
       router.push(`/articles/${id}`);
     }
-  }, [isLoggedIn, article, user, id, router]);
+  }, [isLoggedIn, hasHydrated, router, article, user, id]);
 
   // 로딩 및 에러
   if (isArticleLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="mt-[10rem]">
+        <LoadingSpinner />
+      </div>
+    );
   }
 
   if (isArticleError) {
     alert('데이터를 불러오는데 실패했습니다.');
     router.back();
+    return;
   }
 
   // 버튼 disabled

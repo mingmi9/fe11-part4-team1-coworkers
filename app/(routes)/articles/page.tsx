@@ -8,6 +8,7 @@ import ArticleCard from '@/_components/articles/ArticleCard';
 import SortDropdown from '@/_components/articles/SortDropdown';
 import { Divider } from '@/_components/articles/Card';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import LoadingSpinner from '@/_components/common/LoadingSpinner';
 
 import { useAuthStore } from '@/_store/auth-store';
 import { Article } from './type/Articles';
@@ -34,7 +35,6 @@ const ArticlesPage = () => {
   useEffect(() => {
     if (data) {
       const { list } = data;
-
       if (page === 1) {
         setArticles(list);
       } else {
@@ -81,6 +81,7 @@ const ArticlesPage = () => {
   if (isError) {
     alert('다시 시도해 주세요.');
     router.push('/');
+    return;
   }
 
   return (
@@ -120,7 +121,7 @@ const ArticlesPage = () => {
         dataLength={articles.length}
         next={() => setPage((prevPage) => prevPage + 1)}
         hasMore={hasMore}
-        loader={<div>Loading...</div>}
+        loader={<LoadingSpinner />}
       >
         <div className="grid grid-cols-1 gap-[1.6rem] tablet:gap-[2.4rem] tablet:gap-x-[2rem] pc:grid-cols-2">
           {articles.map((article: Article) => (
