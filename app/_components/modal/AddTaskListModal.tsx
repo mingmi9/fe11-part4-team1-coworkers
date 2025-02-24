@@ -52,13 +52,13 @@ export default function AddTaskListModal({
             목록별 할 일을 만들 수 있습니다.
           </p>
         </div>
-        <div className="mb-[2.4rem] flex flex-col items-start">
+        <div className="mb-[2.4rem] mt-[2rem] flex flex-col items-start">
           <span className="text-[1.6rem] font-medium leading-[1.9rem]">
             목록 이름
           </span>
           <Input
+            className="h-[4rem] w-full"
             placeholder="목록 이름을 입력해주세요"
-            className="w-[28rem]"
             onChange={handleInputChange}
           />
         </div>
@@ -66,7 +66,7 @@ export default function AddTaskListModal({
         <Button
           size="modal-medium"
           round="xl"
-          className="mb-[3.2rem]"
+          className="mb-[3.2rem] w-[24.4rem]"
           onClick={handleCreate}
         >
           만들기

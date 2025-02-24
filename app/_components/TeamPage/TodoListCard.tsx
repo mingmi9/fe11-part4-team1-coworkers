@@ -9,8 +9,6 @@ import { useState } from 'react';
 
 interface TodoListCardProps {
   taskName: string;
-  // taskTodo: number;
-  // taskCompleted: number;
   teamId: string;
   taskId: number;
   taskTodo: {
@@ -23,8 +21,6 @@ interface TodoListCardProps {
 
 export default function TodoListCard({
   taskName,
-  // taskTodo,
-  // taskCompleted,
   teamId,
   taskId,
   color,
@@ -35,7 +31,7 @@ export default function TodoListCard({
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
 
   const handleTaskList = () => {
-    router.push(`/team/${teamId}/task-list`);
+    router.push(`/team/${teamId}/tasklist`);
   };
   const handleEdit = () => {
     setIsOpenEditModal(true);
