@@ -33,15 +33,19 @@ const ArticlesPage = () => {
   });
 
   useEffect(() => {
-    if (data) {
-      const { list } = data;
-      if (page === 1) {
-        setArticles(list);
-      } else {
-        setArticles((prevArticles) => [...prevArticles, ...list]);
-      }
-      setHasMore(list.length === pageSize);
-    }
+    if (!data) return;
+    const { list } = data;
+    setArticles((prevArticles) => {
+      if (page === 1) return list;
+      const newArticles = list.filter(
+        (newArticle: Article) =>
+          !prevArticles.some((article) => article.id === newArticle.id),
+      );
+
+      return [...prevArticles, ...newArticles];
+    });
+
+    setHasMore(list.length === pageSize);
   }, [data, page]);
 
   // 정렬 순서
