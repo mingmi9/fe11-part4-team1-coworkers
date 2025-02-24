@@ -63,7 +63,6 @@ const Header: React.FC = () => {
   }, [isLoggedIn, fetchUserData]);
 
   return (
-
     <header className="sticky top-0 z-20 flex h-[6rem] w-full items-center bg-background-secondary">
       <div className="mx-auto flex w-full max-w-[120rem] items-center justify-between px-[1.6rem] tablet:px-[3.2rem]">
         <div className="flex items-center justify-between text-[1.6rem] font-medium">
@@ -91,9 +90,7 @@ const Header: React.FC = () => {
             aria-label="메인 네비게이션"
           >
             <TeamSelector isLoggedIn={isLoggedIn} userData={data ?? null} />
-            <Link href="/articles">
-              <span>자유 게시판</span>
-            </Link>
+            <Link href="/articles">자유 게시판</Link>
           </nav>
         </div>
 
@@ -104,4 +101,3 @@ const Header: React.FC = () => {
 };
 
 export default Header;
-
