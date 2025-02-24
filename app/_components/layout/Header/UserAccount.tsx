@@ -38,17 +38,19 @@ const UserAccount = ({ isLoggedIn, userData }: UserAccountProps) => {
               className="flex items-center rounded-xl p-1 transition-colors hover:bg-gray-50/10"
             >
               <div className="flex items-center gap-2">
-                <Image
-                  src={userData?.image || '/icons/user.svg'}
-                  alt={userData?.nickname || '사용자 이미지'}
-                  width={32}
-                  height={32}
-                  sizes="3.2rem"
-                  className="size-[3.2rem] rounded-full object-cover"
-                />
-                <span className="hidden text-text-primary tablet:inline">
+                <div className="relative size-[2.4rem] pc:size-[1.6rem]">
+                  <Image
+                    src={userData?.image || '/icons/user.svg'}
+                    alt={userData?.nickname || '사용자 이미지'}
+                    fill
+                    sizes="2.4rem"
+                    className="rounded-full object-contain"
+                  />
+                </div>
+
+                <div className="hidden text-sm text-text-primary pc:block">
                   {userData?.nickname}
-                </span>
+                </div>
               </div>
             </Dropdown.Button>
             <Dropdown.Menu

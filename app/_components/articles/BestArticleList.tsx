@@ -2,6 +2,7 @@
 import { useArticle } from '@/_hooks/useArticle';
 import BestArticleCard from './BestArticleCard';
 import { Article } from '@/(routes)/articles/type/Articles';
+import LoadingSpinner from '../common/LoadingSpinner';
 
 interface BestArticleListProps {
   onArticleClick: (articleId: number) => void;
@@ -16,10 +17,10 @@ const BestArticleList = ({ onArticleClick }: BestArticleListProps) => {
   });
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <LoadingSpinner />;
   }
   if (isError) {
-    return <div>Error</div>;
+    return <div>데이터를 불러오는데 실패했습니다.</div>;
   }
   const bestArticle = data?.list || [];
 
