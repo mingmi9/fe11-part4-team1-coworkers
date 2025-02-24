@@ -8,6 +8,7 @@ interface MemberSectionProps {
     userName: string;
     userEmail: string;
     userId: number;
+    role: string;
   }[];
   isAdmin: boolean;
   teamId: string;
@@ -56,6 +57,7 @@ export default function MemberSection({
             id={members.userId}
             isAdmin={isAdmin}
             teamId={teamId}
+            role={members.role}
           />
         ))}
       </div>

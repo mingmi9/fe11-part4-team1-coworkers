@@ -76,6 +76,7 @@ export default function TeamPage() {
 
         if (matchedMembership.role === 'ADMIN') setIsAdmin(true);
         else setIsAdmin(false);
+        console.log(data);
         setGroupData(data);
       } catch {
         setIsTeam(false);

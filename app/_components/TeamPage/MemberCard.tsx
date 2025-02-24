@@ -5,6 +5,7 @@ import Dropdown from '../common/Dropdown';
 import { useState } from 'react';
 import ProfileModal from '../modal/ProfileModal';
 import KickUserModal from '../modal/KickUserModal';
+import Admin from '@icons/admin.png';
 
 interface MemberCardProps {
   profileImg?: string;
@@ -13,6 +14,7 @@ interface MemberCardProps {
   isAdmin: boolean;
   id: number;
   teamId: string;
+  role: string;
 }
 
 export default function MemberCard({
@@ -22,6 +24,7 @@ export default function MemberCard({
   isAdmin,
   id,
   teamId,
+  role,
 }: MemberCardProps) {
   const [isOpenCopyModal, setIsOpenCopyModal] = useState(false);
   const [isOpenKickModal, setIsOpenKickModal] = useState(false);
@@ -46,7 +49,16 @@ export default function MemberCard({
           />
         </div>
         <div className="flex flex-col">
-          <div className="text-[1.4rem] text-text-primary">{name}</div>
+          <div className="flex items-center gap-[0.5rem]">
+            <div className="max-w-[calc(100%-1.6rem)] break-words text-[1.4rem] text-text-primary">
+              {name}
+            </div>
+            {role === 'ADMIN' && (
+              <div className="inline-flex items-center">
+                <Image src={Admin} width={16} height={16} alt="관리자" />
+              </div>
+            )}
+          </div>
           <div className="text-[1.2rem] text-text-secondary">{email}</div>
         </div>
       </div>
