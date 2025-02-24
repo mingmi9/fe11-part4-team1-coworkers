@@ -89,7 +89,7 @@ export const useUser = (options = {}) => {
       token: string;
       password: string;
       passwordConfirmation: string;
-    }) => resetPassword(password, passwordConfirmation, token),
+    }) => resetPassword(token,password, passwordConfirmation),
     onSuccess: (response: { message: string }) => {
       console.log(response.message);
     },
