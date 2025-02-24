@@ -16,13 +16,22 @@ import MessageIcon from '@icons/message_fill.svg';
 import DoneIcon from '@icons/done_fill.svg';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from './_store/auth-store';
+import { useUser } from './_hooks/useUser';
 
 export default function Home() {
   const router = useRouter();
   const { isLoggedIn } = useAuthStore();
+  const { useGetUserInfo } = useUser({ enabled: isLoggedIn });
+  const { data: user } = useGetUserInfo;
+  const firstTeamId = user?.memberships?.[0]?.group?.id;
 
   const handleStartClick = () => {
-    router.push(isLoggedIn ? '/team' : '/Login');
+    if (!isLoggedIn || !user) {
+      router.push('/login');
+      return;
+    }
+
+    router.push(firstTeamId ? `/team/${firstTeamId}` : '/addteam');
   };
 
   return (

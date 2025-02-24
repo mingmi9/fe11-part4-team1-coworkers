@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { signIn } from '@/_lib/api/auth-api';
 import { useAuthStore } from '@/_store/auth-store';
 import { useRouter } from 'next/navigation';
+import { useUser } from '@/_hooks/useUser';
 import SimpleLogin from './SimpleLogin';
 
 const LoginForm = () => {
@@ -21,13 +22,17 @@ const LoginForm = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const { setAuthData, isLoggedIn } = useAuthStore();
+  const { useGetUserInfo } = useUser({ enabled: isLoggedIn });
+  const { data: user } = useGetUserInfo;
   const router = useRouter();
 
   useEffect(() => {
-    if (isLoggedIn) {
-      router.push('/');
+    if (isLoggedIn && user) {
+      const firstTeamId = user?.memberships?.[0]?.group?.id;
+      const destination = firstTeamId ? `/team/${firstTeamId}` : '/addteam';
+      router.replace(destination);
     }
-  }, [isLoggedIn, router]);
+  }, [isLoggedIn, user, router]);
 
   const validateEmail = (email: string) => {
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -74,8 +79,6 @@ const LoginForm = () => {
         user: response.user,
       });
 
-      router.push('/');
-      window.location.reload();
     } catch (error: unknown) {
       console.error('로그인 실패:', error);
 
@@ -129,9 +132,10 @@ const LoginForm = () => {
           className="h-[4.4rem] tablet:h-[4.8rem]"
         />
 
-        
-        <div className="text-right text-[1rem] text-brand-primary mb-4">
-          <Link href="/reset-password" className="hover:underline">비밀번호를 잊으셨나요?</Link>
+        <div className="mb-4 text-right text-[1rem] text-brand-primary">
+          <Link href="/reset-password" className="hover:underline">
+            비밀번호를 잊으셨나요?
+          </Link>
         </div>
 
         <Button
