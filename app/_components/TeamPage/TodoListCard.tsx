@@ -8,26 +8,30 @@ import DeleteTaskModal from '../modal/DeleteTaskModal';
 import { useState } from 'react';
 
 interface TodoListCardProps {
-  taskList: string;
-  taskTodo: number;
-  taskCompleted: number;
+  taskName: string;
   teamId: string;
+  taskId: number;
+  taskTodo: {
+    id: number;
+    name: string;
+    doneAt: string;
+  }[];
   color: string;
 }
 
 export default function TodoListCard({
-  taskList,
-  taskTodo,
-  taskCompleted,
+  taskName,
   teamId,
+  taskId,
   color,
+  taskTodo,
 }: TodoListCardProps) {
   const router = useRouter();
   const [isOpenEditModal, setIsOpenEditModal] = useState(false);
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
 
   const handleTaskList = () => {
-    router.push(`/team/${teamId}/task-list`);
+    router.push(`/team/${teamId}/tasklist`);
   };
   const handleEdit = () => {
     setIsOpenEditModal(true);
@@ -36,14 +40,21 @@ export default function TodoListCard({
     setIsOpenDeleteModal(true);
   };
 
+  const getCompletedTaskCount = () => {
+    return taskTodo.filter((task) => task.doneAt !== null).length;
+  };
+
   return (
     <div className="relative flex h-[4rem] w-full items-center justify-between rounded-[1.2rem] bg-background-secondary pr-[0.8rem] text-[1.4rem]">
       <div className={`h-[4rem] w-[2.4rem] rounded-[1.2rem] ${color}`} />
       <div className="absolute left-[1.2rem] flex h-[4rem] items-center bg-background-secondary p-[1.2rem] text-text-primary">
-        {taskList}
+        {taskName}
       </div>
       <div className="flex items-center gap-[0.4rem]">
-        <TodoListCheckBox taskTodo={taskTodo} taskCompleted={taskCompleted} />
+        <TodoListCheckBox
+          taskTodo={taskTodo.length}
+          taskCompleted={getCompletedTaskCount()}
+        />
         <Dropdown>
           {({ isOpen, toggleDropdown }) => (
             <>
@@ -91,13 +102,17 @@ export default function TodoListCard({
         <EditTaskListModal
           isOpen={isOpenEditModal}
           onClose={() => setIsOpenEditModal(false)}
-          name={taskList}
+          name={taskName}
+          taskId={taskId}
+          teamId={teamId}
         />
 
         <DeleteTaskModal
-          isOpen={isOpenDeleteModal}
-          onClose={() => setIsOpenDeleteModal(false)}
-          task={taskList}
+          isOpenModal={isOpenDeleteModal}
+          handleCloseModal={() => setIsOpenDeleteModal(false)}
+          taskName={taskName}
+          taskId={taskId}
+          teamId={teamId}
         />
       </div>
     </div>

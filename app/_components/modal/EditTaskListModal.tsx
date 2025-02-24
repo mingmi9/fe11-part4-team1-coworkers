@@ -3,17 +3,22 @@
 import { Modal } from '../common/Modal';
 import Button from '../common/Button';
 import { useEffect, useState } from 'react';
+import { updateTaskList } from '@/_lib/api/tasklist-api';
 
 interface AddTaskListModalProps {
   isOpen: boolean;
   onClose: () => void;
   name: string;
+  teamId: string;
+  taskId: number;
 }
 
 export default function AddTaskListModal({
   isOpen,
   onClose,
   name,
+  teamId,
+  taskId,
 }: AddTaskListModalProps) {
   const [inputValue, setInputValue] = useState(name);
 
@@ -23,6 +28,18 @@ export default function AddTaskListModal({
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
+  };
+
+  const handleEdit = async () => {
+    try {
+      await updateTaskList(Number(teamId), taskId, { name: inputValue });
+
+      alert('수정 성공');
+      window.location.reload();
+      onClose();
+    } catch {
+      alert('전송실패');
+    }
   };
 
   return (
@@ -48,7 +65,12 @@ export default function AddTaskListModal({
           ></input>
         </div>
 
-        <Button size="modal-medium" round="xl" className="mb-[3.2rem]">
+        <Button
+          size="modal-medium"
+          round="xl"
+          className="mb-[3.2rem]"
+          onClick={handleEdit}
+        >
           수정하기
         </Button>
       </Modal>

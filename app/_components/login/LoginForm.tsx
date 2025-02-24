@@ -14,7 +14,9 @@ const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState<string | undefined>(undefined);
-  const [passwordError, setPasswordError] = useState<string | undefined>(undefined);
+  const [passwordError, setPasswordError] = useState<string | undefined>(
+    undefined,
+  );
   const [formError, setFormError] = useState<string | undefined>(undefined);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -54,15 +56,16 @@ const LoginForm = () => {
     const emailValidationError = validateEmail(email);
     const passwordValidationError = validatePassword(password);
 
+    setEmailError(emailValidationError);
+    setPasswordError(passwordValidationError);
+
     if (emailValidationError || passwordValidationError) {
-      setEmailError(emailValidationError);
-      setPasswordError(passwordValidationError);
+      setFormError('입력한 정보를 확인해주세요.');
       return;
     }
 
     try {
       setIsLoading(true);
-
       const response = await signIn({ email, password });
 
       setAuthData({
@@ -72,14 +75,20 @@ const LoginForm = () => {
       });
 
       router.push('/');
+      window.location.reload();
     } catch (error: unknown) {
       console.error('로그인 실패:', error);
 
-      if (error instanceof Error && error.message) {
-        setFormError(error.message);
-      } else if (typeof error === 'object' && error !== null && 'response' in error) {
-        const responseError = error as { response?: { data?: { message?: string } } };
-        setFormError(responseError.response?.data?.message || '이메일 혹은 비밀번호를 확인해주세요.');
+      if (typeof error === 'object' && error !== null && 'response' in error) {
+        const responseError = error as {
+          response?: { data?: { message?: string } };
+        };
+        setFormError(
+          responseError.response?.data?.message ||
+            '이메일 혹은 비밀번호를 확인해주세요.',
+        );
+      } else if (error instanceof Error && error.message) {
+        setFormError('이메일 혹은 비밀번호를 확인해주세요.');
       } else {
         setFormError('이메일 혹은 비밀번호를 확인해주세요.');
       }
@@ -89,52 +98,70 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen text-text-primary p-8">
-      <h1 className="text-4xl font-medium mb-10">로그인</h1>
-      <form onSubmit={handleSubmit} className="w-full max-w-md rounded-lg shadow-lg p-8">
+    <div className="flex min-h-screen w-full flex-col items-center justify-center py-8 text-text-primary tablet:max-w-[46rem]">
+      <h1 className="mb-6 text-2xl font-medium pc:text-4xl">로그인</h1>
+      <form onSubmit={handleSubmit} className="flex w-full flex-col gap-4 p-8">
         <EmailInput
           label="이메일"
           value={email}
           onChange={(e) => {
             setEmail(e.target.value);
-            if (emailError) setEmailError(undefined);
+            setEmailError(undefined);
+            setFormError(undefined);
           }}
           placeholder="이메일을 입력해주세요."
           onBlur={() => handleBlur('email')}
           error={!!emailError}
           errorMessage={emailError}
+          className="h-[4.4rem] tablet:h-[4.8rem]"
         />
         <PasswordInput
           value={password}
           onChange={(e) => {
             setPassword(e.target.value);
-            if (passwordError) setPasswordError(undefined);
+            setPasswordError(undefined);
+            setFormError(undefined);
           }}
           placeholder="비밀번호를 입력해주세요."
           onBlur={() => handleBlur('password')}
           error={!!passwordError}
           errorMessage={passwordError}
+          className="h-[4.4rem] tablet:h-[4.8rem]"
         />
-        {formError && <p className="text-status-danger text-[1rem] mt-2">{formError}</p>}
+
+        
         <div className="text-right text-[1rem] text-brand-primary mb-4">
           <Link href="/reset-password" className="hover:underline">비밀번호를 잊으셨나요?</Link>
         </div>
+
         <Button
           size="large"
           variant="default"
           icon="none"
           round="xl"
-          className={`w-full h-12 text-[1rem] hover:bg-brand-primary text-text-inverse font-medium ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
+          className={`mt-[3rem] h-[4.7rem] w-full text-[1.6rem] font-semibold text-text-inverse hover:bg-brand-primary ${isLoading ? 'cursor-not-allowed opacity-50' : ''}`}
           disabled={isLoading}
         >
           {isLoading ? '로그인 중...' : '로그인'}
         </Button>
+        {formError && (
+          <p className="mt-2 text-[1.4rem] font-medium text-status-danger">
+            {formError}
+          </p>
+        )}
       </form>
-      <div className="mt-8 text-[1rem] font-medium text-text-primary">
+      <div className="mt-2 text-[1.4rem] font-medium text-text-primary tablet:text-[1.6rem]">
         아직 계정이 없으신가요?{' '}
-        <Link href="/signUp" className="text-brand-primary hover:underline">가입하기</Link>
+        <Link
+          href="/signUp"
+          className="ml-4 text-brand-primary hover:underline"
+        >
+          가입하기
+        </Link>
       </div>
-      <SimpleLogin />
+      <div className="mt-6">
+        <SimpleLogin />
+      </div>
     </div>
   );
 };

@@ -2,7 +2,7 @@ import { instance } from '../axios-instance';
 
 // 게시글 작성
 export const createArticle = async (data: {
-  image: string;
+  image?: string;
   content: string;
   title: string;
 }) => {
@@ -30,7 +30,7 @@ export const getArticlesById = async (articleId: number) => {
 // 게시글 수정
 export const updateArticle = async (
   articleId: number,
-  data: { image?: string; content?: string; title: string },
+  data: { image?: string | null; content?: string; title: string },
 ) => {
   const response = await instance.patch(`/articles/${articleId}`, data);
   return response.data;

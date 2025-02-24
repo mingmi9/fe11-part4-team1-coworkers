@@ -4,18 +4,34 @@ import { Modal } from '../common/Modal';
 import Button from '../common/Button';
 import AlertImg from '@icons/alert.svg';
 import Image from 'next/image';
+import { deleteTaskList } from '@/_lib/api/tasklist-api';
 
 interface DeleteTaskModalProps {
   isOpenModal: boolean;
   handleCloseModal: () => void;
   taskName: string;
+  teamId: string;
+  taskId: number;
 }
 
 export default function DeleteTaskModal({
   isOpenModal,
   handleCloseModal,
   taskName,
+  taskId,
+  teamId,
 }: DeleteTaskModalProps) {
+  const handleDelete = async () => {
+    try {
+      await deleteTaskList(Number(teamId), taskId);
+
+      alert('삭제 완료');
+      window.location.reload();
+      handleCloseModal();
+    } catch {
+      alert('삭제 실패');
+    }
+  };
   return (
     <div>
       <Modal isOpen={isOpenModal} onClose={handleCloseModal} className="">
@@ -37,7 +53,7 @@ export default function DeleteTaskModal({
           >
             닫기
           </Button>
-          <Button size="modal-small" variant="danger">
+          <Button size="modal-small" variant="danger" onClick={handleDelete}>
             삭제하기
           </Button>
         </div>

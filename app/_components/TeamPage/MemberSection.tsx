@@ -3,15 +3,22 @@ import MemberCard from './MemberCard';
 import MemberInviteModal from '../modal/MemberInviteModal';
 
 interface MemberSectionProps {
-  member: {
-    profileImg: string;
-    name: string;
-    email: string;
+  members: {
+    userImage: string;
+    userName: string;
+    userEmail: string;
+    userId: number;
+    role: string;
   }[];
   isAdmin: boolean;
+  teamId: string;
 }
 
-export default function MemberSection({ member, isAdmin }: MemberSectionProps) {
+export default function MemberSection({
+  members,
+  isAdmin,
+  teamId,
+}: MemberSectionProps) {
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   const handleInviteMember = () => {
@@ -19,10 +26,10 @@ export default function MemberSection({ member, isAdmin }: MemberSectionProps) {
   };
 
   return (
-    <div className="tablet:[69.6rem] mobile:[34.3rem] text-[1.6rem] text-text-primary pc:w-[120rem]">
+    <div className="mobile:[34.3rem] text-[1.6rem] text-text-primary tablet:w-full pc:w-[120rem]">
       <div className="mb-[2.4rem] flex justify-between">
         <div>
-          멤버 <span className="text-text-default">({member.length}명)</span>
+          멤버 <span className="text-text-default">({members.length}명)</span>
         </div>
         {isAdmin && (
           <div>
@@ -35,18 +42,22 @@ export default function MemberSection({ member, isAdmin }: MemberSectionProps) {
             <MemberInviteModal
               isOpen={isOpenModal}
               onClose={() => setIsOpenModal(false)}
+              teamId={teamId}
             />
           </div>
         )}
       </div>
       <div className="flex flex-wrap gap-[2.4rem] mobile:gap-[1.6rem]">
-        {member.map((member, index) => (
+        {members.map((members, index) => (
           <MemberCard
             key={index}
-            profileImg={member.profileImg}
-            name={member.name}
-            email={member.email}
+            profileImg={members.userImage}
+            name={members.userName}
+            email={members.userEmail}
+            id={members.userId}
             isAdmin={isAdmin}
+            teamId={teamId}
+            role={members.role}
           />
         ))}
       </div>

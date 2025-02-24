@@ -4,9 +4,13 @@ import TodoListCard from './TodoListCard';
 
 interface TodoListSectionProps {
   tasks: {
-    taskList: string;
-    taskTodo: number;
-    taskCompleted: number;
+    name: string;
+    id: number;
+    tasks: {
+      id: number;
+      name: string;
+      doneAt: string;
+    }[];
   }[];
   teamId: string;
 }
@@ -39,7 +43,7 @@ export default function TodoListSection({
       <div className="mb-[1.6rem] flex justify-between">
         <div className="text-[1.6rem] text-text-primary">
           할 일 목록
-          <span className="text-text-default">({tasks.length}개)</span>
+          <span className="text-text-default"> ({tasks.length}개)</span>
         </div>
         <div>
           <button
@@ -49,8 +53,9 @@ export default function TodoListSection({
             + 새로운 목록 추가하기
           </button>
           <AddTaskListModal
-            isOpen={isOpenModal}
-            onClose={() => setIsOpenModal(false)}
+            isOpenModal={isOpenModal}
+            handleCloseModal={() => setIsOpenModal(false)}
+            teamId={teamId}
           />
         </div>
       </div>
@@ -58,10 +63,10 @@ export default function TodoListSection({
         {tasks.map((tasks, index) => (
           <TodoListCard
             key={index}
-            taskList={tasks.taskList}
-            taskTodo={tasks.taskTodo}
-            taskCompleted={tasks.taskCompleted}
+            taskName={tasks.name}
             teamId={teamId}
+            taskId={tasks.id}
+            taskTodo={tasks.tasks}
             color={getColor(index)}
           />
         ))}

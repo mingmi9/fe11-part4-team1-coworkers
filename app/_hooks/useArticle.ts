@@ -12,10 +12,10 @@ export const useArticle = (options = {}) => {
 
   // 게시글 작성
   const useCreateArticle = useMutation({
-    mutationFn: (data: { image: string; content: string; title: string }) =>
+    mutationFn: (data: { image?: string; content: string; title: string }) =>
       createArticle(data),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['articles'] });
+    onSuccess: (data) => {
+      queryClient.setQueryData(['article', data.id], data);
     },
   });
 
@@ -44,7 +44,7 @@ export const useArticle = (options = {}) => {
   const useUpdateArticle = useMutation({
     mutationFn: (data: {
       articleId: number;
-      payload: { image?: string; content?: string; title: string };
+      payload: { image?: string | null; content?: string; title: string };
     }) => updateArticle(data.articleId, data.payload),
     onSuccess: (data) => {
       queryClient.invalidateQueries({
