@@ -64,34 +64,38 @@ const Header: React.FC = () => {
 
   return (
 
-    <header className="sticky top-0 z-20 flex h-[6rem] w-full items-center justify-between bg-background-secondary px-[1.6rem] tablet:px-[3.2rem] pc:px-[16vw]">
-      <div className="flex items-center justify-between">
-        <div className="mr-[1.6rem] tablet:hidden">
-          <GnbButton />
-        </div>
-        <Link href="/" aria-label="홈으로 이동">
-          <Image
-            src="/icons/logo.svg"
-            alt="Coworkers 로고"
-            width={158}
-            height={32}
-            sizes="15.8rem"
-            priority
-            className="cursor-pointer tablet:mr-[3.2rem]"
-          />
-        </Link>
-        <nav
-          className="hidden items-center justify-center text-[1.6rem] font-medium text-text-primary tablet:flex tablet:gap-[3.2rem]"
-          aria-label="메인 네비게이션"
-        >
-          <TeamSelector isLoggedIn={isLoggedIn} userData={data ?? null} />
-          {isLoggedIn && (
-          <Link href="/articles">
-            <span>자유 게시판</span>
+    <header className="sticky top-0 z-20 flex h-[6rem] w-full items-center bg-background-secondary">
+      <div className="mx-auto flex w-full max-w-[120rem] items-center justify-between px-[1.6rem] tablet:px-[3.2rem]">
+        <div className="flex items-center justify-between text-[1.6rem] font-medium">
+          <div className="mr-[1.6rem] tablet:hidden">
+            <GnbButton />
+          </div>
+          <Link
+            href="/"
+            aria-label="홈으로 이동"
+            className="tablet:mr-[3.2rem] pc:mr-[4rem]"
+          >
+            <div className="relative h-[2.4rem] w-[10.2rem] pc:h-[3.2rem] pc:w-[15.8rem]">
+              <Image
+                src="/icons/logo.svg"
+                alt="Coworkers"
+                fill
+                sizes="15.8rem"
+                priority
+                className="object-contain"
+              />
+            </div>
           </Link>
-          )}
-        </nav>
-      </div>
+          <nav
+            className="hidden items-center justify-center text-text-primary tablet:flex tablet:gap-[3.2rem]"
+            aria-label="메인 네비게이션"
+          >
+            <TeamSelector isLoggedIn={isLoggedIn} userData={data ?? null} />
+            <Link href="/articles">
+              <span>자유 게시판</span>
+            </Link>
+          </nav>
+        </div>
 
         <UserAccount isLoggedIn={isLoggedIn} userData={data ?? null} />
       </div>

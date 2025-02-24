@@ -60,6 +60,10 @@ const AddTeamForm: React.FC = () => {
       setError('팀 이름을 입력하세요.');
       return;
     }
+    if (!teamName) {
+      setError('팀 프로필 이미지를 선택하세요.');
+      return;
+    }
 
     try {
       let imageUrl = '';
