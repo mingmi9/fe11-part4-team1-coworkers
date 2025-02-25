@@ -8,6 +8,7 @@ import {
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useOptimisticUpdate } from './useOptimisticUpdate';
+import dayjs from 'dayjs';
 
 export const useTaskList = (
   groupId: number,
@@ -16,7 +17,7 @@ export const useTaskList = (
   options = {},
 ) => {
   const queryClient = useQueryClient();
-  const stringCurrentDate = currentDate.toISOString();
+  const stringCurrentDate = dayjs(currentDate).format('YYYY-MM-DD');
 
   // 할 일 목록 조회
   const useGetTaskList = useQuery({

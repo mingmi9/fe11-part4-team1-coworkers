@@ -1,21 +1,20 @@
-'use client';
-
-import { useState } from 'react';
 import { Modal } from '../common/Modal';
 import Button from '../common/Button';
 import AlertImg from '@icons/alert.svg';
 import Image from 'next/image';
 
-export default function DeleteUserModal() {
-  const [isOpenModal, setIsOpenModal] = useState(false);
+interface DeleteUserModalProps {
+  onDelete: () => void;
+  onClose: () => void;
+}
 
-  const handleOpenModal = () => setIsOpenModal(true);
-  const handleCloseModal = () => setIsOpenModal(false);
-
+export default function DeleteUserModal({
+  onDelete,
+  onClose,
+}: DeleteUserModalProps) {
   return (
     <div>
-      <button onClick={handleOpenModal}>회원 탈퇴하기</button>
-      <Modal isOpen={isOpenModal} onClose={handleCloseModal} className="">
+      <Modal isOpen={true} onClose={onClose} className="">
         <div className="mt-[4rem] flex flex-col items-center justify-center gap-[1.6rem]">
           <Image src={AlertImg} alt="경고 아이콘" width={24} height={24} />
           <div className="mb-[2.4rem]">
@@ -34,11 +33,11 @@ export default function DeleteUserModal() {
           <Button
             size="modal-small"
             variant="outlined_secondary"
-            onClick={handleCloseModal}
+            onClick={onClose}
           >
             닫기
           </Button>
-          <Button size="modal-small" variant="danger">
+          <Button size="modal-small" variant="danger" onClick={onDelete}>
             회원 탈퇴
           </Button>
         </div>

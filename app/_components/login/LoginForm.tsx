@@ -78,7 +78,6 @@ const LoginForm = () => {
         refreshToken: response.refreshToken,
         user: response.user,
       });
-
     } catch (error: unknown) {
       console.error('로그인 실패:', error);
 
@@ -116,7 +115,7 @@ const LoginForm = () => {
           onBlur={() => handleBlur('email')}
           error={!!emailError}
           errorMessage={emailError}
-          className="h-[4.4rem] tablet:h-[4.8rem]"
+          className="w-full mobile:h-[4.4rem] tablet:h-[4.8rem] pc:h-[4.8rem]"
         />
         <PasswordInput
           value={password}
@@ -129,10 +128,10 @@ const LoginForm = () => {
           onBlur={() => handleBlur('password')}
           error={!!passwordError}
           errorMessage={passwordError}
-          className="h-[4.4rem] tablet:h-[4.8rem]"
+          className="w-full mobile:h-[4.4rem] tablet:h-[4.8rem] pc:h-[4.8rem]"
         />
 
-        <div className="mb-4 text-right text-[1rem] text-brand-primary">
+        <div className="mb-4 text-right text-[1.4rem] text-brand-primary">
           <Link href="/reset-password" className="hover:underline">
             비밀번호를 잊으셨나요?
           </Link>
@@ -157,7 +156,7 @@ const LoginForm = () => {
       <div className="mt-2 text-[1.4rem] font-medium text-text-primary tablet:text-[1.6rem]">
         아직 계정이 없으신가요?{' '}
         <Link
-          href="/signUp"
+          href="/signup"
           className="ml-4 text-brand-primary hover:underline"
         >
           가입하기
