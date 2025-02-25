@@ -64,7 +64,7 @@ export default function TeamJoin() {
           value={inviteCode}
           onChange={handleInputChange}
           error={!!error}
-          className="mb-[1rem] h-[4.4rem] tablet:h-[4.8rem]"
+          className="mb-[1rem] w-full mobile:h-[4.4rem] tablet:h-[4.8rem] pc:h-[4.8rem]"
         />
         {error && <p className="text-[1.4rem] text-status-danger">{error}</p>}
         <div className="mt-[2rem]">

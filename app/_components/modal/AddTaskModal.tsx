@@ -66,7 +66,7 @@ export default function AddTaskModal({
             </span>
             <Input
               placeholder="할 일 제목을 입력해주세요."
-              className="w-[33.6rem]"
+              className="h-[4.8rem] w-[33.6rem]"
             />
           </div>
           <div className="flex flex-col items-start gap-[1.6rem]">
@@ -153,7 +153,10 @@ export default function AddTaskModal({
             <span className="text-[1.6rem] font-medium leading-[1.9rem]">
               할 일 메모
             </span>
-            <Input placeholder="메모를 입력해주세요." className="w-[33.6rem]" />
+            <Input
+              placeholder="메모를 입력해주세요."
+              className="h-[4.8rem] w-[33.6rem]"
+            />
           </div>
         </div>
         <div className="mb-[3.2rem]">

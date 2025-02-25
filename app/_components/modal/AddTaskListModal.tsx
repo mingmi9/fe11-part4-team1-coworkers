@@ -63,7 +63,7 @@ export default function AddTaskListModal({
             <input
               placeholder="목록 이름을 입력해주세요"
               onChange={handleInputChange}
-              className="h-[4rem] w-full rounded-[1.2rem] border-[0.1rem] border-border-primary bg-background-secondary px-[1.6rem] text-[1.6rem] text-text-primary placeholder:text-text-default focus:border-brand-primary focus:outline-none"
+              className="h-[4.8rem] w-full rounded-[1.2rem] border-[0.1rem] border-border-primary bg-background-secondary px-[1.6rem] text-[1.6rem] text-text-primary placeholder:text-text-default focus:border-brand-primary focus:outline-none"
             />
           </div>
 

@@ -51,8 +51,10 @@ const SignUpForm = () => {
   const validatePassword = (value: string): string => {
     if (!value) return '비밀번호는 필수 입력입니다.';
     if (value.length < 8) return '비밀번호는 최소 8자 이상이어야 합니다.';
-    const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]+$/;
-    if (!passwordPattern.test(value)) return '비밀번호는 숫자, 영문, 특수문자로만 가능합니다.';
+    const passwordPattern =
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]+$/;
+    if (!passwordPattern.test(value))
+      return '비밀번호는 숫자, 영문, 특수문자로만 가능합니다.';
     return '';
   };
 
@@ -62,12 +64,15 @@ const SignUpForm = () => {
     return '';
   };
 
-  const handleBlur = (field: 'email' | 'nickname' | 'password' | 'confirmPassword') => {
+  const handleBlur = (
+    field: 'email' | 'nickname' | 'password' | 'confirmPassword',
+  ) => {
     let error = '';
     if (field === 'email') error = validateEmail(email);
     if (field === 'nickname') error = validateNickname(nickname);
     if (field === 'password') error = validatePassword(password);
-    if (field === 'confirmPassword') error = validateConfirmPassword(confirmPassword);
+    if (field === 'confirmPassword')
+      error = validateConfirmPassword(confirmPassword);
 
     setErrors((prev) => ({ ...prev, [field]: error, general: '' }));
   };
@@ -79,7 +84,7 @@ const SignUpForm = () => {
     const nicknameError = validateNickname(nickname);
     const passwordError = validatePassword(password);
     const confirmPasswordError = validateConfirmPassword(confirmPassword);
-    
+
     setErrors({
       email: emailError,
       nickname: nicknameError,
@@ -108,13 +113,15 @@ const SignUpForm = () => {
         onSuccess: () => {
           router.push('/');
         },
-      }
+      },
     );
   };
 
   return (
-    <div className="flex flex-col w-[34.3rem] tablet:w-[46rem] items-center mt-[1.6rem] min-h-screen text-text-primary py-[3.2rem] ">
-      <h1 className="text-2xl font-medium pc:text-4xl mt-[4rem] mb-[4rem]">회원가입</h1>
+    <div className="mt-[1.6rem] flex min-h-screen w-[34.3rem] flex-col items-center py-[3.2rem] text-text-primary tablet:w-[46rem]">
+      <h1 className="mb-[4rem] mt-[4rem] text-2xl font-medium pc:text-4xl">
+        회원가입
+      </h1>
       <form onSubmit={handleSubmit} className="w-full space-y-[3.2rem]">
         <Input
           label="이름"
@@ -127,7 +134,7 @@ const SignUpForm = () => {
           onBlur={() => handleBlur('nickname')}
           error={!!errors.nickname}
           errorMessage={errors.nickname}
-          className="h-[4.4rem] tablet:h-[4.8rem]"
+          className="w-full mobile:h-[4.4rem] tablet:h-[4.8rem] pc:h-[4.8rem]"
         />
         <EmailInput
           label="이메일"
@@ -140,7 +147,7 @@ const SignUpForm = () => {
           onBlur={() => handleBlur('email')}
           error={!!errors.email}
           errorMessage={errors.email}
-          className="h-[4.4rem] tablet:h-[4.8rem]"
+          className="w-full mobile:h-[4.4rem] tablet:h-[4.8rem] pc:h-[4.8rem]"
         />
         <PasswordInput
           label="비밀번호"
@@ -153,7 +160,7 @@ const SignUpForm = () => {
           onBlur={() => handleBlur('password')}
           error={!!errors.password}
           errorMessage={errors.password}
-          className="h-[4.4rem] tablet:h-[4.8rem]"
+          className="w-full mobile:h-[4.4rem] tablet:h-[4.8rem] pc:h-[4.8rem]"
         />
         <PasswordInput
           label="비밀번호 확인"
@@ -166,17 +173,17 @@ const SignUpForm = () => {
           onBlur={() => handleBlur('confirmPassword')}
           error={!!errors.confirmPassword}
           errorMessage={errors.confirmPassword}
-          className="h-[4.4rem] tablet:h-[4.8rem]"
+          className="w-full mobile:h-[4.4rem] tablet:h-[4.8rem] pc:h-[4.8rem]"
         />
         <div>
-          <Button 
-            size="large" 
-            className="w-full h-[4.7rem] text-text-inverse font-semibold text-[1.6rem]"
+          <Button
+            size="large"
+            className="h-[4.7rem] w-full text-[1.6rem] font-semibold text-text-inverse"
           >
             회원가입
           </Button>
           {errors.general && (
-            <p className="mt-[1rem] text-status-danger text-[1.4rem] font-medium">
+            <p className="mt-[1rem] text-[1.4rem] font-medium text-status-danger">
               {errors.general}
             </p>
           )}
@@ -190,11 +197,3 @@ const SignUpForm = () => {
 };
 
 export default SignUpForm;
-
-
-
-
-
-
-
-
