@@ -11,7 +11,7 @@ import BottomImageSmall from '@images/landing-bottom-small.png';
 import Mockup01 from '@images/mockup01.png';
 import Mockup02 from '@images/mockup02.png';
 import Mockup03 from '@images/mockup03.png';
-import FolderIcon from '@icons/Folder_fill.svg';
+import FolderIcon from '@icons/folder_fill.svg';
 import MessageIcon from '@icons/message_fill.svg';
 import DoneIcon from '@icons/done_fill.svg';
 import { useRouter } from 'next/navigation';
