@@ -10,7 +10,8 @@ import { resetPassword } from '@/_lib/api/user-api';
 
 export default function ResetPasswordForm() {
   const router = useRouter();
-  const searchParams = new URLSearchParams(window.location.search);
+  const searchParams = new URLSearchParams();
+  // const searchParams = new URLSearchParams(window.location.search);
   const token = searchParams.get('token');
 
   const [newPassword, setNewPassword] = useState('');
