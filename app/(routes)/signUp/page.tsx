@@ -5,7 +5,7 @@ import SignUpForm from '@/_components/signup/signupForm';
 
 const SignUpPage: React.FC = () => {
   return (
-    <div className="min-h-screen  flex items-center justify-center">
+    <div className="flex min-h-screen items-center justify-center">
       <SignUpForm />
     </div>
   );
